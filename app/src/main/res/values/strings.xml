@@ -6,4 +6,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_home">Accueil</string>
+    <string name="menu_top">Top</string>
+    <string name="menu_new">Nouvelle expression</string>
+    <string name="menu_play">Jouer</string>
 </resources>
