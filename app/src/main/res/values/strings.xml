@@ -9,6 +9,8 @@
     <string name="menu_home">Accueil</string>
     <string name="menu_top">Top</string>
     <string name="menu_new">Nouvelle expression</string>
+    <string name="day_expression">Expression du jour</string>
+    <string name="last_expressions">Dernières expressions</string>
     <string name="menu_play">Jouer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
