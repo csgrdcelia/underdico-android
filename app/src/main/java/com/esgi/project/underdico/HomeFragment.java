@@ -6,6 +6,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ public class HomeFragment extends Fragment {
     ImageButton closeDayExpression;
     ConstraintLayout dayExpressionLayout;
     ConstraintLayout dayExpressionInnerLayout;
+    RecyclerView expressionsRecyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -54,6 +57,8 @@ public class HomeFragment extends Fragment {
         closeDayExpression = getView().findViewById(R.id.closeDayExpressionButton);
         dayExpressionLayout = getView().findViewById(R.id.dayExpressionLayout);
         dayExpressionInnerLayout = getView().findViewById(R.id.dayExpressionInnerLayout);
+        expressionsRecyclerView = getView().findViewById(R.id.rcExpressions);
+        expressionsRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
     }
 
     public void setOnClickListeners() {
