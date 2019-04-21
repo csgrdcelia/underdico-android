@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tvExpressionDate"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="4 avril 2019"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,24 +20,26 @@
 
     <ImageView
         android:id="@+id/ivExpressionLanguage"
-        android:layout_width="wrap_content"
+        android:layout_width="46dp"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvExpressionDate"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvExpression"
         app:layout_constraintEnd_toStartOf="@+id/ivExpressionSound"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvExpression"
         app:srcCompat="@drawable/france_flag" />
 
     <ImageView
         android:id="@+id/ivExpressionSound"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="3dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivExpressionLanguage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivExpressionLanguage"
         app:srcCompat="@drawable/ic_hear_grey" />
 
     <TextView
@@ -45,13 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:text="AFROTRAP"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExpressionDate" />
 
@@ -103,10 +103,12 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:text="26"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ibDownVote"
         app:layout_constraintTop_toBottomOf="@+id/tvTags" />
 
@@ -123,7 +125,7 @@
         app:srcCompat="@drawable/ic_arrow_up" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tvUsername"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -140,9 +142,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView9"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toTopOf="@+id/textView9"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUsername"
+        app:layout_constraintEnd_toStartOf="@+id/tvUsername"
+        app:layout_constraintTop_toTopOf="@+id/tvUsername"
         app:srcCompat="@drawable/ic_user" />
 
 </android.support.constraint.ConstraintLayout>
