@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/dayExpressionLayout"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="271dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

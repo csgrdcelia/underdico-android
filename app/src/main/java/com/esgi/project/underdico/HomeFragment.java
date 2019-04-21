@@ -1,11 +1,11 @@
 package com.esgi.project.underdico;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +21,13 @@ public class HomeFragment extends Fragment {
 
     ImageButton closeDayExpression;
     ConstraintLayout dayExpressionLayout;
+    ConstraintLayout dayExpressionInnerLayout;
+
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -42,6 +39,7 @@ public class HomeFragment extends Fragment {
 
         assignViews();
         setOnClickListeners();
+        updateFragment(R.id.dayExpressionInnerLayout, ExpressionFragment.newInstance());
     }
 
     @Override
@@ -55,18 +53,31 @@ public class HomeFragment extends Fragment {
     public void assignViews() {
         closeDayExpression = getView().findViewById(R.id.closeDayExpressionButton);
         dayExpressionLayout = getView().findViewById(R.id.dayExpressionLayout);
+        dayExpressionInnerLayout = getView().findViewById(R.id.dayExpressionInnerLayout);
     }
 
     public void setOnClickListeners() {
         closeDayExpression.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideDayExpression();
+                hideOrDisplayDayExpression();
             }
         });
     }
 
-    public void hideDayExpression() {
+    public void hideOrDisplayDayExpression() {
+        /*if (dayExpressionInnerLayout.getVisibility() == View.VISIBLE)
+            dayExpressionInnerLayout.setVisibility(View.GONE);
+        else
+            dayExpressionInnerLayout.setVisibility(View.VISIBLE);*/
         dayExpressionLayout.setVisibility(View.GONE);
+    }
+
+    private void updateFragment(int res, Fragment fragmentToGive) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(res, fragmentToGive);
+        fragmentTransaction.disallowAddToBackStack();
+        fragmentTransaction.commit();
     }
 }
