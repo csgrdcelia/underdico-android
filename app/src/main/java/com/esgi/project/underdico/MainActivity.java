@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_top) {
 
         } else if (id == R.id.menu_new) {
-
+            updateFragment(NewExpressionFragment.newInstance());
         } else if (id == R.id.menu_play) {
 
         }
