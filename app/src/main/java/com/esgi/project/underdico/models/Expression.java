@@ -36,14 +36,19 @@ public class Expression implements Serializable {
     {
         int score = 0;
 
-        for(Vote vote : votes)
-            score += vote.getScore();
+        if (votes != null) {
+            for (Vote vote : votes)
+                score += vote.getScore();
+        }
 
         return score;
     }
 
     public String getTags() {
-        return TextUtils.join(" ", tags);
+        if(tags != null)
+            return TextUtils.join(" ", tags);
+        else
+            return "";
     }
 
     public String getCreatedAt() {

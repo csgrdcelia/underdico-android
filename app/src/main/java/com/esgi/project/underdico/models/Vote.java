@@ -1,6 +1,8 @@
 package com.esgi.project.underdico.models;
 
-public class Vote {
+import java.io.Serializable;
+
+public class Vote implements Serializable {
     private User user;
     private int score;
 
