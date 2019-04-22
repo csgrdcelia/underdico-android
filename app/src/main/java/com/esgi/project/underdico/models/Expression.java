@@ -2,6 +2,7 @@ package com.esgi.project.underdico.models;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-public class Expression {
+public class Expression implements Serializable {
     private String label;
     private String definition;
     private User user;
@@ -61,6 +62,10 @@ public class Expression {
 
     public User getUser() {
         return user;
+    }
+
+    public static Expression getExpressionOfTheDay() {
+        return new Expression("Expression du jour", "Ceci est la définition de l'expression du jour", new User("user"), null, null, null, null);
     }
 
     public static List<Expression> getTestExpressionsList() {

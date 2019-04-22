@@ -1,4 +1,7 @@
 package com.esgi.project.underdico;
 
-public class ExpressionClickListener {
+import android.view.View;
+
+public interface ExpressionClickListener {
+    void onClick(View view, Object object);
 }

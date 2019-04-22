@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.esgi.project.underdico.models.Expression;
+import com.esgi.project.underdico.models.User;
 
 
 /**
@@ -30,8 +31,6 @@ public class HomeFragment extends Fragment {
     ConstraintLayout dayExpressionLayout;
     ConstraintLayout dayExpressionInnerLayout;
     RecyclerView expressionsRecyclerView;
-
-    private int scrolledDownSince = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,7 +49,7 @@ public class HomeFragment extends Fragment {
         assignViews();
         configureRecyclerView();
         setOnClickListeners();
-        updateFragment(R.id.dayExpressionInnerLayout, ExpressionFragment.newInstance());
+        //updateFragment(R.id.dayExpressionInnerLayout, ExpressionFragment.newInstance(Expression.getExpressionOfTheDay())); //TODO: use adapter ?
     }
 
     @Override
@@ -77,19 +76,23 @@ public class HomeFragment extends Fragment {
                 ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
         );
 
+        ExpressionClickListener expressionClickListener = (view, expression) -> {
+            MainActivity activity = (MainActivity)view.getContext();
+            Fragment fragment = ExpressionFragment.newInstance((Expression)expression);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).addToBackStack(null).commit();
+        };
+
         expressionsRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        expressionsRecyclerView.setAdapter(new ExpressionAdapter(Expression.getTestExpressionsList(),getContext()));
+        expressionsRecyclerView.setAdapter(new ExpressionAdapter(Expression.getTestExpressionsList(), expressionClickListener, getContext()));
         expressionsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         expressionsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                //super.onScrolled(recyclerView, dx, dy);
 
                 if (dy > 50 && dayExpressionLayout.getVisibility() == View.VISIBLE) {
                     hideDayExpression();
                 }
-
             }
         });
     }

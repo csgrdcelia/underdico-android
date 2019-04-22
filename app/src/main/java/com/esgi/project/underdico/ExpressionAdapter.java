@@ -14,19 +14,20 @@ import java.util.List;
 public class ExpressionAdapter extends RecyclerView.Adapter<ExpressionViewHolder> {
     private List<Expression> expressions;
     private Context context;
+    private ExpressionClickListener listener;
 
-    public ExpressionAdapter(List<Expression> expressions, Context context)
+    public ExpressionAdapter(List<Expression> expressions, ExpressionClickListener listener, Context context)
     {
         this.expressions = expressions;
         this.context = context;
+        this.listener = listener;
     }
-
 
     @NonNull
     @Override
     public ExpressionViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_expression, viewGroup, false);
-        return new ExpressionViewHolder(view, context);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_expression_preview, viewGroup, false);
+        return new ExpressionViewHolder(view, listener, context);
     }
 
     @Override

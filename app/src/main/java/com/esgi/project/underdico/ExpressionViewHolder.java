@@ -11,10 +11,10 @@ import com.esgi.project.underdico.models.Expression;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class ExpressionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ExpressionViewHolder extends RecyclerView.ViewHolder {
 
     private Expression expression;
-
+    private ExpressionClickListener listener;
     private TextView tvDate;
     private TextView tvExpression;
     private TextView tvDefinition;
@@ -22,13 +22,15 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Vie
     private TextView tvScore;
     private TextView tvUsername;
 
-    public ExpressionViewHolder(@NonNull View itemView, Context context) {
+
+    public ExpressionViewHolder(@NonNull View itemView, ExpressionClickListener listener, Context context) {
         super(itemView);
-        AssignViews();
+        this.listener = listener;
+        assignViews();
+        setOnClickListeners();
     }
 
-    private void AssignViews()
-    {
+    private void assignViews() {
         tvDate = itemView.findViewById(R.id.tvExpressionDate);
         tvExpression = itemView.findViewById(R.id.tvExpression);
         tvDefinition = itemView.findViewById(R.id.tvExpressionDefinition);
@@ -37,21 +39,24 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Vie
         tvUsername = itemView.findViewById(R.id.tvUsername);
     }
 
-    public void bind(Expression expression)
-    {
+    public void bind(Expression expression) {
         this.expression = expression;
-        String test = expression.getCreatedAt();
         tvDate.setText(expression.getCreatedAt());
         tvExpression.setText(expression.getLabel());
         tvDefinition.setText(expression.getDefinition());
         tvTags.setText(expression.getTags());//TODO: tag system
         tvScore.setText(String.valueOf(expression.getScore()));
         tvUsername.setText(expression.getUser().getUsername());
-
     }
 
-    @Override
-    public void onClick(View v) {
-
+    private void setOnClickListeners() {
+        tvExpression.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(v, expression);
+            }
+        });
     }
+
+
 }
