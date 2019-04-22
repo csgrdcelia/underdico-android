@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.esgi.project.underdico.models.Expression;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.random) {
-            Toast.makeText(this, "coucou", Toast.LENGTH_SHORT).show();
+            updateFragment(ExpressionFragment.newInstance(Expression.getRandomExpression()));
         }
 
         return super.onOptionsItemSelected(item);

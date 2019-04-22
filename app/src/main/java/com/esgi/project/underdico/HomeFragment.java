@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.esgi.project.underdico.models.Expression;
-import com.esgi.project.underdico.models.User;
 
 
 /**
@@ -83,7 +82,7 @@ public class HomeFragment extends Fragment {
         };
 
         expressionsRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        expressionsRecyclerView.setAdapter(new ExpressionAdapter(Expression.getTestExpressionsList(), expressionClickListener, getContext()));
+        expressionsRecyclerView.setAdapter(new ExpressionAdapter(Expression.getExpressionsList(), expressionClickListener, getContext()));
         expressionsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         expressionsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

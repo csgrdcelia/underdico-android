@@ -21,12 +21,11 @@
     <ImageView
         android:id="@+id/ivExpressionLanguage"
         android:layout_width="46dp"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvExpression"
         app:layout_constraintEnd_toStartOf="@+id/ivExpressionSound"
         app:layout_constraintTop_toTopOf="@+id/tvExpression"
         app:srcCompat="@drawable/france_flag" />
@@ -49,9 +48,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:text="AFROTRAP"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/ivExpressionLanguage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExpressionDate" />
 
@@ -125,7 +127,7 @@
         android:id="@+id/layoutUser"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/layoutOtherDefinition"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -159,7 +161,7 @@
         android:id="@+id/layoutOtherDefinition"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/layoutChange"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -193,7 +195,7 @@
         android:id="@+id/layoutChange"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

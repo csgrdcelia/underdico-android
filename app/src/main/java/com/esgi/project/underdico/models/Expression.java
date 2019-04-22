@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class Expression implements Serializable {
     private String label;
@@ -52,8 +53,12 @@ public class Expression implements Serializable {
     }
 
     public String getCreatedAt() {
-        Format df = new SimpleDateFormat("d MMMM yyyy", Locale.FRANCE);
-        return df.format(createdAt);
+        if(createdAt != null) {
+            Format df = new SimpleDateFormat("d MMMM yyyy", Locale.FRANCE);
+            return df.format(createdAt);
+        } else {
+            return "Pas de date de création..."; //TODO: réfléchir à l'affichage et penser aux différentes langues
+        }
         //return createdAt.toString();
     }
 
@@ -69,11 +74,18 @@ public class Expression implements Serializable {
         return user;
     }
 
+    //TODO: get real expression of the day
     public static Expression getExpressionOfTheDay() {
         return new Expression("Expression du jour", "Ceci est la définition de l'expression du jour", new User("user"), null, null, null, null);
     }
 
-    public static List<Expression> getTestExpressionsList() {
+    public static Expression getRandomExpression() {
+        List<Expression> expressions = getExpressionsList();
+        return expressions.get(new Random().nextInt(expressions.size()));
+    }
+
+    //TODO: get real expressions list
+    public static List<Expression> getExpressionsList() {
         List<Expression> expressions = new ArrayList<Expression>();
         expressions.add(new Expression(
                 "AFROTRAP",
