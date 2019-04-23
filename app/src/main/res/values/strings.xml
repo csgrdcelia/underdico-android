@@ -28,4 +28,9 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <integer-array name="languages">
+
+        <item>@drawable/france_flag</item>
+
+    </integer-array>
 </resources>
