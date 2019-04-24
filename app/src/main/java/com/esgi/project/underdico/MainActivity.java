@@ -18,13 +18,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.models.Expression;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    ImageView userPicture;
+    TextView profilename;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,27 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        updateFragment(HomeFragment.newInstance());
+        View headerView = navigationView.getHeaderView(0);
+        profilename = (TextView) headerView.findViewById(R.id.tvUsername);
+        userPicture = headerView.findViewById(R.id.ivUserPicture);
+
+        displayUserInfos();
+
+        setUserPageListener();
+        Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
+        if(existingFragment == null)
+            updateFragment(HomeFragment.newInstance());
+    }
+
+    private void displayUserInfos() {
+        profilename.setText("User1");
+        //userPicture.
+    }
+
+    private void setUserPageListener() {
+        userPicture.setOnClickListener(
+                v -> updateFragment(UserFragment.newInstance())
+        );
     }
 
     @Override
@@ -63,12 +86,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.random) {
@@ -86,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.menu_home) {
             updateFragment(HomeFragment.newInstance());
         } else if (id == R.id.menu_top) {
-
+            Toast.makeText(this, "menu_top", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menu_new) {
             updateFragment(NewExpressionFragment.newInstance());
         } else if (id == R.id.menu_play) {
@@ -107,5 +126,10 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.main_fragment, fragmentToGive);
         fragmentTransaction.disallowAddToBackStack();
         fragmentTransaction.commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
     }
 }

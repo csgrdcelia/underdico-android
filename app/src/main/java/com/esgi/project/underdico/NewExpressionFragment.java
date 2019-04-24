@@ -109,6 +109,7 @@ public class NewExpressionFragment extends Fragment {
                     }
                 }
             tags.add(button);
+                tagValue.setText("");
             } else {
                 Toast.makeText(getContext(), "Ce tag a déjà été ajouté !", Toast.LENGTH_SHORT).show();
             }
