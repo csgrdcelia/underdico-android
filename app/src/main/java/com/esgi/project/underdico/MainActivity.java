@@ -1,5 +1,8 @@
 package com.esgi.project.underdico;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,19 +49,31 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
-        profilename = (TextView) headerView.findViewById(R.id.tvUsername);
+        profilename = headerView.findViewById(R.id.tvUsername);
         userPicture = headerView.findViewById(R.id.ivUserPicture);
 
         displayUserInfos();
 
         setUserPageListener();
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            launchSearch(query);
+        }
+
         Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
+
         if(existingFragment == null)
             updateFragment(HomeFragment.newInstance());
     }
 
+    private void launchSearch(String query) {
+        updateFragment(SearchFragment.newInstance(query));
+    }
+
     private void displayUserInfos() {
-        profilename.setText("User1");
+        profilename.setText("User1"); //TODO: retrieve real user
         //userPicture.
     }
 

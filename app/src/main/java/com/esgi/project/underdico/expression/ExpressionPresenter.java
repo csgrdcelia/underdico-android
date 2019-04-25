@@ -25,7 +25,7 @@ public class ExpressionPresenter {
      * Searches the expressions tagged with the given tag
      */
     public void searchExpressionsWithTag(String tag) {
-        //TODO: call api to get expressions with tag
+        //TODO: call api to get expressions with tag or do the search here
         view.searchWithTag(tag, Expression.getExpressionsList());
     }
 
