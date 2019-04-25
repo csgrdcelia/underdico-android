@@ -13,13 +13,13 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.esgi.project.underdico.HomeFragment;
+import com.esgi.project.underdico.home.HomeFragment;
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.models.Expression;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
@@ -31,6 +31,8 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
     NewExpressionPresenter presenter;
 
+    private static final String EXPRESSION = "expression";
+    private Expression expressionModel = null;
     // UI references
     RelativeLayout tagLayout;
     ImageButton addTag;
@@ -48,9 +50,13 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     }
 
     public static NewExpressionFragment newInstance() {
+        return new NewExpressionFragment();
+    }
 
-        NewExpressionFragment fragment = new NewExpressionFragment();
+    public static NewExpressionFragment newInstance(Expression expression) {
         Bundle args = new Bundle();
+        args.putSerializable(EXPRESSION, expression);
+        NewExpressionFragment fragment = new NewExpressionFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,6 +70,9 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(getArguments() != null) {
+            expressionModel = (Expression) this.getArguments().getSerializable(EXPRESSION);
+        }
         return inflater.inflate(R.layout.fragment_new_expression, container, false);
     }
 
@@ -79,6 +88,12 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         addTag.setOnClickListener(v -> addTag());
         btnSend.setOnClickListener(v -> attemptSend());
 
+        if (expressionModel != null)
+            display(expressionModel);
+    }
+
+    private void display(Expression expression) {
+        expressionName.setText(expression.getLabel());
     }
 
     private void attemptSend() {

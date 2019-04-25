@@ -1,12 +1,10 @@
-package com.esgi.project.underdico;
+package com.esgi.project.underdico.home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,7 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-
+import com.esgi.project.underdico.MainActivity;
+import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.expression.ExpressionAdapter;
+import com.esgi.project.underdico.expression.ExpressionClickListener;
+import com.esgi.project.underdico.expression.ExpressionFragment;
 import com.esgi.project.underdico.models.Expression;
 
 
@@ -24,8 +26,10 @@ import com.esgi.project.underdico.models.Expression;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeView{
+    HomePresenter presenter;
 
+    // UI references
     ImageButton closeDayExpression;
     ConstraintLayout dayExpressionLayout;
     ConstraintLayout dayExpressionInnerLayout;
@@ -44,11 +48,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        presenter = new HomePresenter(this);
         assignViews();
         configureRecyclerView();
         setOnClickListeners();
-        //updateFragment(R.id.dayExpressionInnerLayout, ExpressionFragment.newInstance(Expression.getExpressionOfTheDay())); //TODO: use adapter ?
     }
 
     @Override
@@ -56,8 +59,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
-
-
 
     public void assignViews() {
         closeDayExpression = getView().findViewById(R.id.closeDayExpressionButton);
@@ -75,14 +76,10 @@ public class HomeFragment extends Fragment {
                 ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
         );
 
-        ExpressionClickListener expressionClickListener = (view, expression) -> {
-            MainActivity activity = (MainActivity)view.getContext();
-            Fragment fragment = ExpressionFragment.newInstance((Expression)expression);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).addToBackStack(null).commit();
-        };
+        ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
 
         expressionsRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        expressionsRecyclerView.setAdapter(new ExpressionAdapter(Expression.getExpressionsList(), expressionClickListener, getContext()));
+        expressionsRecyclerView.setAdapter(new ExpressionAdapter(presenter.getExpressionsList(), expressionClickListener, getContext()));
         expressionsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         expressionsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -96,13 +93,14 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void displayDetailedExpression(View view, Object expression) {
+        MainActivity activity = (MainActivity)view.getContext();
+        Fragment fragment = ExpressionFragment.newInstance((Expression)expression);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).addToBackStack(null).commit();
+    }
+
     public void setOnClickListeners() {
-        closeDayExpression.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideOrDisplayDayExpression();
-            }
-        });
+        closeDayExpression.setOnClickListener(v -> hideOrDisplayDayExpression());
     }
 
     public void hideOrDisplayDayExpression() {
@@ -124,13 +122,5 @@ public class HomeFragment extends Fragment {
     private void displayDayExpression() {
         closeDayExpression.setImageResource(R.drawable.ic_hide);
         dayExpressionInnerLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void updateFragment(int res, Fragment fragmentToGive) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(res, fragmentToGive);
-        fragmentTransaction.disallowAddToBackStack();
-        fragmentTransaction.commit();
     }
 }

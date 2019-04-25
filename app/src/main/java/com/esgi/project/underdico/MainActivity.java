@@ -17,8 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esgi.project.underdico.expression.ExpressionFragment;
+import com.esgi.project.underdico.home.HomeFragment;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.newexpression.NewExpressionFragment;
+import com.esgi.project.underdico.user.UserFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

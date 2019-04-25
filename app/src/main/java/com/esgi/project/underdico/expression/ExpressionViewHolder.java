@@ -1,4 +1,4 @@
-package com.esgi.project.underdico;
+package com.esgi.project.underdico.expression;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,10 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class ExpressionViewHolder extends RecyclerView.ViewHolder {
 
@@ -50,12 +48,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setOnClickListeners() {
-        tvExpression.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onClick(v, expression);
-            }
-        });
+        tvExpression.setOnClickListener(v -> listener.onClick(v, expression));
     }
 
 
