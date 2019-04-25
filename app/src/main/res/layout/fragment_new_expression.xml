@@ -12,29 +12,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
+        android:hint="Expression"
         android:inputType="text"
-        android:text="Expression"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/etExpressionDefinition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
+        android:hint="Définition"
         android:inputType="textMultiLine"
-        android:text="Définition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etExpressionName" />
@@ -47,12 +43,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="Tag"
         android:inputType="textPersonName"
         android:maxLength="10"
-        android:text="Tag"
         app:layout_constraintEnd_toStartOf="@+id/ibAddTag"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        app:layout_constraintTop_toBottomOf="@+id/etExpressionDefinition" />
 
     <ImageButton
         android:id="@+id/ibAddTag"
@@ -120,7 +116,7 @@
     </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/ibRecordAudio"
         android:layout_width="51dp"
         android:layout_height="49dp"
         android:layout_marginTop="16dp"
@@ -140,8 +136,8 @@
         android:text="Enregistrer l'audio"
         android:gravity="center_vertical"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+        app:layout_constraintBottom_toBottomOf="@+id/ibRecordAudio"
+        app:layout_constraintEnd_toStartOf="@+id/ibRecordAudio"
+        app:layout_constraintTop_toTopOf="@+id/ibRecordAudio" />
 
 </android.support.constraint.ConstraintLayout>

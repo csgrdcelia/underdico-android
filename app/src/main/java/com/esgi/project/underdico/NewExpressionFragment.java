@@ -1,6 +1,8 @@
 package com.esgi.project.underdico;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -36,9 +38,14 @@ public class NewExpressionFragment extends Fragment {
 
     RelativeLayout tagLayout;
     ImageButton addTag;
+
+    EditText expresssionName;
+    EditText expressionDefinition;
     EditText tagValue;
+
     List<Button> tags;
     View.OnClickListener tagsListener;
+
 
     public NewExpressionFragment() {
         // Required empty public constructor
@@ -77,6 +84,8 @@ public class NewExpressionFragment extends Fragment {
         addTag = getView().findViewById(R.id.ibAddTag);
         tagLayout = getView().findViewById(R.id.layoutTags);
         tagValue = getView().findViewById(R.id.etTag);
+        expresssionName = getView().findViewById(R.id.etExpressionName);
+        expressionDefinition = getView().findViewById(R.id.etExpressionDefinition);
     }
 
     private void setTagListener() {
@@ -88,7 +97,7 @@ public class NewExpressionFragment extends Fragment {
         addTag.setOnClickListener(v -> {
             String tag = tagValue.getText().toString();
 
-            if(!tagExists(tag)) {
+            if (!tagExists(tag)) {
                 Button button = new Button(getContext());
                 int id = View.generateViewId();
                 button.setId(id);
@@ -96,10 +105,10 @@ public class NewExpressionFragment extends Fragment {
                 button.setHeight(40);
                 button.setOnClickListener(tagsListener);
                 tagLayout.addView(button);
-                if(tags.size() > 0) {
+                if (tags.size() > 0) {
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) button.getLayoutParams();
 
-                    if(tags.size() % 3 == 0) {
+                    if (tags.size() % 3 == 0) {
                         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
                         params.addRule(RelativeLayout.BELOW, tags.get(tags.size() - 3).getId());
                     } else {
@@ -108,7 +117,7 @@ public class NewExpressionFragment extends Fragment {
                         params.addRule(RelativeLayout.ALIGN_BASELINE, tags.get(tags.size() - 1).getId());
                     }
                 }
-            tags.add(button);
+                tags.add(button);
                 tagValue.setText("");
             } else {
                 Toast.makeText(getContext(), "Ce tag a déjà été ajouté !", Toast.LENGTH_SHORT).show();
@@ -116,6 +125,9 @@ public class NewExpressionFragment extends Fragment {
 
         });
     }
+
+
+
 
     private boolean tagExists(String tag) {
         for (Button button : tags)
@@ -126,7 +138,4 @@ public class NewExpressionFragment extends Fragment {
         }
         return false;
     }
-
-
-
 }
