@@ -1,8 +1,6 @@
-package com.esgi.project.underdico.presenters;
+package com.esgi.project.underdico.login;
 
 import android.text.TextUtils;
-
-import com.esgi.project.underdico.views.LoginView;
 
 public class LoginPresenter {
 
@@ -30,11 +28,11 @@ public class LoginPresenter {
 
     private boolean tryLogin (String username, String password) {
         // TODO: call API in another thread
-        try {
+        /*try {
             Thread.sleep(2000);
         } catch(InterruptedException exception) {
 
-        }
+        }*/
         return true;
     }
 
