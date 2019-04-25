@@ -72,18 +72,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExpression" />
 
-    <TextView
-        android:id="@+id/tvTags"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="#tag1 #tag2"
-        android:textColor="@color/design_default_color_primary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/tvExpressionDefinition"
-        app:layout_constraintStart_toStartOf="@+id/tvExpressionDefinition"
-        app:layout_constraintTop_toBottomOf="@+id/tvExpressionDefinition" />
-
     <ImageButton
         android:id="@+id/ibDownVote"
         android:layout_width="wrap_content"
@@ -224,5 +212,21 @@
             app:srcCompat="@drawable/ic_edit" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexBoxTags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvExpressionDefinition">
+
+    </com.google.android.flexbox.FlexboxLayout>
 
 </android.support.constraint.ConstraintLayout>

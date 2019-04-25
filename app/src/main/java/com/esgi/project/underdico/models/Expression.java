@@ -57,6 +57,10 @@ public class Expression implements Serializable {
             return "";
     }
 
+    public String[] getTagArray() {
+        return tags;
+    }
+
     public String getCreatedAt() {
         if(createdAt != null) {
             Format df = new SimpleDateFormat("d MMMM yyyy", Locale.FRANCE);

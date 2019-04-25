@@ -22,6 +22,14 @@ public class ExpressionPresenter {
     }
 
     /**
+     * Searches the expressions tagged with the given tag
+     */
+    public void searchExpressionsWithTag(String tag) {
+        //TODO: call api to get expressions with tag
+        view.searchWithTag(tag, Expression.getExpressionsList());
+    }
+
+    /**
      * If the user has already voted, related button is disabled
      */
     private void updateViewIfUserHasVoted() {
