@@ -90,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <RelativeLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/layoutTags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -102,16 +102,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTag">
+        app:layout_constraintTop_toBottomOf="@+id/etTag"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="8sp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-    </RelativeLayout>
+    </com.google.android.flexbox.FlexboxLayout>
 
     <ImageButton
         android:id="@+id/ibRecordAudio"

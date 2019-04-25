@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.home.HomeFragment;
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +31,11 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
     NewExpressionPresenter presenter;
 
-    private static final String EXPRESSION = "expression";
+    private static final String EXPRESSION_ARG = "expression";
+    private static final int MAX_TAGS = 5;
     private Expression expressionModel = null;
     // UI references
-    RelativeLayout tagLayout;
+    FlexboxLayout tagLayout;
     ImageButton addTag;
     EditText expressionName;
     EditText expressionDefinition;
@@ -55,7 +56,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
     public static NewExpressionFragment newInstance(Expression expression) {
         Bundle args = new Bundle();
-        args.putSerializable(EXPRESSION, expression);
+        args.putSerializable(EXPRESSION_ARG, expression);
         NewExpressionFragment fragment = new NewExpressionFragment();
         fragment.setArguments(args);
         return fragment;
@@ -71,7 +72,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(getArguments() != null) {
-            expressionModel = (Expression) this.getArguments().getSerializable(EXPRESSION);
+            expressionModel = (Expression) this.getArguments().getSerializable(EXPRESSION_ARG);
         }
         return inflater.inflate(R.layout.fragment_new_expression, container, false);
     }
@@ -117,36 +118,35 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     private void removeTag(View button) {
         tags.remove(button);
         button.setVisibility(View.GONE);
+        addTag.setVisibility(View.VISIBLE);
     }
 
     private void addTag() {
         String tag = tagValue.getText().toString();
-
         if (!tagExists(tag)) {
-            Button button = new Button(getContext());
-            int id = View.generateViewId();
-            button.setId(id);
-            button.setText(tag);
-            button.setHeight(40);
-            button.setOnClickListener(tagsListener);
+            Button button = createTagButton(tag);
             tagLayout.addView(button);
-            if (tags.size() > 0) {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) button.getLayoutParams();
-
-                if (tags.size() % 3 == 0) {
-                    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
-                    params.addRule(RelativeLayout.BELOW, tags.get(tags.size() - 3).getId());
-                } else {
-                    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
-                    params.addRule(RelativeLayout.RIGHT_OF, tags.get(tags.size() - 1).getId());
-                    params.addRule(RelativeLayout.ALIGN_BASELINE, tags.get(tags.size() - 1).getId());
-                }
-            }
             tags.add(button);
             tagValue.setText("");
+
+            if(tags.size() == MAX_TAGS) {
+                Toast.makeText(getContext(), "Le nombre maximal de tag est atteint", Toast.LENGTH_SHORT).show(); //TODO: langue
+                addTag.setVisibility(View.GONE);
+            }
         } else {
-            Toast.makeText(getContext(), "Ce tag a déjà été ajouté !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ce tag a déjà été ajouté !", Toast.LENGTH_SHORT).show(); //TODO: langue
         }
+    }
+
+    private Button createTagButton(String tag) {
+        Button button = new Button(getContext());
+        int id = View.generateViewId();
+        button.setId(id);
+        button.setText(tag);
+        button.setHeight(40);
+        button.setOnClickListener(tagsListener);
+
+        return button;
     }
 
     private boolean tagExists(String tag) {
@@ -169,17 +169,17 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
     @Override
     public void showNotValidNameError() {
-        Toast.makeText(getContext(), "Le nom est invalide", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Le nom est invalide", Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 
     @Override
     public void showNotValidDefinitionError() {
-        Toast.makeText(getContext(), "La définition est invalide", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "La définition est invalide", Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 
     @Override
     public void createSuccessfully() {
-        Toast.makeText(getContext(), "Votre expression a bien été créée et attend d'être validée !", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Votre expression a bien été créée et attend d'être validée !", Toast.LENGTH_LONG).show(); //TODO: langue
         MainActivity activity = (MainActivity) getView().getContext();
         Fragment myFragment = HomeFragment.newInstance();
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
@@ -187,6 +187,6 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
     @Override
     public void creationFailed() {
-        Toast.makeText(getContext(), "La création a échoué", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "La création a échoué", Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 }
