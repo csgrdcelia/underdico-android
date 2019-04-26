@@ -32,7 +32,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     NewExpressionPresenter presenter;
 
     private static final String EXPRESSION_ARG = "expression";
-    private static final int MAX_TAGS = 5;
+
     private Expression expressionModel = null;
     // UI references
     FlexboxLayout tagLayout;
@@ -42,7 +42,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     EditText tagValue;
     Button btnSend;
 
-    List<Button> tags;
+
     View.OnClickListener tagsListener;
 
 
@@ -63,12 +63,6 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(getArguments() != null) {
@@ -82,15 +76,26 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         super.onViewCreated(view, savedInstanceState);
         presenter = new NewExpressionPresenter(this);
 
-        tags = new ArrayList<>();
         assignViews();
 
-        tagsListener = v -> removeTag(v);
-        addTag.setOnClickListener(v -> addTag());
-        btnSend.setOnClickListener(v -> attemptSend());
+        setListeners();
 
         if (expressionModel != null)
             display(expressionModel);
+    }
+
+    private void setListeners() {
+        tagsListener = v ->  {
+            presenter.removeTag(v);
+            addTag.setVisibility(View.VISIBLE);
+        };
+
+        addTag.setOnClickListener(v -> {
+            presenter.addTag(tagValue.getText().toString());
+            tagValue.setText("");
+        });
+
+        btnSend.setOnClickListener(v -> attemptSend());
     }
 
     private void display(Expression expression) {
@@ -100,10 +105,9 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     private void attemptSend() {
         String name = expressionName.getText().toString();
         String definition = expressionDefinition.getText().toString();
-        List<String> tags = getTagList();
         //TODO: add language
         //TODO: add audio
-        presenter.attemptSend(name, definition, tags);
+        presenter.attemptSend(name, definition);
     }
 
     private void assignViews() {
@@ -115,61 +119,32 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         btnSend = getView().findViewById(R.id.btnSend);
     }
 
-    private void removeTag(View button) {
-        tags.remove(button);
-        button.setVisibility(View.GONE);
-        addTag.setVisibility(View.VISIBLE);
-    }
-
-    private void addTag() {
-        String tag = tagValue.getText().toString();
-        if (!tagExists(tag)) {
-            Button button = createTagButton(tag);
-            tagLayout.addView(button);
-            tags.add(button);
-            tagValue.setText("");
-
-            if(tags.size() == MAX_TAGS) {
-                Toast.makeText(getContext(), "Le nombre maximal de tag est atteint", Toast.LENGTH_SHORT).show(); //TODO: langue
-                addTag.setVisibility(View.GONE);
-            }
-        } else {
-            Toast.makeText(getContext(), "Ce tag a déjà été ajouté !", Toast.LENGTH_SHORT).show(); //TODO: langue
-        }
-    }
-
-    private Button createTagButton(String tag) {
+    public Button createTagButton(String tag) {
         Button button = new Button(getContext());
         int id = View.generateViewId();
         button.setId(id);
         button.setText(tag);
         button.setHeight(40);
         button.setOnClickListener(tagsListener);
-
+        tagLayout.addView(button);
         return button;
     }
 
-    private boolean tagExists(String tag) {
-        for (Button button : tags)
-        {
-            String currentValue = button.getText().toString();
-            if (currentValue.equals(tag))
-                return true;
-        }
-        return false;
-    }
-
-    private List<String> getTagList() {
-        List<String> list = new ArrayList<>();
-        for (Button button : tags) {
-            list.add(button.getText().toString());
-        }
-        return list;
-    }
 
     @Override
     public void showNotValidNameError() {
         Toast.makeText(getContext(), "Le nom est invalide", Toast.LENGTH_SHORT).show(); //TODO: langue
+    }
+
+    @Override
+    public void showTagExists() {
+        Toast.makeText(getContext(), "Le tag existe déjà", Toast.LENGTH_SHORT).show(); //TODO: langue
+    }
+
+    @Override
+    public void showTagLimitIsReached() {
+        Toast.makeText(getContext(), "Vous avez atteint le nombre de tag maximal", Toast.LENGTH_SHORT).show(); //TODO: langue
+        addTag.setVisibility(View.GONE);
     }
 
     @Override
