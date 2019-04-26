@@ -18,9 +18,6 @@ import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.google.android.flexbox.FlexboxLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,6 +81,9 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
             display(expressionModel);
     }
 
+    /**
+     * Sets listeners
+     */
     private void setListeners() {
         tagsListener = v ->  {
             presenter.removeTag(v);
@@ -98,18 +98,9 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         btnSend.setOnClickListener(v -> attemptSend());
     }
 
-    private void display(Expression expression) {
-        expressionName.setText(expression.getLabel());
-    }
-
-    private void attemptSend() {
-        String name = expressionName.getText().toString();
-        String definition = expressionDefinition.getText().toString();
-        //TODO: add language
-        //TODO: add audio
-        presenter.attemptSend(name, definition);
-    }
-
+    /**
+     * Assign UI references
+     */
     private void assignViews() {
         addTag = getView().findViewById(R.id.ibAddTag);
         tagLayout = getView().findViewById(R.id.layoutTags);
@@ -119,6 +110,29 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         btnSend = getView().findViewById(R.id.btnSend);
     }
 
+    /**
+     * Displays the given expression
+     * Appears when view is launched from the expression view ( -> create another definition )
+     */
+    private void display(Expression expression) {
+        expressionName.setText(expression.getLabel());
+    }
+
+    /**
+     * Attempts to send the expression
+     */
+    private void attemptSend() {
+        String name = expressionName.getText().toString();
+        String definition = expressionDefinition.getText().toString();
+        //TODO: add language
+        //TODO: add audio
+        presenter.attemptSend(name, definition);
+    }
+
+    /**
+     * Formats the tag button with the given tag value
+     */
+    @Override
     public Button createTagButton(String tag) {
         Button button = new Button(getContext());
         int id = View.generateViewId();
@@ -153,15 +167,15 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     }
 
     @Override
+    public void creationFailed() {
+        Toast.makeText(getContext(), "La création a échoué", Toast.LENGTH_SHORT).show(); //TODO: langue
+    }
+
+    @Override
     public void createSuccessfully() {
         Toast.makeText(getContext(), "Votre expression a bien été créée et attend d'être validée !", Toast.LENGTH_LONG).show(); //TODO: langue
         MainActivity activity = (MainActivity) getView().getContext();
         Fragment myFragment = HomeFragment.newInstance();
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
-    }
-
-    @Override
-    public void creationFailed() {
-        Toast.makeText(getContext(), "La création a échoué", Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 }

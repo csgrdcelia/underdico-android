@@ -16,6 +16,9 @@ public class NewExpressionPresenter {
         tags = new ArrayList<>();
     }
 
+    /**
+     * Checks if expression is valid and saves it
+     */
     public void attemptSend(String expressionName, String expressionDefinition) {
 
         if(!isValidExpressionName()) {
@@ -33,6 +36,17 @@ public class NewExpressionPresenter {
         }
     }
 
+    /**
+     * Calls API to save expression
+     */
+    private boolean createExpression(String expressionName, String expressionDefinition, List<String> tags) {
+        //TODO: call api
+        return true;
+    }
+
+    /**
+     * Checks if tag is valid and displays it
+     */
     public void addTag(String tag) {
         if(!tag.isEmpty()) {
             if(tagExists(tag))
@@ -49,11 +63,17 @@ public class NewExpressionPresenter {
         }
     }
 
+    /**
+     * Removes tag from the list
+     */
     public void removeTag(View button) {
         tags.remove(button);
         button.setVisibility(View.GONE);
     }
 
+    /**
+     * Checks if given tag exists
+     */
     private boolean tagExists(String tag) {
         for (Button button : tags)
         {
@@ -64,6 +84,9 @@ public class NewExpressionPresenter {
         return false;
     }
 
+    /**
+     * Transform the Button tag list to String list
+     */
     private List<String> getTagList() {
         List<String> list = new ArrayList<>();
         for (Button button : tags) {
@@ -83,10 +106,7 @@ public class NewExpressionPresenter {
         return true;
     }
 
-    private boolean createExpression(String expressionName, String expressionDefinition, List<String> tags) {
-        //TODO: call api
-        return true;
-    }
+
 
 
 }
