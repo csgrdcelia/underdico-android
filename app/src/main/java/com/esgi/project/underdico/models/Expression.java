@@ -44,9 +44,11 @@ public class Expression implements Serializable {
     }
 
     public Vote getVote(User user) {
-        for(Vote vote : votes)
-            if(vote.getUser() == user)
-                return vote;
+        if (votes != null) {
+            for (Vote vote : votes)
+                if (vote.getUser() == user)
+                    return vote;
+        }
         return null;
     }
 

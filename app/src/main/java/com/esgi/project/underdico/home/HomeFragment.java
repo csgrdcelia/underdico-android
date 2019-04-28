@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment implements HomeView{
     ConstraintLayout dayExpressionLayout;
     ConstraintLayout dayExpressionInnerLayout;
     RecyclerView expressionsRecyclerView;
+    RecyclerView dayExpressionRecyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -65,6 +66,7 @@ public class HomeFragment extends Fragment implements HomeView{
         dayExpressionLayout = getView().findViewById(R.id.dayExpressionLayout);
         dayExpressionInnerLayout = getView().findViewById(R.id.dayExpressionInnerLayout);
         expressionsRecyclerView = getView().findViewById(R.id.rcExpressions);
+        dayExpressionRecyclerView = getView().findViewById(R.id.rcDayExpression);
 
     }
 
@@ -92,6 +94,9 @@ public class HomeFragment extends Fragment implements HomeView{
                 }
             }
         });
+
+        dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
+        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(presenter.getDayExpression(), expressionClickListener, getContext()));
     }
 
     private void displayDetailedExpression(View view, Object expression) {

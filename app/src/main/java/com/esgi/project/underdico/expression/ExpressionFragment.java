@@ -108,9 +108,11 @@ public class ExpressionFragment extends Fragment implements ExpressionView {
     }
 
     private void displayTags(String[] tags) {
-        for(String tag : tags) {
-            TextView textView = createTextViewTag(tag);
-            tagLayout.addView(textView);
+        if(tags != null) {
+            for (String tag : tags) {
+                TextView textView = createTextViewTag(tag);
+                tagLayout.addView(textView);
+            }
         }
     }
 
