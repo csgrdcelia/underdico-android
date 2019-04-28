@@ -113,25 +113,49 @@
         android:id="@+id/ibRecordAudio"
         android:layout_width="51dp"
         android:layout_height="49dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:srcCompat="@drawable/ic_record_audio" />
+
+    <ImageButton
+        android:id="@+id/ibPlayStopAudio"
+        android:layout_width="51dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/red"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ibRecordAudio"
+        app:layout_constraintStart_toEndOf="@+id/ibRecordAudio"
+        app:layout_constraintTop_toTopOf="@+id/ibRecordAudio"
+        app:srcCompat="@drawable/ic_stop"
+        tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ibDeleteRecord"
+        android:layout_width="51dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/red"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ibPlayStopAudio"
+        app:layout_constraintStart_toEndOf="@+id/ibPlayStopAudio"
+        app:layout_constraintTop_toTopOf="@+id/ibPlayStopAudio"
+        app:srcCompat="@drawable/ic_delete"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Enregistrer l'audio"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
+        android:text="Enregistrer l'audio (optionnel)"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ibRecordAudio"
-        app:layout_constraintEnd_toStartOf="@+id/ibRecordAudio"
-        app:layout_constraintTop_toTopOf="@+id/ibRecordAudio" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
 </android.support.constraint.ConstraintLayout>

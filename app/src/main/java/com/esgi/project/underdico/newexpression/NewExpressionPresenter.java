@@ -1,14 +1,20 @@
 package com.esgi.project.underdico.newexpression;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.esgi.project.underdico.AudioRecorder;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewExpressionPresenter {
     NewExpressionView view;
     List<Button> tags;
+    AudioRecorder recorder;
     private static final int MAX_TAGS = 5;
 
     public NewExpressionPresenter(NewExpressionView view) {
@@ -26,7 +32,7 @@ public class NewExpressionPresenter {
         } else if (!isValidExpressionDefinition()) {
             view.showNotValidDefinitionError();
         } else {
-            boolean success = createExpression(expressionName, expressionDefinition, getTagList());
+            boolean success = createExpression(expressionName, expressionDefinition);
 
             if(success) {
                 view.createSuccessfully();
@@ -39,9 +45,51 @@ public class NewExpressionPresenter {
     /**
      * Calls API to save expression
      */
-    private boolean createExpression(String expressionName, String expressionDefinition, List<String> tags) {
+    private boolean createExpression(String expressionName, String expressionDefinition) {
+        List<String> tags = getTagList();
+        String pathToAudio = recorder == null ? null : recorder.getSavePath();
         //TODO: call api
         return true;
+    }
+
+    /**
+     * Record audio
+     */
+    public void recordAudio(Context context) {
+        if(!view.checkPermissionToRecord()) {
+            view.askPermissionToRecord();
+        } else {
+            try {
+                view.showIsRecording();
+                recorder = new AudioRecorder(context);
+                recorder.record();
+            } catch (IOException e) {
+                view.showRecordFailed();
+            }
+        }
+    }
+
+    /**
+     * Record actions
+     */
+
+    public void stopRecord() {
+        recorder.stop();
+        view.showRecordIsStopped();
+    }
+
+    public void playRecord() {
+        try {
+            recorder.play();
+        } catch(IOException e) {
+            view.showRecordFailed();
+        }
+    }
+
+    public void deleteRecord() {
+        recorder.deleteRecord();
+        recorder = null;
+        view.showRecordIsDeleted();
     }
 
     /**
