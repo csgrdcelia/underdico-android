@@ -97,6 +97,7 @@ public class HomeFragment extends Fragment implements HomeView{
 
         dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
         dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(presenter.getDayExpression(), expressionClickListener, getContext()));
+        dayExpressionRecyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     private void displayDetailedExpression(View view, Object expression) {

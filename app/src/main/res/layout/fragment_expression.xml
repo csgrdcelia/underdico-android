@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutVote"
+        android:layout_width="0dp"
+        android:layout_height="61dp"
+        android:background="@color/veryLightGrey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </android.support.constraint.ConstraintLayout>
     <TextView
         android:id="@+id/tvExpressionDate"
         android:layout_width="0dp"
@@ -73,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvExpression" />
 
     <ImageButton
-        android:id="@+id/ibDownVote"
+        android:id="@+id/ibDownvote"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -89,17 +100,16 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="14dp"
         android:text="26"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ibDownVote" />
+        app:layout_constraintStart_toEndOf="@+id/ibDownvote" />
 
     <ImageButton
-        android:id="@+id/ibUpVote"
+        android:id="@+id/ibUpvote"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -179,6 +189,7 @@
 
     </android.support.constraint.ConstraintLayout>
 
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layoutChange"
         android:layout_width="280dp"
@@ -228,5 +239,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvExpressionDefinition">
 
     </com.google.android.flexbox.FlexboxLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

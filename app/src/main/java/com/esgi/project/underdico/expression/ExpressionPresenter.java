@@ -6,6 +6,7 @@ import com.esgi.project.underdico.models.Vote;
 
 public class ExpressionPresenter {
     ExpressionView view;
+
     Expression expression;
     User user = new User("test"); // TODO: get real user
 
@@ -18,6 +19,7 @@ public class ExpressionPresenter {
 
     private void initialize() {
         view.displayExpression(expression);
+        view.displayTags(expression.getTagArray());
         updateViewIfUserHasVoted();
     }
 
@@ -70,7 +72,7 @@ public class ExpressionPresenter {
      * Redirects to the new expression fragment and pre-fill somme fields
      */
     public void createOtherDefinition() {
-        view.goToNewExpressionView(expression);
+        ((DetailedExpressionView)view).goToNewExpressionView(expression);
     }
 
     /**

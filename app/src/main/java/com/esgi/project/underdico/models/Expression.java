@@ -145,7 +145,7 @@ public class Expression implements Serializable {
                 "Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. ",
                 new User("user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
-                new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(-1));  add(new Vote(1));}},
+                new ArrayList<Vote>() {{ add(new Vote(1)); add(new Vote(1)); add(new Vote(1)); add(new Vote(1));  add(new Vote(1));}},
                 new GregorianCalendar(2019, 2,1).getTime(),
                 new GregorianCalendar(2019, 5,1).getTime()));
         expressions.add(new Expression(

@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,11 +22,10 @@ import com.esgi.project.underdico.models.Vote;
 import com.esgi.project.underdico.newexpression.NewExpressionFragment;
 import com.google.android.flexbox.FlexboxLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class ExpressionFragment extends Fragment implements ExpressionView {
+public class ExpressionFragment extends Fragment implements DetailedExpressionView {
     private static final String EXPRESSION = "expression";
 
     ExpressionPresenter presenter;
@@ -84,8 +82,8 @@ public class ExpressionFragment extends Fragment implements ExpressionView {
         tvScore = getView().findViewById(R.id.tvExpressionScore);
         tvUsername = getView().findViewById(R.id.tvUsername);
         ibOtherDefinition = getView().findViewById(R.id.ibAddDef);
-        ibDownvote = getView().findViewById(R.id.ibDownVote);
-        ibUpvote = getView().findViewById(R.id.ibUpVote);
+        ibDownvote = getView().findViewById(R.id.ibDownvote);
+        ibUpvote = getView().findViewById(R.id.ibUpvote);
         tagLayout = getView().findViewById(R.id.flexBoxTags);
     }
 
@@ -97,17 +95,17 @@ public class ExpressionFragment extends Fragment implements ExpressionView {
     }
 
 
-
+    @Override
     public void displayExpression(Expression expression) {
         tvDate.setText(expression.getCreatedAt());
         tvExpression.setText(expression.getLabel());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
         tvUsername.setText(expression.getUser().getUsername());
-        displayTags(expression.getTagArray());
     }
 
-    private void displayTags(String[] tags) {
+    @Override
+    public void displayTags(String[] tags) {
         if(tags != null) {
             for (String tag : tags) {
                 TextView textView = createTextViewTag(tag);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="2dp"
-    android:background="@color/white">
+    android:background="@drawable/rounded_borders">
 
     <TextView
         android:id="@+id/tvExpressionDate"
@@ -70,23 +70,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvExpression" />
 
-    <TextView
-        android:id="@+id/tvTags"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutVote"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="#tag1 #tag2"
-        android:textColor="@color/design_default_color_primary"
+        android:layout_height="40dp"
+        android:background="@color/veryLightGrey"
+        android:elevation="-10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExpressionDefinition" />
+        app:layout_constraintStart_toStartOf="parent">
+
+    </android.support.constraint.ConstraintLayout>
 
     <ImageButton
-        android:id="@+id/ibDownVote"
+        android:id="@+id/ibDownvote"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -110,11 +107,11 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ibDownVote"
-        app:layout_constraintTop_toBottomOf="@+id/tvTags" />
+        app:layout_constraintStart_toEndOf="@+id/ibDownvote"
+        app:layout_constraintTop_toBottomOf="@+id/flexBoxTags" />
 
     <ImageButton
-        android:id="@+id/ibUpVote"
+        android:id="@+id/ibUpvote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -133,9 +130,9 @@
         android:layout_marginRight="8dp"
         android:text="user1"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ibUpVote"
+        app:layout_constraintBottom_toBottomOf="@+id/ibUpvote"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ibUpVote" />
+        app:layout_constraintTop_toTopOf="@+id/ibUpvote" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -147,5 +144,24 @@
         app:layout_constraintEnd_toStartOf="@+id/tvUsername"
         app:layout_constraintTop_toTopOf="@+id/tvUsername"
         app:srcCompat="@drawable/ic_user" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexBoxTags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvExpressionDefinition"
+        tools:layout_height="20dp">
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

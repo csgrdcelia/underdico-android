@@ -8,9 +8,8 @@ import java.util.List;
 public interface ExpressionView {
 
     void displayExpression(Expression expression);
+    void displayTags(String[] tags);
     void displayAlreadyVoted(Vote.Type type);
-    void goToNewExpressionView(Expression expression);
-    void goHome();
     void setScore(int vote);
     void searchWithTag(String tag, List<Expression> expressions);
 }
