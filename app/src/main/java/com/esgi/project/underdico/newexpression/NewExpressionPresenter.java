@@ -1,11 +1,10 @@
 package com.esgi.project.underdico.newexpression;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.esgi.project.underdico.AudioRecorder;
+import com.esgi.project.underdico.utils.AudioRecorder;
 
 import java.io.IOException;
 import java.util.ArrayList;

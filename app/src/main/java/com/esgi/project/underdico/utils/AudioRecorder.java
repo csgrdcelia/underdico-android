@@ -1,4 +1,4 @@
-package com.esgi.project.underdico;
+package com.esgi.project.underdico.utils;
 
 import android.content.Context;
 import android.media.MediaPlayer;

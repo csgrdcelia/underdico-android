@@ -65,6 +65,7 @@ public class HomeFragment extends Fragment implements HomeView{
         dayExpressionLayout = getView().findViewById(R.id.dayExpressionLayout);
         dayExpressionInnerLayout = getView().findViewById(R.id.dayExpressionInnerLayout);
         expressionsRecyclerView = getView().findViewById(R.id.rcExpressions);
+
     }
 
     private void configureRecyclerView() {
