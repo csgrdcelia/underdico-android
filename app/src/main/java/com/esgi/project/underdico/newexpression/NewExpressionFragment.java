@@ -91,7 +91,6 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         assignViews();
 
         setListeners();
-
         if (expressionModel != null)
             display(expressionModel);
     }

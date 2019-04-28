@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UnderDico</string>
+    <string name="navigation_drawer_open">Menu opening</string>
+    <string name="navigation_drawer_close">Menu closing</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Menu header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_top">Top</string>
+    <string name="menu_new">New expression</string>
+    <string name="day_expression">Expression of the day</string>
+    <string name="last_expressions">Last expressions</string>
+    <string name="menu_play">Play</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">Login</string>
+    <!-- Strings related to login -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="register">Register</string>
+
+    <integer-array name="languages">
+
+        <item>@drawable/france_flag</item>
+
+    </integer-array>
+</resources>

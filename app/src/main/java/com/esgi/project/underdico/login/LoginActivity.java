@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.utils.Language;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -19,6 +21,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private EditText mPasswordView;
     private View mProgressView;
     private Button mEmailSignInButton;
+    private TextView tvRegister;
 
     LoginPresenter presenter;
 
@@ -34,6 +37,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         mEmailView.requestFocus();
 
         mEmailSignInButton.setOnClickListener(view -> attemptLogin());
+        tvRegister.setOnClickListener(null);
+
     }
 
     private void AssignViews() {
@@ -41,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         mPasswordView = findViewById(R.id.password);
         mProgressView = findViewById(R.id.login_progress);
         mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        tvRegister = findViewById(R.id.tvRegister);
     }
 
     private void attemptLogin() {
