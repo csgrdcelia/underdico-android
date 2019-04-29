@@ -21,11 +21,6 @@ import com.esgi.project.underdico.expression.ExpressionFragment;
 import com.esgi.project.underdico.models.Expression;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment implements HomeView{
     HomePresenter presenter;
 
@@ -54,6 +49,8 @@ public class HomeFragment extends Fragment implements HomeView{
         configureRecyclerView();
         setOnClickListeners();
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,7 +86,7 @@ public class HomeFragment extends Fragment implements HomeView{
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 
-                if (dy > 50 && dayExpressionLayout.getVisibility() == View.VISIBLE) {
+                if (dy > 10 && dayExpressionLayout.getVisibility() == View.VISIBLE) {
                     hideDayExpression();
                 }
             }
@@ -123,11 +120,14 @@ public class HomeFragment extends Fragment implements HomeView{
 
     private void hideDayExpression() {
         closeDayExpression.setImageResource(R.drawable.ic_display);
+        dayExpressionInnerLayout.animate().alpha(0.0f).setDuration(200);
         dayExpressionInnerLayout.setVisibility(View.GONE);
     }
 
     private void displayDayExpression() {
         closeDayExpression.setImageResource(R.drawable.ic_hide);
+        dayExpressionInnerLayout.animate().alpha(1.0f);
         dayExpressionInnerLayout.setVisibility(View.VISIBLE);
     }
+
 }
