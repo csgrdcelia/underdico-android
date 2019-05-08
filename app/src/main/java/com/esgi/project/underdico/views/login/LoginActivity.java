@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.login;
+package com.esgi.project.underdico.views.login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
-import com.esgi.project.underdico.utils.Language;
+import com.esgi.project.underdico.presenters.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 

@@ -19,12 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.esgi.project.underdico.channels.GameChannelsFragment;
-import com.esgi.project.underdico.expression.ExpressionFragment;
-import com.esgi.project.underdico.home.HomeFragment;
+import com.esgi.project.underdico.views.channels.GameChannelsFragment;
+import com.esgi.project.underdico.views.expression.ExpressionFragment;
+import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.models.Expression;
-import com.esgi.project.underdico.newexpression.NewExpressionFragment;
-import com.esgi.project.underdico.user.UserFragment;
+import com.esgi.project.underdico.views.newexpression.NewExpressionFragment;
+import com.esgi.project.underdico.views.search.SearchFragment;
+import com.esgi.project.underdico.views.user.UserFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

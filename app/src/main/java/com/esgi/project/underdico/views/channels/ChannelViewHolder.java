@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.channels;
+package com.esgi.project.underdico.views.channels;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.newexpression;
+package com.esgi.project.underdico.views.newexpression;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.esgi.project.underdico.home.HomeFragment;
+import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
+import com.esgi.project.underdico.presenters.NewExpressionPresenter;
 import com.google.android.flexbox.FlexboxLayout;
 
 import static android.Manifest.permission.RECORD_AUDIO;

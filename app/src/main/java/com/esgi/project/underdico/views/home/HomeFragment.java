@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.home;
+package com.esgi.project.underdico.views.home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,13 +15,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
-import com.esgi.project.underdico.expression.ExpressionAdapter;
-import com.esgi.project.underdico.expression.ExpressionClickListener;
-import com.esgi.project.underdico.expression.ExpressionFragment;
+import com.esgi.project.underdico.views.expression.ExpressionAdapter;
+import com.esgi.project.underdico.views.expression.ExpressionClickListener;
+import com.esgi.project.underdico.views.expression.ExpressionFragment;
+import com.esgi.project.underdico.presenters.HomePresenter;
 import com.esgi.project.underdico.models.Expression;
 
 
-public class HomeFragment extends Fragment implements HomeView{
+public class HomeFragment extends Fragment implements HomeView {
     HomePresenter presenter;
 
     // UI references

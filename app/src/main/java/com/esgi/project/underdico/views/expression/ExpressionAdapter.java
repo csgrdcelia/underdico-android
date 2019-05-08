@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.expression;
+package com.esgi.project.underdico.views.expression;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

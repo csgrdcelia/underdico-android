@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.login;
+package com.esgi.project.underdico.views.login;
 
 public interface LoginView {
     void askUserToFillFields();

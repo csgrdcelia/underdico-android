@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.expression;
+package com.esgi.project.underdico.views.expression;
 
 import android.view.View;
 

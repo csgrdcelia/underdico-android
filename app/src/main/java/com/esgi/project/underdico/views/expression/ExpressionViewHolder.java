@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.expression;
+package com.esgi.project.underdico.views.expression;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
-import com.esgi.project.underdico.SearchFragment;
+import com.esgi.project.underdico.views.search.SearchFragment;
+import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Vote;
 import com.google.android.flexbox.FlexboxLayout;

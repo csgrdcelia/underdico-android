@@ -1,6 +1,8 @@
-package com.esgi.project.underdico.login;
+package com.esgi.project.underdico.presenters;
 
 import android.text.TextUtils;
+
+import com.esgi.project.underdico.views.login.LoginView;
 
 public class LoginPresenter {
 

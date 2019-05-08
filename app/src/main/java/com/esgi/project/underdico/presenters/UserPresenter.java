@@ -1,4 +1,6 @@
-package com.esgi.project.underdico.user;
+package com.esgi.project.underdico.presenters;
+
+import com.esgi.project.underdico.views.user.UserView;
 
 public class UserPresenter {
     UserView view;

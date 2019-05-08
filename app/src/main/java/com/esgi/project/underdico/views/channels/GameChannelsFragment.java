@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.channels;
+package com.esgi.project.underdico.views.channels;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.esgi.project.underdico.R;
-import com.esgi.project.underdico.expression.ExpressionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.newexpression;
+package com.esgi.project.underdico.views.newexpression;
 
 import android.widget.Button;
 

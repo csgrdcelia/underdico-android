@@ -1,8 +1,10 @@
-package com.esgi.project.underdico.expression;
+package com.esgi.project.underdico.presenters;
 
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.models.Vote;
+import com.esgi.project.underdico.views.expression.DetailedExpressionView;
+import com.esgi.project.underdico.views.expression.ExpressionView;
 
 public class ExpressionPresenter {
     ExpressionView view;

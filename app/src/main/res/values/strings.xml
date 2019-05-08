@@ -1,4 +1,7 @@
 <resources>
+    <string name="API_URL">https://underdico-playground.herokuapp.com/api</string>
+
+
     <string name="app_name">UnderDico</string>
     <string name="navigation_drawer_open">Ouverture du menu</string>
     <string name="navigation_drawer_close">Fermeture du menu</string>
@@ -21,6 +24,7 @@
     <string name="password">Mot de passe</string>
     <string name="action_sign_in">Connexion</string>
     <string name="register">S\'inscrire</string>
+
 
     <integer-array name="languages">
 
