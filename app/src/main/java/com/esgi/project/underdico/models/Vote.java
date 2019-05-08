@@ -1,34 +1,45 @@
 package com.esgi.project.underdico.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Vote implements Serializable {
-    public enum Type {
-        DOWN,
-        UP
+
+    @SerializedName("id")
+    private String id;
+    @SerializedName("type")
+    private boolean type;
+    @SerializedName("accountId")
+    private String userId;
+    @SerializedName("wordId")
+    private String expressionId;
+
+    public Vote(boolean type, User user, Expression expression) {
+        this.type = type;
+        this.userId = user.getId();
+        this.expressionId = expression.getId();
     }
 
-    private User user;
-    private int score;
-
-    public Vote(int score) {
-        this.score = score;
+    public Vote(boolean score) {
+        this.type = score;
     }
 
-    public Vote(User user, int score){
-        this.user = user;
-        this.score = score;
+    public Vote(User user, boolean score){
+        this.userId = user.getId();
+        this.type = score;
     }
 
-    public int getScore() {
-        return score;
+    public String getId() {
+        return id;
     }
 
-    public User getUser() {
-        return user;
+    public boolean getType() {
+        return type;
     }
-    public Type getType() {
-        return score == -1 ? Type.DOWN : Type.UP;
+
+    public String getUserId() {
+        return userId;
     }
 }
 

@@ -18,11 +18,8 @@ public class Session {
         setCurrentUser(null);
     }
 
-    public static String getUserId() {
-        if(currentUser == null)
-            return "";
-        else
-            return currentUser.getId();
+    public static User getCurrentUser() {
+        return currentUser;
     }
 
     public static boolean isLoggedIn() {

@@ -69,7 +69,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
             assignViews();
             setListeners();
             Expression expression = (Expression) this.getArguments().getSerializable(EXPRESSION);
-            presenter = new ExpressionPresenter(this, expression);
+            presenter = new ExpressionPresenter(this, expression, getContext());
         } else {
             Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_SHORT).show();
             goHome();
@@ -91,10 +91,9 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     private void setListeners() {
         tagListener = v -> presenter.searchExpressionsWithTag(String.valueOf(((TextView)v).getText()));
         ibOtherDefinition.setOnClickListener(v -> presenter.createOtherDefinition());
-        ibDownvote.setOnClickListener(v -> presenter.tryVote(Vote.Type.DOWN));
-        ibUpvote.setOnClickListener(v -> presenter.tryVote(Vote.Type.UP));
+        ibDownvote.setOnClickListener(v -> presenter.tryVote(false));
+        ibUpvote.setOnClickListener(v -> presenter.tryVote(true));
     }
-
 
     @Override
     public void displayExpression(Expression expression) {
@@ -130,9 +129,9 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         return textView;
     }
 
-    public void displayAlreadyVoted(Vote.Type type) {
-        ibDownvote.setEnabled(type == Vote.Type.DOWN ? false : true);
-        ibUpvote.setEnabled(type == Vote.Type.UP ? false : true);
+    public void displayAlreadyVoted(boolean score) {
+        ibDownvote.setEnabled(score == false ? false : true);
+        ibUpvote.setEnabled(score == true ? false : true);
     }
 
     public void goToNewExpressionView(Expression expression) {
@@ -157,6 +156,11 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         MainActivity activity = (MainActivity) getView().getContext();
         Fragment myFragment = SearchFragment.newInstance(tag, expressions);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
 

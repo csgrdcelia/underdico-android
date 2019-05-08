@@ -1,11 +1,14 @@
 package com.esgi.project.underdico.services;
 
 import com.esgi.project.underdico.models.Expression;
+import com.esgi.project.underdico.models.Vote;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -16,4 +19,10 @@ public interface ExpressionService {
 
     @POST("accounts/{id}/words")
     Call<Expression> saveExpression(@Path("id") String id, @Body Expression expression);
+
+    @POST("accounts/{id}/votes")
+    Call<Vote> addVote(@Path("id") String id, @Body Vote vote);
+
+    @DELETE("accounts/{id}/votes/{fk}")
+    Call<ResponseBody> deleteVote(@Path("id") String id, @Path("fk") String voteId);
 }

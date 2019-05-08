@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
@@ -60,15 +61,15 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
 
     public void bind(Expression expression) {
         this.expression = expression;
-        presenter = new ExpressionPresenter(this, expression);
+        presenter = new ExpressionPresenter(this, expression, context);
 
     }
 
     private void setOnClickListeners() {
         tagListener = v -> presenter.searchExpressionsWithTag(String.valueOf(((TextView)v).getText()));
         tvExpression.setOnClickListener(v -> listener.onClick(v, expression));
-        ibDownvote.setOnClickListener(v -> presenter.tryVote(Vote.Type.DOWN));
-        ibUpvote.setOnClickListener(v -> presenter.tryVote(Vote.Type.UP));
+        ibDownvote.setOnClickListener(v -> presenter.tryVote(false));
+        ibUpvote.setOnClickListener(v -> presenter.tryVote(true));
     }
 
 
@@ -107,9 +108,9 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     }
 
     @Override
-    public void displayAlreadyVoted(Vote.Type type) {
-        ibDownvote.setEnabled(type == Vote.Type.DOWN ? false : true);
-        ibUpvote.setEnabled(type == Vote.Type.UP ? false : true);
+    public void displayAlreadyVoted(boolean score) {
+        ibDownvote.setEnabled(score == false ? false : true);
+        ibUpvote.setEnabled(score == true ? false : true);
     }
 
     @Override
@@ -122,5 +123,10 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         MainActivity activity = (MainActivity) context;
         Fragment myFragment = SearchFragment.newInstance(tag, expressions);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
     }
 }

@@ -56,10 +56,10 @@ public class NewExpressionPresenter {
         //TODO: save sound (String pathToAudio = recorder == null ? null : recorder.getSavePath();)
         //TODO: save language
 
-        Expression expression = new Expression(expressionName, expressionDefinition, tags.toArray(new String[0]), Session.getUserId());
+        Expression expression = new Expression(expressionName, expressionDefinition, tags.toArray(new String[0]), Session.getCurrentUser());
 
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.saveExpression(Session.getUserId(), expression);
+        Call<Expression> call = service.saveExpression(Session.getCurrentUser().getId(), expression);
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {

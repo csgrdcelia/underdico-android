@@ -9,7 +9,8 @@ public interface ExpressionView {
 
     void displayExpression(Expression expression);
     void displayTags(String[] tags);
-    void displayAlreadyVoted(Vote.Type type);
+    void displayAlreadyVoted(boolean score);
     void setScore(int vote);
     void searchWithTag(String tag, List<Expression> expressions);
+    void showError(String error);
 }

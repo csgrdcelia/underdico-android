@@ -35,6 +35,7 @@
 
     <!-- Errors -->
     <string name="expression_error">An error occured while loading expression(s)</string>
+    <string name="vote_error">An error occured while voting</string>
 
     <integer-array name="languages">
 

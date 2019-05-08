@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +15,8 @@ import java.util.Locale;
 import java.util.Random;
 
 public class Expression implements Serializable {
+    @SerializedName("id")
+    private String id;
     @SerializedName("name")
     private String label;
     @SerializedName("definition")
@@ -33,13 +34,20 @@ public class Expression implements Serializable {
 
     public Expression() { }
 
-    public Expression(String label, String definition, String[] tags, String userId) {
+    public Expression(String label, String definition, String[] tags, User user) {
         this.label = label;
         this.definition = definition;
         this.tags = tags;
-        this.userId = userId;
+        this.userId = user.getId();
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getLabel() {
         return label;
@@ -98,8 +106,12 @@ public class Expression implements Serializable {
     {
         int score = 0;
         if (votes != null) {
-            for (Vote vote : votes)
-                score += vote.getScore();
+            for (Vote vote : votes) {
+                if(vote.getType())
+                    score += 1;
+                else
+                    score -= 1;
+            }
         }
         return score;
     }
@@ -107,17 +119,10 @@ public class Expression implements Serializable {
     public Vote getVote(User user) {
         if (votes != null) {
             for (Vote vote : votes)
-                if (vote.getUser() == user)
+                if (vote.getUserId().equals(user.getId()))
                     return vote;
         }
         return null;
-    }
-
-    public String getTagsString() {
-        if(tags != null)
-            return TextUtils.join(" ", tags);
-        else
-            return "";
     }
 
     public String[] getTagArray() {
@@ -166,7 +171,7 @@ public class Expression implements Serializable {
                 "Ceci est une définition",
                 new User("1", "user1"),
                 new String[] {"tag1", "tag2", "tag3"},
-                new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(1));  add(new Vote(1));}},
+                new ArrayList<Vote>() {{ add(new Vote(false)); add(new Vote(true));  add(new Vote(true));}},
                 new GregorianCalendar(2019, 0,1).getTime(),
                 new GregorianCalendar(2019, 0,2).getTime()));
         expressions.add(new Expression(
@@ -174,7 +179,7 @@ public class Expression implements Serializable {
                 "Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. ",
                 new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
-                new ArrayList<Vote>() {{ add(new Vote(1)); add(new Vote(1));  add(new Vote(1));}},
+                new ArrayList<Vote>() {{ add(new Vote(true)); add(new Vote(true));  add(new Vote(true));}},
                 new GregorianCalendar(2019, 0,15).getTime(),
                 new GregorianCalendar(2019, 0,1).getTime()));
         expressions.add(new Expression(
@@ -182,7 +187,7 @@ public class Expression implements Serializable {
                 "Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. ",
                 new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
-                new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(-1));  add(new Vote(1));}},
+                new ArrayList<Vote>() {{ add(new Vote(false)); add(new Vote(false));  add(new Vote(true));}},
                 new GregorianCalendar(2019, 2,1).getTime(),
                 new GregorianCalendar(2019, 0,3).getTime()));
         expressions.add(new Expression(
@@ -190,7 +195,7 @@ public class Expression implements Serializable {
                 "Ceci est une définition",
                 new User("2", "user1"),
                 new String[] {"tag1", "tag2", "tag3"},
-                new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(-1));  add(new Vote(-1));}},
+                new ArrayList<Vote>() {{ add(new Vote(false)); add(new Vote(false));  add(new Vote(false));}},
                 new GregorianCalendar(2019, 2,1).getTime(),
                 new GregorianCalendar(2019, 5,1).getTime()));
         expressions.add(new Expression(
@@ -198,7 +203,7 @@ public class Expression implements Serializable {
                 "Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. ",
                 new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
-                new ArrayList<Vote>() {{ add(new Vote(1)); add(new Vote(1)); add(new Vote(1)); add(new Vote(1));  add(new Vote(1));}},
+                new ArrayList<Vote>() {{ add(new Vote(true)); add(new Vote(true)); add(new Vote(true)); add(new Vote(true));  add(new Vote(true));}},
                 new GregorianCalendar(2019, 2,1).getTime(),
                 new GregorianCalendar(2019, 5,1).getTime()));
         expressions.add(new Expression(
@@ -206,7 +211,7 @@ public class Expression implements Serializable {
                 "Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. ",
                 new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
-                new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(-1));  add(new Vote(1));}},
+                new ArrayList<Vote>() {{ add(new Vote(false)); add(new Vote(false));  add(new Vote(true));}},
                 new GregorianCalendar(2019, 1,1).getTime(),
                 new GregorianCalendar(2019, 6,1).getTime()));
 
