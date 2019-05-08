@@ -4,22 +4,34 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
+import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.models.Expression;
+import com.esgi.project.underdico.services.ExpressionService;
+import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.AudioRecorder;
+import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.newexpression.NewExpressionView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class NewExpressionPresenter {
     NewExpressionView view;
     List<Button> tags;
     AudioRecorder recorder;
+    Context context;
     private static final int MAX_TAGS = 5;
 
-    public NewExpressionPresenter(NewExpressionView view) {
+    public NewExpressionPresenter(NewExpressionView view, Context context) {
         this.view = view;
+        this.context = context;
         tags = new ArrayList<>();
+
     }
 
     /**
@@ -32,24 +44,36 @@ public class NewExpressionPresenter {
         } else if (!isValidExpressionDefinition()) {
             view.showNotValidDefinitionError();
         } else {
-            boolean success = createExpression(expressionName, expressionDefinition);
-
-            if(success) {
-                view.createSuccessfully();
-            } else {
-                view.creationFailed();
-            }
+            createExpression(expressionName, expressionDefinition, getTagList());
         }
     }
 
     /**
      * Calls API to save expression
      */
-    private boolean createExpression(String expressionName, String expressionDefinition) {
-        List<String> tags = getTagList();
-        String pathToAudio = recorder == null ? null : recorder.getSavePath();
-        //TODO: call api
-        return true;
+    private void createExpression(String expressionName, String expressionDefinition, List<String> tags) {
+
+        //TODO: save sound (String pathToAudio = recorder == null ? null : recorder.getSavePath();)
+        //TODO: save language
+
+        Expression expression = new Expression(expressionName, expressionDefinition, tags.toArray(new String[0]), Session.getUserId());
+
+        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+        Call<Expression> call = service.saveExpression(Session.getUserId(), expression);
+        call.enqueue(new Callback<Expression>() {
+            @Override
+            public void onResponse(Call<Expression> call, Response<Expression> response) {
+                if(response.isSuccessful() || response.body() != null)
+                    view.createSuccessfully();
+                else
+                    view.creationFailed();
+            }
+
+            @Override
+            public void onFailure(Call<Expression> call, Throwable t) {
+                view.creationFailed();
+            }
+        });
     }
 
     /**

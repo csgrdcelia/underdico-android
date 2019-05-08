@@ -10,7 +10,7 @@ public class ExpressionPresenter {
     ExpressionView view;
 
     Expression expression;
-    User user = new User("test"); // TODO: get real user
+    User user = new User("1","test"); // TODO: get real user
 
     public ExpressionPresenter(ExpressionView view, Expression expression) {
         this.view = view;

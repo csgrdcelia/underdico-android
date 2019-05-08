@@ -33,6 +33,14 @@ public class Expression implements Serializable {
 
     public Expression() { }
 
+    public Expression(String label, String definition, String[] tags, String userId) {
+        this.label = label;
+        this.definition = definition;
+        this.tags = tags;
+        this.userId = userId;
+    }
+
+
     public String getLabel() {
         return label;
     }
@@ -72,6 +80,7 @@ public class Expression implements Serializable {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
 
     public Expression(String label, String definition, User user, String[] tags, List<Vote> votes, Date createdAt, Date updatedAt) {
         this.label = label;
@@ -141,7 +150,7 @@ public class Expression implements Serializable {
 
     //TODO: get real expression of the day
     public static Expression getExpressionOfTheDay() {
-        return new Expression("Expression du jour", "Ceci est la définition de l'expression du jour", new User("user"), null, null, null, null);
+        return new Expression("Expression du jour", "Ceci est la définition de l'expression du jour", new User("2", "user"), null, null, null, null);
     }
 
     public static Expression getRandomExpression() {
@@ -155,7 +164,7 @@ public class Expression implements Serializable {
         expressions.add(new Expression(
                 "AFROTRAP",
                 "Ceci est une définition",
-                new User("user1"),
+                new User("1", "user1"),
                 new String[] {"tag1", "tag2", "tag3"},
                 new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(1));  add(new Vote(1));}},
                 new GregorianCalendar(2019, 0,1).getTime(),
@@ -163,7 +172,7 @@ public class Expression implements Serializable {
         expressions.add(new Expression(
                 "TRUC",
                 "Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. ",
-                new User("user2"),
+                new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
                 new ArrayList<Vote>() {{ add(new Vote(1)); add(new Vote(1));  add(new Vote(1));}},
                 new GregorianCalendar(2019, 0,15).getTime(),
@@ -171,7 +180,7 @@ public class Expression implements Serializable {
         expressions.add(new Expression(
                 "ARGOT",
                 "Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. ",
-                new User("user2"),
+                new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
                 new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(-1));  add(new Vote(1));}},
                 new GregorianCalendar(2019, 2,1).getTime(),
@@ -179,7 +188,7 @@ public class Expression implements Serializable {
         expressions.add(new Expression(
                 "AFROTRAP",
                 "Ceci est une définition",
-                new User("user1"),
+                new User("2", "user1"),
                 new String[] {"tag1", "tag2", "tag3"},
                 new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(-1));  add(new Vote(-1));}},
                 new GregorianCalendar(2019, 2,1).getTime(),
@@ -187,7 +196,7 @@ public class Expression implements Serializable {
         expressions.add(new Expression(
                 "TRUC",
                 "Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. Ceci est une autre définition. Elle est très bien. ",
-                new User("user2"),
+                new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
                 new ArrayList<Vote>() {{ add(new Vote(1)); add(new Vote(1)); add(new Vote(1)); add(new Vote(1));  add(new Vote(1));}},
                 new GregorianCalendar(2019, 2,1).getTime(),
@@ -195,7 +204,7 @@ public class Expression implements Serializable {
         expressions.add(new Expression(
                 "ARGOT",
                 "Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. Ceci est une autre définition. ",
-                new User("user2"),
+                new User("2", "user2"),
                 new String[] {"tag1", "tag2", "tag3", "tag5"},
                 new ArrayList<Vote>() {{ add(new Vote(-1)); add(new Vote(-1));  add(new Vote(1));}},
                 new GregorianCalendar(2019, 1,1).getTime(),

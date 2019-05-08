@@ -2,6 +2,8 @@ package com.esgi.project.underdico.presenters;
 
 import android.text.TextUtils;
 
+import com.esgi.project.underdico.models.User;
+import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.login.LoginView;
 
 public class LoginPresenter {
@@ -21,10 +23,13 @@ public class LoginPresenter {
             boolean success = tryLogin(username, password);
             view.showProgress(false);
 
-            if (success)
+            if (success) {
                 view.loginSuccessfully();
-            else
+                Session.setCurrentUser(new User("1", "Celia"));
+            }
+            else {
                 view.loginFail();
+            }
         }
     }
 

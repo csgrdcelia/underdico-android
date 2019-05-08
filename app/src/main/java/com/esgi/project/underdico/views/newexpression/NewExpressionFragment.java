@@ -86,7 +86,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new NewExpressionPresenter(this);
+        presenter = new NewExpressionPresenter(this, getContext());
 
         assignViews();
 
