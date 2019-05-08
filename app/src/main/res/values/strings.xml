@@ -1,8 +1,15 @@
 <resources>
-    <string name="API_URL">https://underdico-playground.herokuapp.com/api</string>
 
+    <!-- API -->
+    <string name="API_URL">https://underdico-playground.herokuapp.com/api/</string>
 
+    <!-- Base -->
+    <string name="hello_blank_fragment">Bonjour fragment blanc</string>
+
+    <!-- App -->
     <string name="app_name">UnderDico</string>
+
+    <!-- Menu -->
     <string name="navigation_drawer_open">Ouverture du menu</string>
     <string name="navigation_drawer_close">Fermeture du menu</string>
     <string name="nav_header_title">Android Studio</string>
@@ -12,18 +19,21 @@
     <string name="menu_home">Accueil</string>
     <string name="menu_top">Top</string>
     <string name="menu_new">Nouvelle expression</string>
-    <string name="day_expression">Expression du jour</string>
-    <string name="last_expressions">Dernières expressions</string>
     <string name="menu_play">Jouer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Login -->
     <string name="title_activity_login">Connexion</string>
-    <!-- Strings related to login -->
     <string name="email">Email</string>
     <string name="password">Mot de passe</string>
     <string name="action_sign_in">Connexion</string>
     <string name="register">S\'inscrire</string>
+
+    <!-- Home -->
+    <string name="day_expression">Expression du jour</string>
+    <string name="last_expressions">Dernières expressions</string>
+
+    <!-- Errors -->
+    <string name="expression_error">Une erreur est apparue lors de la récupération du/des expressions</string>
 
 
     <integer-array name="languages">

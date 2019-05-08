@@ -2,6 +2,8 @@ package com.esgi.project.underdico.models;
 
 import android.text.TextUtils;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.Format;
@@ -14,14 +16,62 @@ import java.util.Locale;
 import java.util.Random;
 
 public class Expression implements Serializable {
+    @SerializedName("name")
     private String label;
+    @SerializedName("definition")
     private String definition;
-    private User user;
+    @SerializedName("tags")
     private String[] tags;
+    @SerializedName("votes")
     private List<Vote> votes;
+    @SerializedName("accountId")
+    private String userId;
+
     private Date createdAt;
     private Date updatedAt;
 
+
+    public Expression() { }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public Expression(String label, String definition, User user, String[] tags, List<Vote> votes, Date createdAt, Date updatedAt) {
         this.label = label;
@@ -32,6 +82,8 @@ public class Expression implements Serializable {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    private User user;
 
     public int getScore()
     {
@@ -52,7 +104,7 @@ public class Expression implements Serializable {
         return null;
     }
 
-    public String getTags() {
+    public String getTagsString() {
         if(tags != null)
             return TextUtils.join(" ", tags);
         else
@@ -81,14 +133,6 @@ public class Expression implements Serializable {
     public void removeVote(Vote vote) {
         if(votes != null && votes.contains(vote))
             votes.remove(vote);
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public String getDefinition() {
-        return definition;
     }
 
     public User getUser() {

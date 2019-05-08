@@ -102,7 +102,8 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         tvExpression.setText(expression.getLabel());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
-        tvUsername.setText(expression.getUser().getUsername());
+        //tvUsername.setText(expression.getUser().getUsername());
+        tvUsername.setText(expression.getUserId());
     }
 
     @Override

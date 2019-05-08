@@ -78,7 +78,8 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         tvExpression.setText(expression.getLabel());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
-        tvUsername.setText(expression.getUser().getUsername());
+        //tvUsername.setText(expression.getUser().getUsername());
+        tvUsername.setText(expression.getUserId()); //TODO: get user when in API
     }
 
     @Override

@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.views.expression.ExpressionAdapter;
@@ -20,6 +22,8 @@ import com.esgi.project.underdico.views.expression.ExpressionClickListener;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.presenters.HomePresenter;
 import com.esgi.project.underdico.models.Expression;
+
+import java.util.List;
 
 
 public class HomeFragment extends Fragment implements HomeView {
@@ -45,13 +49,8 @@ public class HomeFragment extends Fragment implements HomeView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter = new HomePresenter(this);
-        assignViews();
-        configureRecyclerView();
-        setOnClickListeners();
+        presenter = new HomePresenter(this, getContext());
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +58,8 @@ public class HomeFragment extends Fragment implements HomeView {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    public void assignViews() {
+    @Override
+    public void affectUIReferences() {
         closeDayExpression = getView().findViewById(R.id.closeDayExpressionButton);
         dayExpressionLayout = getView().findViewById(R.id.dayExpressionLayout);
         dayExpressionInnerLayout = getView().findViewById(R.id.dayExpressionInnerLayout);
@@ -68,7 +68,13 @@ public class HomeFragment extends Fragment implements HomeView {
 
     }
 
-    private void configureRecyclerView() {
+    @Override
+    public void setListeners() {
+        closeDayExpression.setOnClickListener(v -> hideOrDisplayDayExpression());
+    }
+
+    @Override
+    public void displayExpressions(List<Expression> expressions) {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 getContext(),
                 DividerItemDecoration.VERTICAL
@@ -80,7 +86,7 @@ public class HomeFragment extends Fragment implements HomeView {
         ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
 
         expressionsRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        expressionsRecyclerView.setAdapter(new ExpressionAdapter(presenter.getExpressionsList(), expressionClickListener, getContext()));
+        expressionsRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext()));
         expressionsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         expressionsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -92,9 +98,22 @@ public class HomeFragment extends Fragment implements HomeView {
                 }
             }
         });
+    }
+
+    @Override
+    public void displayExpressionOfTheDay(List<Expression> expression) {
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                getContext(),
+                DividerItemDecoration.VERTICAL
+        );
+        dividerItemDecoration.setDrawable(
+                ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
+        );
+
+        ExpressionClickListener expressionClickListener = (view, expressionClicked) -> displayDetailedExpression(view, expressionClicked);
 
         dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(presenter.getDayExpression(), expressionClickListener, getContext()));
+        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expression, expressionClickListener, getContext()));
         dayExpressionRecyclerView.addItemDecoration(dividerItemDecoration);
     }
 
@@ -102,10 +121,6 @@ public class HomeFragment extends Fragment implements HomeView {
         MainActivity activity = (MainActivity)view.getContext();
         Fragment fragment = ExpressionFragment.newInstance((Expression)expression);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).addToBackStack(null).commit();
-    }
-
-    public void setOnClickListeners() {
-        closeDayExpression.setOnClickListener(v -> hideOrDisplayDayExpression());
     }
 
     public void hideOrDisplayDayExpression() {
@@ -131,4 +146,10 @@ public class HomeFragment extends Fragment implements HomeView {
         dayExpressionInnerLayout.setVisibility(View.VISIBLE);
     }
 
+
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
 }
