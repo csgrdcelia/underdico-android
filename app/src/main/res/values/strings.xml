@@ -1,7 +1,7 @@
 <resources>
 
     <!-- API -->
-    <string name="API_URL">https://underdico-playground.herokuapp.com/api/</string>
+    <string name="API_URL">http://underdico.hdaroit.fr/api/</string>
 
     <!-- Base -->
     <string name="hello_blank_fragment">Bonjour fragment blanc</string>
@@ -21,12 +21,25 @@
     <string name="menu_new">Nouvelle expression</string>
     <string name="menu_play">Jouer</string>
 
+    <!-- Forms -->
+    <string name="fill_fields">Merci de renseigner tous les champs</string>
+
     <!-- Login -->
     <string name="title_activity_login">Connexion</string>
-    <string name="email">Email</string>
-    <string name="password">Mot de passe</string>
     <string name="action_sign_in">Connexion</string>
     <string name="register">S\'inscrire</string>
+    <string name="login_fail">Les identifiants sont incorrects</string>
+
+    <!-- Register -->
+    <string name="existing_login_details">Ces identifiants existent déjà</string>
+    <string name="wrong_login_details">Identifiants incorrects</string>
+    <string name="register_success">Inscription réussie !</string>
+    <string name="register_fail">L\'inscription a échoué</string>
+
+    <!-- User -->
+    <string name="username">Pseudo</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
 
     <!-- Home -->
     <string name="day_expression">Expression du jour</string>
