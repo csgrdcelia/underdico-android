@@ -28,7 +28,7 @@
     <string name="title_activity_login">Connexion</string>
     <string name="action_sign_in">Connexion</string>
     <string name="register">S\'inscrire</string>
-    <string name="login_fail">Les identifiants sont incorrects</string>
+    <string name="login_fail">La connexion a échoué</string>
 
     <!-- Register -->
     <string name="username_length_indication">Le pseudo doit faire entre 3 et 16 caractères</string>

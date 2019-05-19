@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        presenter = new LoginPresenter(this);
+        presenter = new LoginPresenter(this, getApplicationContext());
 
         assignViews();
         setUsernameIfPresent();

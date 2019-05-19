@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
-import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.models.Vote;
 import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
@@ -47,35 +46,35 @@ public class ExpressionPresenter {
      * If the user has already voted, related button is disabled
      */
     private void updateViewIfUserHasVoted() {
-        Vote vote = expression.getVote(Session.getCurrentUser());
+        /*Vote vote = expression.getVote(Session.getCurrent());
         if(vote != null) {
             view.displayAlreadyVoted(vote.getType());
-        }
+        }*/
     }
 
     /**
      * Checks if user can vote and if so, updates expression and view
      */
     public void tryVote(boolean voteType) {
-        if(!hasAlreadyVotedOfType(voteType)) {
-            Vote vote = expression.getVote(Session.getCurrentUser());
+        /*if(!hasAlreadyVotedOfType(voteType)) {
+            Vote vote = expression.getVote(Session.getCurrent());
             if(vote != null) {
                 removeVote(vote, voteType);
             } else {
                 vote(voteType);
 
             }
-        }
+        }*/
     }
 
     /**
      * User can't vote if he tries to downvote and already has downvoted, same with upvote
      */
     private boolean hasAlreadyVotedOfType(boolean score) {
-        Vote vote = expression.getVote(Session.getCurrentUser());
+        /*Vote vote = expression.getVote(Session.getCurrent());
         if(vote != null && vote.getType() == score) {
             return true;
-        }
+        }*/
         return false;
     }
 
@@ -91,8 +90,8 @@ public class ExpressionPresenter {
      * Removes vote
      */
     private void removeVote(Vote vote, boolean wantedVoteType) {
-        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<ResponseBody> call = service.deleteVote(Session.getCurrentUser().getId(), vote.getId());
+        /*ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+        Call<ResponseBody> call = service.deleteVote(Session.getCurrent().getId(), vote.getId());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -109,17 +108,17 @@ public class ExpressionPresenter {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 view.showError(context.getString(R.string.vote_error));
             }
-        });
+        });*/
     }
 
     /**
      * Add the new vote and updates the expression
      */
     private void vote(boolean score) {
-        Vote vote = new Vote(score, Session.getCurrentUser(), expression);
+        /*Vote vote = new Vote(score, Session.getCurrent(), expression);
 
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Vote> call = service.addVote(Session.getCurrentUser().getId(), vote);
+        Call<Vote> call = service.addVote(Session.getCurrent().getId(), vote);
         call.enqueue(new Callback<Vote>() {
             @Override
             public void onResponse(Call<Vote> call, Response<Vote> response) {
@@ -138,7 +137,7 @@ public class ExpressionPresenter {
             public void onFailure(Call<Vote> call, Throwable t) {
                 view.showError(context.getString(R.string.vote_error));
             }
-        });
+        });*/
     }
 
 }

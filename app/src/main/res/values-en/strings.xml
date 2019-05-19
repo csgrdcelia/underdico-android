@@ -29,7 +29,7 @@
     <string name="title_activity_login">Login</string>
     <string name="action_sign_in">Login</string>
     <string name="register">Register</string>
-    <string name="login_fail">Incorrect password attempt</string>
+    <string name="login_fail">Connection failed</string>
 
     <!-- Register -->
     <string name="username_length_indication">Username must contain between 3 and 16 characters</string>
