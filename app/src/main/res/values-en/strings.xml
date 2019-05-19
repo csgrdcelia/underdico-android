@@ -32,6 +32,11 @@
     <string name="login_fail">Incorrect password attempt</string>
 
     <!-- Register -->
+    <string name="username_length_indication">Username must contain between 3 and 16 characters</string>
+    <string name="invalid_mail">The email is invalid</string>
+    <string name="password_length_indication">Password must contain between 6 and 32 characters</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="password_confirmation">Confirm password</string>
     <string name="existing_login_details">These login details exists already</string>
     <string name="wrong_login_details">Wrong login details</string>
     <string name="register_success">Successful registration !</string>

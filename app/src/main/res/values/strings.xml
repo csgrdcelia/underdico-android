@@ -31,6 +31,11 @@
     <string name="login_fail">Les identifiants sont incorrects</string>
 
     <!-- Register -->
+    <string name="username_length_indication">Le pseudo doit faire entre 3 et 16 caractères</string>
+    <string name="invalid_mail">L\'email est invalide</string>
+    <string name="password_length_indication">Le mot de passe doit faire entre 6 et 32 caractères</string>
+    <string name="passwords_do_not_match">Les mots de passe sont différents</string>
+    <string name="password_confirmation">Confirmer le mot de passe</string>
     <string name="existing_login_details">Ces identifiants existent déjà</string>
     <string name="wrong_login_details">Identifiants incorrects</string>
     <string name="register_success">Inscription réussie !</string>

@@ -24,7 +24,7 @@ public class RegisterPresenter {
     }
 
     public void handleRegister(String username, String email, String password) {
-        if(username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        if(username.isEmpty() || email.isEmpty() || password.isEmpty() || view.hasInvalidFields()) {
             view.askUserToFillFields();
         } else {
             User user = new User(username, email, password, User.Role.User);
