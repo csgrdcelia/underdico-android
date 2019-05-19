@@ -23,6 +23,16 @@ public class LoginPresenter {
     public LoginPresenter(LoginView view, Context context) {
         this.view = view;
         this.context = context;
+
+        checkIfLogged();
+    }
+
+    private void checkIfLogged() {
+        Token token = Session.getFromSharedPref(context);
+        if(token.isValid()) {
+            Session.setCurrent(token);
+            view.loginSuccessfully();
+        }
     }
 
     public void handleLogin(String username, String password) {
@@ -33,7 +43,7 @@ public class LoginPresenter {
         }
     }
 
-    private void tryLogin (String username, String password) {
+    private void tryLogin(String username, String password) {
         UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
         Call<Token> call = service.login(username, password);
         call.enqueue(new Callback<Token>() {
