@@ -23,6 +23,7 @@ import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.presenters.HomePresenter;
 import com.esgi.project.underdico.models.Expression;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -101,7 +102,9 @@ public class HomeFragment extends Fragment implements HomeView {
     }
 
     @Override
-    public void displayExpressionOfTheDay(List<Expression> expression) {
+    public void displayExpressionOfTheDay(Expression expression) {
+        List<Expression> expressions = new ArrayList<>();
+        expressions.add(expression);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 getContext(),
                 DividerItemDecoration.VERTICAL
@@ -113,7 +116,7 @@ public class HomeFragment extends Fragment implements HomeView {
         ExpressionClickListener expressionClickListener = (view, expressionClicked) -> displayDetailedExpression(view, expressionClicked);
 
         dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expression, expressionClickListener, getContext()));
+        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext()));
         dayExpressionRecyclerView.addItemDecoration(dividerItemDecoration);
     }
 

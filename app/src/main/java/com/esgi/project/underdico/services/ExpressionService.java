@@ -18,6 +18,9 @@ public interface ExpressionService {
     @GET("words")
     Call<List<Expression>> getExpressions();
 
+    @GET("words/daily")
+    Call<Expression> getExpressionOfTheDay();
+
     @POST("words")
     Call<Expression> saveExpression(@Header("Authorization") String token, @Body Expression expression);
 

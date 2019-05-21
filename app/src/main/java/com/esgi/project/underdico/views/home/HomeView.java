@@ -8,6 +8,6 @@ public interface HomeView {
     void affectUIReferences();
     void setListeners();
     void displayExpressions(List<Expression> expressions);
-    void displayExpressionOfTheDay(List<Expression> expression);
+    void displayExpressionOfTheDay(Expression expression);
     void showError(String error);
 }

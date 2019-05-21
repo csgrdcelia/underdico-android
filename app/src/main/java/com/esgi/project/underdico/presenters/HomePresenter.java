@@ -34,10 +34,24 @@ public class HomePresenter {
     }
 
     private void displayExpressionOfTheDay() {
-        //TODO: call api
-        List<Expression> expression = new ArrayList<>();
-        expression.add(Expression.getExpressionOfTheDay());
-        view.displayExpressionOfTheDay(expression);
+        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+        Call<Expression> call = service.getExpressionOfTheDay();
+        call.enqueue(new Callback<Expression>() {
+            @Override
+            public void onResponse(Call<Expression> call, Response<Expression> response) {
+                if(response.isSuccessful())
+                    if(response.body() != null)
+                        view.displayExpressionOfTheDay(response.body());
+                    else
+                        view.showError(context.getString(R.string.expression_error));
+            }
+
+            @Override
+            public void onFailure(Call<Expression> call, Throwable t) {
+                view.showError(context.getString(R.string.expression_error));
+            }
+        });
+
     }
 
     private void displayExpressions() {
