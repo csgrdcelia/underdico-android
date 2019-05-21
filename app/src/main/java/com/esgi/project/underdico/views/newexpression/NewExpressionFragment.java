@@ -216,39 +216,39 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
     @Override
     public void showRecordFailed() {
-        Toast.makeText(getContext(), "Une erreur est apparue", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getString(R.string.error), Toast.LENGTH_SHORT).show();
         ibPlayStopAudio.setVisibility(View.GONE);
     }
 
     @Override
     public void showNotValidNameError() {
-        Toast.makeText(getContext(), "Le nom est invalide", Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.invalid_name), Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 
     @Override
     public void showTagExists() {
-        Toast.makeText(getContext(), "Le tag existe déjà", Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.tag_exists), Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 
     @Override
     public void showTagLimitIsReached() {
-        Toast.makeText(getContext(), "Vous avez atteint le nombre de tag maximal", Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.max_tag_reached), Toast.LENGTH_SHORT).show(); //TODO: langue
         addTag.setVisibility(View.GONE);
     }
 
     @Override
     public void showNotValidDefinitionError() {
-        Toast.makeText(getContext(), "La définition est invalide", Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.invalid_definition), Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 
     @Override
     public void creationFailed() {
-        Toast.makeText(getContext(), "La création a échoué", Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.creation_failed), Toast.LENGTH_SHORT).show(); //TODO: langue
     }
 
     @Override
     public void createSuccessfully() {
-        Toast.makeText(getContext(), "Votre expression a bien été créée et attend d'être validée !", Toast.LENGTH_LONG).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.expression_created), Toast.LENGTH_LONG).show(); //TODO: langue
         MainActivity activity = (MainActivity) getView().getContext();
         Fragment myFragment = HomeFragment.newInstance();
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();

@@ -71,7 +71,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
             Expression expression = (Expression) this.getArguments().getSerializable(EXPRESSION);
             presenter = new ExpressionPresenter(this, expression, getContext());
         } else {
-            Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getContext().getString(R.string.error), Toast.LENGTH_SHORT).show();
             goHome();
         }
     }

@@ -50,9 +50,19 @@
     <string name="day_expression">Expression du jour</string>
     <string name="last_expressions">Dernières expressions</string>
 
+    <!-- New expression -->
+    <string name="invalid_name">Le nom est invalide</string>
+    <string name="tag_exists">Le tag existe déjà</string>
+    <string name="max_tag_reached">Vous avez atteint le nombre de tag maximal</string>
+    <string name="invalid_definition">La définition est invalide</string>
+    <string name="creation_failed">La création a échoué</string>
+    <string name="expression_created">Votre expression a bien été créée et attend d\'être validée !</string>
+
+
     <!-- Errors -->
     <string name="expression_error">Une erreur est apparue lors de la récupération du/des expressions</string>
     <string name="vote_error">Une erreur est apparue lors du vote</string>
+    <string name="error">Une erreur est apparue</string>
 
 
     <integer-array name="languages">
