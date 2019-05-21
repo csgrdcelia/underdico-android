@@ -55,10 +55,10 @@ public class NewExpressionPresenter {
         //TODO: save sound (String pathToAudio = recorder == null ? null : recorder.getSavePath();)
         //TODO: save language
 
-        /*Expression expression = new Expression(expressionName, expressionDefinition, tags.toArray(new String[0]), Session.getCurrent());
+        Expression expression = new Expression(expressionName, expressionDefinition, tags.toArray(new String[0]));
 
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.saveExpression(Session.getCurrent().getId(), expression);
+        Call<Expression> call = service.saveExpression(Session.getCurrent().getValue(), expression);
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {
@@ -72,7 +72,7 @@ public class NewExpressionPresenter {
             public void onFailure(Call<Expression> call, Throwable t) {
                 view.creationFailed();
             }
-        });*/
+        });
     }
 
     /**

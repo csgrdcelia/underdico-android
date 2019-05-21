@@ -29,7 +29,7 @@ public class LoginPresenter {
 
     private void checkIfLogged() {
         Token token = Session.getFromSharedPref(context);
-        if(token.isValid()) {
+        if(token != null && token.isValid()) {
             Session.setCurrent(token);
             view.loginSuccessfully();
         }

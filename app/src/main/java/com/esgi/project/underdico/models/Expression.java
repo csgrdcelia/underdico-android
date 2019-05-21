@@ -25,20 +25,27 @@ public class Expression implements Serializable {
     private String[] tags;
     @SerializedName("votes")
     private List<Vote> votes;
+    @SerializedName("score")
+    private int score;
     @SerializedName("accountId")
     private String userId;
-
+    @SerializedName("userUpVoted")
+    private boolean userUpvoted;
+    @SerializedName("userDownVoted")
+    private boolean userDownvoted;
+    @SerializedName("userVoteId")
+    private String userVoteId;
+    @SerializedName("createdAt")
     private Date createdAt;
+    @SerializedName("updatedAt")
     private Date updatedAt;
-
 
     public Expression() { }
 
-    public Expression(String label, String definition, String[] tags, User user) {
+    public Expression(String label, String definition, String[] tags) {
         this.label = label;
         this.definition = definition;
         this.tags = tags;
-        this.userId = user.getId();
     }
 
     public String getId() {
@@ -53,42 +60,13 @@ public class Expression implements Serializable {
         return label;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
     public String getDefinition() {
         return definition;
-    }
-
-    public void setDefinition(String definition) {
-        this.definition = definition;
-    }
-
-    public String[] getTags() {
-        return tags;
-    }
-
-    public void setTags(String[] tags) {
-        this.tags = tags;
-    }
-
-    public List<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(List<Vote> votes) {
-        this.votes = votes;
     }
 
     public String getUserId() {
         return userId;
     }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
 
     public Expression(String label, String definition, User user, String[] tags, List<Vote> votes, Date createdAt, Date updatedAt) {
         this.label = label;
