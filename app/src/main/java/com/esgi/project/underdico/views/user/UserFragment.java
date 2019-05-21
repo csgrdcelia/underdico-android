@@ -7,20 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.UserPresenter;
 
 public class UserFragment extends Fragment implements UserView {
 
     UserPresenter presenter;
-
+    User user;
+    private static final String USER_ARG = "user";
     public UserFragment() {
         // Required empty public constructor
     }
 
 
-    public static UserFragment newInstance() {
+    public static UserFragment newInstance(User user) {
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
+        args.putSerializable(USER_ARG, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -30,6 +33,7 @@ public class UserFragment extends Fragment implements UserView {
         super.onCreate(savedInstanceState);
         presenter = new UserPresenter(this);
         if (getArguments() != null) {
+            user = (User)getArguments().getSerializable(USER_ARG);
         }
     }
 

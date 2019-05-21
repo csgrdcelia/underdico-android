@@ -21,47 +21,6 @@ public class ExpressionTest {
     }
 
     @Test
-    public void getScore_WasOnlyUpvoted_Returns3() {
-        Expression expression = new Expression(
-                null,
-                null,
-                null,
-                null,
-                new Vote[] {new Vote(1), new Vote(1), new Vote(1)},
-                null, null);
-
-        Assert.assertEquals(3, expression.getScore());
-    }
-
-    @Test
-    public void getScore_WasOnlyDownvoted_ReturnsMinus3() {
-        Expression expression = new Expression(
-                null,
-                null,
-                null,
-                null,
-                new Vote[] {new Vote(-1), new Vote(-1), new Vote(-1)},
-                null,
-                null);
-
-        Assert.assertEquals(-3, expression.getScore());
-    }
-
-    @Test
-    public void getScore_WasDownvotedAndUpvoted_Returns3() {
-        Expression expression = new Expression(
-                null,
-                null,
-                null,
-                null,
-                new Vote[] {new Vote(1), new Vote(1), new Vote(1), new Vote(1), new Vote(-1)},
-                null,
-                null);
-
-        Assert.assertEquals(3, expression.getScore());
-    }
-
-    @Test
     public void getCreatedAt_Format() {
         Expression expression = new Expression(
                 null,

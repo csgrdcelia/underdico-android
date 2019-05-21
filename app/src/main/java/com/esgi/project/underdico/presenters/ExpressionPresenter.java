@@ -11,6 +11,9 @@ import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.expression.DetailedExpressionView;
 import com.esgi.project.underdico.views.expression.ExpressionView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +32,22 @@ public class ExpressionPresenter {
     }
 
     private void initialize() {
+        updateView();
+    }
+
+    private void updateView() {
         view.displayExpression(expression);
         view.displayTags(expression.getTagArray());
-        updateViewIfUserHasVoted();
+
+        if(expression.userDownvoted())
+            view.displayUserVote(false);
+        else if(expression.userUpvoted()) {
+            view.displayUserVote(true);
+        }
+    }
+
+    public Expression getExpression() {
+        return expression;
     }
 
     /**
@@ -43,39 +59,73 @@ public class ExpressionPresenter {
     }
 
     /**
-     * If the user has already voted, related button is disabled
-     */
-    private void updateViewIfUserHasVoted() {
-        /*Vote vote = expression.getVote(Session.getCurrent());
-        if(vote != null) {
-            view.displayAlreadyVoted(vote.getType());
-        }*/
-    }
-
-    /**
      * Checks if user can vote and if so, updates expression and view
      */
     public void tryVote(boolean voteType) {
-        /*if(!hasAlreadyVotedOfType(voteType)) {
-            Vote vote = expression.getVote(Session.getCurrent());
-            if(vote != null) {
-                removeVote(vote, voteType);
-            } else {
-                vote(voteType);
-
-            }
-        }*/
+        if(!hasAlreadyVotedOfType(voteType)) {
+            vote(voteType);
+        }
     }
 
     /**
      * User can't vote if he tries to downvote and already has downvoted, same with upvote
      */
-    private boolean hasAlreadyVotedOfType(boolean score) {
-        /*Vote vote = expression.getVote(Session.getCurrent());
-        if(vote != null && vote.getType() == score) {
-            return true;
-        }*/
-        return false;
+    private boolean hasAlreadyVotedOfType(boolean type) {
+        if(type)
+            return expression.userUpvoted();
+        else
+            return expression.userDownvoted();
+
+    }
+
+    /**
+     * Add the new vote and updates the expression
+     */
+    private void vote(boolean voteType) {
+        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+
+        Call<ResponseBody> call = null;
+        if(expression.getUserVoteId() != null)
+            call = service.updateVote(Session.getCurrent().getValue(), expression.getId(), expression.getUserVoteId(), new Vote(voteType));
+        else
+            call = service.vote(Session.getCurrent().getValue(), expression.getId(), new Vote(voteType));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful() || response.body() != null) {
+                    updateExpression();
+                } else {
+                    view.showError(context.getString(R.string.vote_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                view.showError(context.getString(R.string.vote_error));
+            }
+        });
+    }
+
+    private void updateExpression() {
+        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+        Call<Expression> call = service.getExpression(expression.getId());
+        call.enqueue(new Callback<Expression>() {
+            @Override
+            public void onResponse(Call<Expression> call, Response<Expression> response) {
+                if(response.isSuccessful() || response.body() != null) {
+                    expression = response.body();
+                    updateView();
+                }
+                else {
+                    view.showError(context.getString(R.string.error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Expression> call, Throwable t) {
+                view.showError(context.getString(R.string.error));
+            }
+        });
     }
 
     /**
@@ -86,58 +136,6 @@ public class ExpressionPresenter {
         ((DetailedExpressionView)view).goToNewExpressionView(expression);
     }
 
-    /**
-     * Removes vote
-     */
-    private void removeVote(Vote vote, boolean wantedVoteType) {
-        /*ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<ResponseBody> call = service.deleteVote(Session.getCurrent().getId(), vote.getId());
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
-                    expression.removeVote(vote);
-                    tryVote(wantedVoteType);
-                }
-                else {
-                    view.showError(context.getString(R.string.vote_error));
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                view.showError(context.getString(R.string.vote_error));
-            }
-        });*/
-    }
-
-    /**
-     * Add the new vote and updates the expression
-     */
-    private void vote(boolean score) {
-        /*Vote vote = new Vote(score, Session.getCurrent(), expression);
-
-        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Vote> call = service.addVote(Session.getCurrent().getId(), vote);
-        call.enqueue(new Callback<Vote>() {
-            @Override
-            public void onResponse(Call<Vote> call, Response<Vote> response) {
-                if(response.isSuccessful() || response.body() != null) {
-                    Vote newVote = response.body();
-                    expression.addVote(newVote);
-                    view.setScore(expression.getScore());
-                    view.displayAlreadyVoted(newVote.getType());
-                }
-                else {
-                    view.showError(context.getString(R.string.vote_error));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Vote> call, Throwable t) {
-                view.showError(context.getString(R.string.vote_error));
-            }
-        });*/
-    }
 
 }

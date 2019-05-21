@@ -15,12 +15,14 @@ import android.widget.Toast;
 
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Vote;
 import com.esgi.project.underdico.views.newexpression.NewExpressionFragment;
+import com.esgi.project.underdico.views.user.UserFragment;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.List;
@@ -93,6 +95,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         ibOtherDefinition.setOnClickListener(v -> presenter.createOtherDefinition());
         ibDownvote.setOnClickListener(v -> presenter.tryVote(false));
         ibUpvote.setOnClickListener(v -> presenter.tryVote(true));
+        tvUsername.setOnClickListener(v -> redirectToUserPage(presenter.getExpression().getUser()));
     }
 
     @Override
@@ -127,7 +130,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         return textView;
     }
 
-    public void displayAlreadyVoted(boolean score) {
+    public void displayUserVote(boolean score) {
         ibDownvote.setEnabled(score == false ? false : true);
         ibUpvote.setEnabled(score == true ? false : true);
     }
@@ -145,14 +148,16 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     }
 
     @Override
-    public void setScore(int vote) {
-        tvScore.setText(String.valueOf(vote));
-    }
-
-    @Override
     public void searchWithTag(String tag, List<Expression> expressions) {
         MainActivity activity = (MainActivity) getView().getContext();
         Fragment myFragment = SearchFragment.newInstance(tag, expressions);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void redirectToUserPage(User user) {
+        MainActivity activity = (MainActivity) getContext();
+        Fragment myFragment = UserFragment.newInstance(user);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 

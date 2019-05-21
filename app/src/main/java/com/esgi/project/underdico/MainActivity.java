@@ -19,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esgi.project.underdico.models.User;
+import com.esgi.project.underdico.services.ExpressionService;
+import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.views.channels.GameChannelsFragment;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.views.home.HomeFragment;
@@ -26,6 +29,10 @@ import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.views.newexpression.NewExpressionFragment;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.views.user.UserFragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setUserPageListener() {
         userPicture.setOnClickListener(
-                v -> updateFragment(UserFragment.newInstance())
+                v -> updateFragment(UserFragment.newInstance(new User("1", "celia")))
         );
     }
 
@@ -108,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.random) {
-            updateFragment(ExpressionFragment.newInstance(Expression.getRandomExpression()));
+            displayRandomExpression();
         }
 
         return super.onOptionsItemSelected(item);
@@ -148,6 +155,24 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
+    }
+
+    private void displayRandomExpression() {
+        ExpressionService service = ApiInstance.getRetrofitInstance(getApplicationContext()).create(ExpressionService.class);
+        Call<Expression> call = service.getRandomExpression();
+        call.enqueue(new Callback<Expression>() {
+            @Override
+            public void onResponse(Call<Expression> call, Response<Expression> response) {
+                if(response.isSuccessful())
+                    if(response.body() != null)
+                        updateFragment(ExpressionFragment.newInstance(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<Expression> call, Throwable t) {
+                Toast.makeText(MainActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /*@Override

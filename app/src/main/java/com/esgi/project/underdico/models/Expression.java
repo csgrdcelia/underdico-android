@@ -27,8 +27,8 @@ public class Expression implements Serializable {
     private List<Vote> votes;
     @SerializedName("score")
     private int score;
-    @SerializedName("accountId")
-    private String userId;
+    @SerializedName("user")
+    private User user;
     @SerializedName("userUpVoted")
     private boolean userUpvoted;
     @SerializedName("userDownVoted")
@@ -64,8 +64,21 @@ public class Expression implements Serializable {
         return definition;
     }
 
-    public String getUserId() {
-        return userId;
+    public boolean userUpvoted() {
+        return userUpvoted;
+    }
+
+    public boolean userDownvoted() {
+        return userDownvoted;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
+
+    public String getUserVoteId() {
+        return userVoteId;
     }
 
     public Expression(String label, String definition, User user, String[] tags, List<Vote> votes, Date createdAt, Date updatedAt) {
@@ -76,22 +89,6 @@ public class Expression implements Serializable {
         this.votes = votes;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    private User user;
-
-    public int getScore()
-    {
-        int score = 0;
-        if (votes != null) {
-            for (Vote vote : votes) {
-                if(vote.getType())
-                    score += 1;
-                else
-                    score -= 1;
-            }
-        }
-        return score;
     }
 
     public Vote getVote(User user) {
@@ -129,16 +126,6 @@ public class Expression implements Serializable {
 
     public User getUser() {
         return user;
-    }
-
-    //TODO: get real expression of the day
-    public static Expression getExpressionOfTheDay() {
-        return new Expression("Expression du jour", "Ceci est la définition de l'expression du jour", new User("2", "user"), null, null, null, null);
-    }
-
-    public static Expression getRandomExpression() {
-        List<Expression> expressions = getExpressionsList();
-        return expressions.get(new Random().nextInt(expressions.size()));
     }
 
     //TODO: get real expressions list

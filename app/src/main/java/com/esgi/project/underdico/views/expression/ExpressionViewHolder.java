@@ -14,10 +14,12 @@ import android.widget.Toast;
 
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Vote;
+import com.esgi.project.underdico.views.user.UserFragment;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.List;
@@ -70,6 +72,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         tvExpression.setOnClickListener(v -> listener.onClick(v, expression));
         ibDownvote.setOnClickListener(v -> presenter.tryVote(false));
         ibUpvote.setOnClickListener(v -> presenter.tryVote(true));
+        tvUsername.setOnClickListener( v -> redirectToUserPage(expression.getUser()));
     }
 
 
@@ -79,8 +82,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         tvExpression.setText(expression.getLabel());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
-        //tvUsername.setText(expression.getUser().getUsername());
-        tvUsername.setText(expression.getUserId()); //TODO: get user when in API
+        tvUsername.setText(expression.getUser().getUsername());
     }
 
     @Override
@@ -92,6 +94,8 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
             }
         }
     }
+
+
 
     private TextView createTextViewTag(String tag) {
         TextView textView = new TextView(context);
@@ -108,20 +112,22 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     }
 
     @Override
-    public void displayAlreadyVoted(boolean score) {
+    public void displayUserVote(boolean score) {
         ibDownvote.setEnabled(score == false ? false : true);
         ibUpvote.setEnabled(score == true ? false : true);
-    }
-
-    @Override
-    public void setScore(int vote) {
-        tvScore.setText(String.valueOf(vote));
     }
 
     @Override
     public void searchWithTag(String tag, List<Expression> expressions) {
         MainActivity activity = (MainActivity) context;
         Fragment myFragment = SearchFragment.newInstance(tag, expressions);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void redirectToUserPage(User user) {
+        MainActivity activity = (MainActivity) context;
+        Fragment myFragment = UserFragment.newInstance(user);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 

@@ -6,6 +6,7 @@ import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
+import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.home.HomeView;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class HomePresenter {
 
     private void displayExpressions() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<List<Expression>> call = service.getExpressions();
+        Call<List<Expression>> call = service.getExpressions(Session.getCurrent().getValue());
         call.enqueue(new Callback<List<Expression>>() {
             @Override
             public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {
