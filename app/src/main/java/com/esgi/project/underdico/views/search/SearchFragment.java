@@ -102,7 +102,7 @@ public class SearchFragment extends Fragment {
         ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
 
         rvResults.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        rvResults.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext()));
+        rvResults.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), null));
         rvResults.addItemDecoration(dividerItemDecoration);
     }
 

@@ -37,6 +37,8 @@ public class HomeFragment extends Fragment implements HomeView {
     RecyclerView expressionsRecyclerView;
     RecyclerView dayExpressionRecyclerView;
 
+    Expression expressionOfTheDay;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -87,7 +89,7 @@ public class HomeFragment extends Fragment implements HomeView {
         ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
 
         expressionsRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        expressionsRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext()));
+        expressionsRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), this));
         expressionsRecyclerView.addItemDecoration(dividerItemDecoration);
 
         expressionsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -103,6 +105,7 @@ public class HomeFragment extends Fragment implements HomeView {
 
     @Override
     public void displayExpressionOfTheDay(Expression expression) {
+        expressionOfTheDay = expression;
         List<Expression> expressions = new ArrayList<>();
         expressions.add(expression);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
@@ -116,8 +119,13 @@ public class HomeFragment extends Fragment implements HomeView {
         ExpressionClickListener expressionClickListener = (view, expressionClicked) -> displayDetailedExpression(view, expressionClicked);
 
         dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext()));
+        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), this));
         dayExpressionRecyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public boolean isExpressionOfTheDay(Expression expression) {
+        return expressionOfTheDay.getId() == expression.getId();
     }
 
     private void displayDetailedExpression(View view, Object expression) {

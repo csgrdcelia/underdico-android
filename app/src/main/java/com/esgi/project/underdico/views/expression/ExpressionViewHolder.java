@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.esgi.project.underdico.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
+import com.esgi.project.underdico.views.home.HomeView;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.models.Expression;
@@ -27,6 +28,7 @@ import java.util.List;
 public class ExpressionViewHolder extends RecyclerView.ViewHolder implements ExpressionView {
 
     private Context context;
+    private HomeView parent;
     private ExpressionPresenter presenter;
     private Expression expression;
     private ExpressionClickListener listener;
@@ -42,10 +44,11 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     private View.OnClickListener tagListener;
 
 
-    public ExpressionViewHolder(@NonNull View itemView, ExpressionClickListener listener, Context context) {
+    public ExpressionViewHolder(@NonNull View itemView, ExpressionClickListener listener, Context context, HomeView parent) {
         super(itemView);
         this.context = context;
         this.listener = listener;
+        this.parent = parent;
         assignViews();
         setOnClickListeners();
     }
@@ -63,7 +66,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
 
     public void bind(Expression expression) {
         this.expression = expression;
-        presenter = new ExpressionPresenter(this, expression, context);
+        presenter = new ExpressionPresenter(this, expression, context, parent);
 
     }
 
@@ -112,9 +115,11 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     }
 
     @Override
-    public void displayUserVote(boolean score) {
-        ibDownvote.setEnabled(score == false ? false : true);
-        ibUpvote.setEnabled(score == true ? false : true);
+    public void displayUserVote(boolean voteType) {
+        ibUpvote.setImageResource( voteType == true ? R.drawable.ic_arrow_up_green : R.drawable.ic_arrow_up);
+        ibDownvote.setImageResource( voteType == false ? R.drawable.ic_arrow_down_red : R.drawable.ic_arrow_down);
+        ibDownvote.setEnabled(voteType == false ? false : true);
+        ibUpvote.setEnabled(voteType == true ? false : true);
     }
 
     @Override

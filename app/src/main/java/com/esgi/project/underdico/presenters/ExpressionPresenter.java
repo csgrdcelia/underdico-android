@@ -10,9 +10,7 @@ import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.expression.DetailedExpressionView;
 import com.esgi.project.underdico.views.expression.ExpressionView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.esgi.project.underdico.views.home.HomeView;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -20,14 +18,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ExpressionPresenter {
+    HomeView parent;
     ExpressionView view;
     Expression expression;
     Context context;
 
-    public ExpressionPresenter(ExpressionView view, Expression expression, Context context) {
+    public ExpressionPresenter(ExpressionView view, Expression expression, Context context, HomeView parent) {
         this.view = view;
         this.expression = expression;
         this.context = context;
+        this.parent = parent;
         initialize();
     }
 
@@ -45,6 +45,7 @@ public class ExpressionPresenter {
             view.displayUserVote(true);
         }
     }
+
 
     public Expression getExpression() {
         return expression;
@@ -86,9 +87,9 @@ public class ExpressionPresenter {
 
         Call<ResponseBody> call = null;
         if(expression.getUserVoteId() != null)
-            call = service.updateVote(Session.getCurrent().getValue(), expression.getId(), expression.getUserVoteId(), new Vote(voteType));
+            call = service.updateVote(Session.getCurrent().getToken(), expression.getId(), expression.getUserVoteId(), new Vote(voteType));
         else
-            call = service.vote(Session.getCurrent().getValue(), expression.getId(), new Vote(voteType));
+            call = service.vote(Session.getCurrent().getToken(), expression.getId(), new Vote(voteType));
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -108,13 +109,14 @@ public class ExpressionPresenter {
 
     private void updateExpression() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.getExpression(expression.getId());
+        Call<Expression> call = service.getExpression(Session.getCurrent().getToken(),expression.getId());
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {
                 if(response.isSuccessful() || response.body() != null) {
                     expression = response.body();
                     updateView();
+                    updateExpressionOfTheDay();
                 }
                 else {
                     view.showError(context.getString(R.string.error));
@@ -126,6 +128,15 @@ public class ExpressionPresenter {
                 view.showError(context.getString(R.string.error));
             }
         });
+    }
+
+    /**
+     * Check if the expression of the day corresponds to the current expression and if so, updates it
+     */
+    private void updateExpressionOfTheDay() {
+        if (parent != null)
+            if(parent.isExpressionOfTheDay(expression)){}
+        parent.displayExpressionOfTheDay(expression);
     }
 
     /**

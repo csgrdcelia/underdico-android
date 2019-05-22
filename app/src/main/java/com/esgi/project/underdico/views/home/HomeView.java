@@ -9,5 +9,6 @@ public interface HomeView {
     void setListeners();
     void displayExpressions(List<Expression> expressions);
     void displayExpressionOfTheDay(Expression expression);
+    boolean isExpressionOfTheDay(Expression expression);
     void showError(String error);
 }

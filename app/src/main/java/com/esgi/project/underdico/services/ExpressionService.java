@@ -19,10 +19,10 @@ public interface ExpressionService {
     Call<List<Expression>> getExpressions(@Header("Authorization") String token);
 
     @GET("words/{wordId}")
-    Call<Expression> getExpression(@Path("wordId") String id);
+    Call<Expression> getExpression(@Header("Authorization") String token, @Path("wordId") String id);
 
     @GET("words/daily")
-    Call<Expression> getExpressionOfTheDay();
+    Call<Expression> getExpressionOfTheDay(@Header("Authorization") String token);
 
     @GET("words/random")
     Call<Expression> getRandomExpression();

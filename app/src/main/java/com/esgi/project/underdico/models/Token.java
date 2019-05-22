@@ -16,7 +16,7 @@ public class Token {
         return createdAt.before(limitDate.getTime());
     }
 
-    public String getValue() {
+    public String getToken() {
         return "Bearer " + token;
     }
 }

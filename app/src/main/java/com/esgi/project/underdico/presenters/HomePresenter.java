@@ -9,7 +9,6 @@ import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.home.HomeView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,7 +35,7 @@ public class HomePresenter {
 
     private void displayExpressionOfTheDay() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.getExpressionOfTheDay();
+        Call<Expression> call = service.getExpressionOfTheDay(Session.getCurrent().getToken());
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {
@@ -57,7 +56,7 @@ public class HomePresenter {
 
     private void displayExpressions() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<List<Expression>> call = service.getExpressions(Session.getCurrent().getValue());
+        Call<List<Expression>> call = service.getExpressions(Session.getCurrent().getToken());
         call.enqueue(new Callback<List<Expression>>() {
             @Override
             public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {

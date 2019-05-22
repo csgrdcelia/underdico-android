@@ -58,7 +58,7 @@ public class NewExpressionPresenter {
         Expression expression = new Expression(expressionName, expressionDefinition, tags.toArray(new String[0]));
 
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.saveExpression(Session.getCurrent().getValue(), expression);
+        Call<Expression> call = service.saveExpression(Session.getCurrent().getToken(), expression);
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {
