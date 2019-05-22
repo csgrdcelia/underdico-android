@@ -1,4 +1,4 @@
-package com.esgi.project.underdico;
+package com.esgi.project.underdico.views.main;
 
 import android.app.SearchManager;
 import android.content.Intent;
@@ -19,9 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
+import com.esgi.project.underdico.presenters.MainPresenter;
 import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
+import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.channels.GameChannelsFragment;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.views.home.HomeFragment;
@@ -35,32 +38,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainView {
+
+    MainPresenter presenter;
+
     ImageView userPicture;
     TextView profilename;
-    private static final int PERMISSION_TO_RECORD = 100;
+
+    NavigationView navigationView;
+    Toolbar toolbar;
+    DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        View headerView = navigationView.getHeaderView(0);
-        profilename = headerView.findViewById(R.id.tvUsername);
-        userPicture = headerView.findViewById(R.id.ivUserPicture);
-
-        displayUserInfos();
+        presenter = new MainPresenter(this, getApplicationContext());
 
         setUserPageListener();
 
@@ -76,14 +70,39 @@ public class MainActivity extends AppCompatActivity
             updateFragment(HomeFragment.newInstance());
     }
 
+    @Override
+    public void assignViews() {
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        profilename = headerView.findViewById(R.id.tvUsername);
+        userPicture = headerView.findViewById(R.id.ivUserPicture);
+    }
+
+    @Override
+    public void setListeners() {
+        setSupportActionBar(toolbar);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+    }
+
+    @Override
+    public void displayUserInformation() {
+        profilename.setText(Session.getUser().getUsername());
+        //userPicture.
+    }
+
     private void launchSearch(String query) {
         updateFragment(SearchFragment.newInstance(query));
     }
 
-    private void displayUserInfos() {
-        profilename.setText("User1"); //TODO: retrieve real user
-        //userPicture.
-    }
+
 
     private void setUserPageListener() {
         userPicture.setOnClickListener(
@@ -175,24 +194,5 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.i("LOGAPP", "Réponse permission");
-        switch (requestCode) {
-            case PERMISSION_TO_RECORD: {
-                if (grantResults.length >= 2
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i("LOGAPP", "Permission accordée");
-                   // presenter.recordAudio(getContext());
 
-                } else {
-                    Log.i("LOGAPP", "Permission non accordée");
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-        }
-    }*/
 }

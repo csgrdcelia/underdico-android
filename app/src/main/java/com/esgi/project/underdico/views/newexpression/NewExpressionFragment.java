@@ -17,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.views.home.HomeFragment;
-import com.esgi.project.underdico.MainActivity;
+import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.presenters.NewExpressionPresenter;

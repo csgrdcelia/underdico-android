@@ -3,9 +3,7 @@ package com.esgi.project.underdico.presenters;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Token;
-import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.services.UserService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Session;
@@ -30,7 +28,7 @@ public class LoginPresenter {
     private void checkIfLogged() {
         Token token = Session.getFromSharedPref(context);
         if(token != null && token.isValid()) {
-            Session.setCurrent(token);
+            Session.setCurrentToken(token, context);
             view.loginSuccessfully();
         }
     }
@@ -50,7 +48,7 @@ public class LoginPresenter {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.isSuccessful()) {
-                    Session.setCurrent(response.body());
+                    Session.setCurrentToken(response.body(), context);
                     Session.saveToSharedPrefs(context);
                     view.loginSuccessfully();
                 } else {

@@ -12,14 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.esgi.project.underdico.MainActivity;
+import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.views.home.HomeView;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.models.Expression;
-import com.esgi.project.underdico.models.Vote;
 import com.esgi.project.underdico.views.user.UserFragment;
 import com.google.android.flexbox.FlexboxLayout;
 

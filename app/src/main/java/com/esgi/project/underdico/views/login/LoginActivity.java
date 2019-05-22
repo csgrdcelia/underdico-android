@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.esgi.project.underdico.MainActivity;
+import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.presenters.LoginPresenter;
 import com.esgi.project.underdico.views.register.RegisterActivity;

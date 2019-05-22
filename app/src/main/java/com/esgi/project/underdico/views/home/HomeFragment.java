@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.esgi.project.underdico.MainActivity;
+import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.views.expression.ExpressionAdapter;
 import com.esgi.project.underdico.views.expression.ExpressionClickListener;

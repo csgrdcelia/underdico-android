@@ -19,4 +19,8 @@ public class Token {
     public String getToken() {
         return "Bearer " + token;
     }
+
+    public String getUserId() {
+        return userId;
+    }
 }
