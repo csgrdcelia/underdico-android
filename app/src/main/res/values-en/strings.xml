@@ -63,6 +63,7 @@
     <string name="expression_error">An error occured while loading expression(s)</string>
     <string name="vote_error">An error occured while voting</string>
     <string name="error">An error occured</string>
+    <string name="network_error">Server connection failed</string>
 
     <integer-array name="languages">
 

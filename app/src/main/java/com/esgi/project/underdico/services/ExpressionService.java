@@ -25,7 +25,7 @@ public interface ExpressionService {
     Call<Expression> getExpressionOfTheDay(@Header("Authorization") String token);
 
     @GET("words/random")
-    Call<Expression> getRandomExpression();
+    Call<Expression> getRandomExpression(@Header("Authorization") String token);
 
     @POST("words")
     Call<Expression> saveExpression(@Header("Authorization") String token, @Body Expression expression);

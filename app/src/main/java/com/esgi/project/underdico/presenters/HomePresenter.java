@@ -35,7 +35,7 @@ public class HomePresenter {
 
     private void displayExpressionOfTheDay() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.getExpressionOfTheDay(Session.getCurrentToken().getToken());
+        Call<Expression> call = service.getExpressionOfTheDay(Session.getCurrentToken().getValue());
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {
@@ -56,7 +56,7 @@ public class HomePresenter {
 
     private void displayExpressions() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<List<Expression>> call = service.getExpressions(Session.getCurrentToken().getToken());
+        Call<List<Expression>> call = service.getExpressions(Session.getCurrentToken().getValue());
         call.enqueue(new Callback<List<Expression>>() {
             @Override
             public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {

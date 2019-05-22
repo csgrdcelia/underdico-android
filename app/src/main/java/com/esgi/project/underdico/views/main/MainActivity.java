@@ -29,6 +29,7 @@ import com.esgi.project.underdico.views.channels.GameChannelsFragment;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.models.Expression;
+import com.esgi.project.underdico.views.login.LoginActivity;
 import com.esgi.project.underdico.views.newexpression.NewExpressionFragment;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.views.user.UserFragment;
@@ -93,9 +94,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void displayUserInformation() {
-        profilename.setText(Session.getUser().getUsername());
-        //userPicture.
+    public void displayUserInformation(User user) {
+        profilename.setText(user.getUsername());
     }
 
     private void launchSearch(String query) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.random) {
-            displayRandomExpression();
+            presenter.callRandomExpression();
         }
 
         return super.onOptionsItemSelected(item);
@@ -175,23 +175,20 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
     }
+    @Override
+    public void displayRandomExpression(Expression expression) {
+        updateFragment(ExpressionFragment.newInstance(expression));
+    }
 
-    private void displayRandomExpression() {
-        ExpressionService service = ApiInstance.getRetrofitInstance(getApplicationContext()).create(ExpressionService.class);
-        Call<Expression> call = service.getRandomExpression();
-        call.enqueue(new Callback<Expression>() {
-            @Override
-            public void onResponse(Call<Expression> call, Response<Expression> response) {
-                if(response.isSuccessful())
-                    if(response.body() != null)
-                        updateFragment(ExpressionFragment.newInstance(response.body()));
-            }
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
 
-            @Override
-            public void onFailure(Call<Expression> call, Throwable t) {
-                Toast.makeText(MainActivity.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void redirectToLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
 

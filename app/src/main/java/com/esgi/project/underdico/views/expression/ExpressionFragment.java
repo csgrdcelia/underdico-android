@@ -129,9 +129,11 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         return textView;
     }
 
-    public void displayUserVote(boolean score) {
-        ibDownvote.setEnabled(score == false ? false : true);
-        ibUpvote.setEnabled(score == true ? false : true);
+    public void displayUserVote(boolean voteType) {
+        ibUpvote.setImageResource( voteType == true ? R.drawable.ic_arrow_up_green : R.drawable.ic_arrow_up);
+        ibDownvote.setImageResource( voteType == false ? R.drawable.ic_arrow_down_red : R.drawable.ic_arrow_down);
+        ibDownvote.setEnabled(voteType == false ? false : true);
+        ibUpvote.setEnabled(voteType == true ? false : true);
     }
 
     public void goToNewExpressionView(Expression expression) {

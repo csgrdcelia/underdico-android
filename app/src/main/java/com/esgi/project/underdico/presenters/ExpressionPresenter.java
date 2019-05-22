@@ -87,9 +87,9 @@ public class ExpressionPresenter {
 
         Call<ResponseBody> call = null;
         if(expression.getUserVoteId() != null)
-            call = service.updateVote(Session.getCurrentToken().getToken(), expression.getId(), expression.getUserVoteId(), new Vote(voteType));
+            call = service.updateVote(Session.getCurrentToken().getValue(), expression.getId(), expression.getUserVoteId(), new Vote(voteType));
         else
-            call = service.vote(Session.getCurrentToken().getToken(), expression.getId(), new Vote(voteType));
+            call = service.vote(Session.getCurrentToken().getValue(), expression.getId(), new Vote(voteType));
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -109,7 +109,7 @@ public class ExpressionPresenter {
 
     private void updateExpression() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.getExpression(Session.getCurrentToken().getToken(),expression.getId());
+        Call<Expression> call = service.getExpression(Session.getCurrentToken().getValue(),expression.getId());
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {
