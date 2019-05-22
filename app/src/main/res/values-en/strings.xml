@@ -59,6 +59,13 @@
     <string name="creation_failed">Creation failed</string>
     <string name="expression_created">Your expression was created and waits for validation !</string>
 
+    <!-- User page -->
+    <string name="user">User</string>
+    <string name="admin">Administrator</string>
+    <string name="undefined">Non défini</string>
+    <string name="karma">Karma</string>
+    <string name="game_score">Game score</string>
+
     <!-- Errors -->
     <string name="expression_error">An error occured while loading expression(s)</string>
     <string name="vote_error">An error occured while voting</string>

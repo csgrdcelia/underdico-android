@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment implements HomeView {
     }
 
     @Override
-    public void affectUIReferences() {
+    public void assignViews() {
         closeDayExpression = getView().findViewById(R.id.closeDayExpressionButton);
         dayExpressionLayout = getView().findViewById(R.id.dayExpressionLayout);
         dayExpressionInnerLayout = getView().findViewById(R.id.dayExpressionInnerLayout);

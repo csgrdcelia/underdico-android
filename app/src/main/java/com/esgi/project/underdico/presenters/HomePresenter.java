@@ -27,7 +27,7 @@ public class HomePresenter {
     }
 
     private void initialize() {
-        view.affectUIReferences();
+        view.assignViews();
         view.setListeners();
         displayExpressionOfTheDay();
         displayExpressions();

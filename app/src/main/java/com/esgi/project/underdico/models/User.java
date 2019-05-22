@@ -1,5 +1,9 @@
 package com.esgi.project.underdico.models;
 
+import android.content.Context;
+
+import com.esgi.project.underdico.R;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,6 +21,7 @@ public class User implements Serializable {
     private Date createdAt;
     private Date updatedAt;
     private String role;
+    private int karma;
 
     public User(String id, String username) {
         this.id = id;
@@ -50,5 +55,18 @@ public class User implements Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getRole(Context context) {
+        if (role.equals("User"))
+            return context.getString(R.string.user);
+        else if (role.equals("Admin"))
+            return context.getString(R.string.admin);
+        else
+            return context.getString(R.string.undefined);
+    }
+
+    public int getKarma() {
+        return karma;
     }
 }
