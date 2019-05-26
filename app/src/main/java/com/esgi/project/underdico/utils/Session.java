@@ -2,15 +2,28 @@ package com.esgi.project.underdico.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.View;
+import android.widget.Toast;
 
+import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Token;
+import com.esgi.project.underdico.models.User;
+import com.esgi.project.underdico.services.UserService;
+import com.esgi.project.underdico.views.login.LoginView;
+import com.esgi.project.underdico.views.main.MainView;
 import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Session {
     private static String ARG_SESSION_FILE = "sessionFile";
     private static String ARG_SESSION_KEY = "session";
+
     private static Token currentToken = null;
+    private static User currentUser = null;
 
     private Session() {}
 
@@ -45,4 +58,35 @@ public class Session {
     public static boolean isLoggedIn() {
         return currentToken != null;
     }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void callUserInformation(Context context, LoginView view) {
+        view.showProgress(true);
+        UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
+        Call<User> call = service.getUser(Session.getCurrentToken().getValue(), Session.getCurrentToken().getUserId());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                view.showProgress(false);
+                if(response.isSuccessful() || response.body() != null) {
+                    currentUser = response.body();
+                    view.loginSuccessfully();
+                }  else if (response.code() == Constants.HTTP_UNAUTHORIZED) {
+                    view.showError(context.getString(R.string.expired_token));
+                } else {
+                    view.showError(context.getString(R.string.error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                view.showProgress(false);
+                view.showError(context.getString(R.string.network_error));
+            }
+        });
+    }
+
 }

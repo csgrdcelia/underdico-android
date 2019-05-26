@@ -21,6 +21,7 @@ import retrofit2.Response;
 public class MainPresenter {
     MainView view;
     Context context;
+    User user;
 
     public MainPresenter(MainView view, Context context) {
         this.view = view;
@@ -32,30 +33,9 @@ public class MainPresenter {
     private void initialize() {
         view.assignViews();
         view.setListeners();
-        callUserInformation();
-    }
+        view.displayUserInformation();
+        setLanguage(Session.getCurrentUser().getLanguage());
 
-    private void callUserInformation() {
-        UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
-        Call<User> call = service.getUser(Session.getCurrentToken().getValue(), Session.getCurrentToken().getUserId());
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful() || response.body() != null) {
-                    view.displayUserInformation(response.body());
-                    setLanguage(response.body().getLanguage());
-                } else if (response.code() == Constants.HTTP_UNAUTHORIZED) {
-                    view.redirectToLoginPage();
-                } else {
-                    view.showError(context.getString(R.string.error));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                view.showError(context.getString(R.string.network_error));
-            }
-        });
     }
 
     public void callRandomExpression() {
@@ -82,7 +62,6 @@ public class MainPresenter {
         if(changed) {
             view.refresh();
         }
-
     }
 
 }

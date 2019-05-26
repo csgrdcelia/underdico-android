@@ -30,6 +30,7 @@
     <string name="action_sign_in">Login</string>
     <string name="register">Register</string>
     <string name="login_fail">Connection failed</string>
+    <string name="expired_token">The token has expired</string>
 
     <!-- Register -->
     <string name="username_length_indication">Username must contain between 3 and 16 characters</string>

@@ -29,6 +29,7 @@
     <string name="action_sign_in">Connexion</string>
     <string name="register">S\'inscrire</string>
     <string name="login_fail">La connexion a échoué</string>
+    <string name="expired_token">Le token a expiré</string>
 
     <!-- Register -->
     <string name="username_length_indication">Le pseudo doit faire entre 3 et 16 caractères</string>

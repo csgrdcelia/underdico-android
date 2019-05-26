@@ -78,9 +78,7 @@ public class MainActivity extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         profilename = headerView.findViewById(R.id.tvUsername);
         userPicture = headerView.findViewById(R.id.ivUserPicture);
-        userPicture.setOnClickListener(
-                v -> updateFragment(UserFragment.newInstance(new User("1", "celia")))
-        );
+        userPicture.setOnClickListener(v -> redirectToUserPage());
     }
 
     @Override
@@ -96,8 +94,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void displayUserInformation(User user) {
-        profilename.setText(user.getUsername());
+    public void displayUserInformation() {
+        profilename.setText(Session.getCurrentUser().getUsername());
     }
 
     private void launchSearch(String query) {
@@ -183,6 +181,11 @@ public class MainActivity extends AppCompatActivity
     public void redirectToLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void redirectToUserPage() {
+        updateFragment(UserFragment.newInstance(Session.getCurrentUser()));
     }
 
     @Override

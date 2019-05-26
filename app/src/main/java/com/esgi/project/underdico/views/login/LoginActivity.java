@@ -31,18 +31,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        presenter = new LoginPresenter(this, getApplicationContext());
-
         assignViews();
-        setUsernameIfPresent();
         setListeners();
+        setUsernameIfPresent();
 
+        presenter = new LoginPresenter(this, getApplicationContext());
         usernameView.requestFocus();
 
     }
 
     private void attemptLogin() {
-
         String email = usernameView.getText().toString();
         String password = passwordView.getText().toString();
 
@@ -71,13 +69,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         registerButton.setOnClickListener(view -> goToRegisterView());
     }
 
-
-
-    @Override
-    public void showProgress(final boolean show) {
-        progressView.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
     @Override
     public void goToRegisterView() {
         Intent intent = new Intent(this, RegisterActivity.class);
@@ -100,5 +91,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Toast.makeText(this, this.getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showProgress(final boolean show) {
+        progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 }
 

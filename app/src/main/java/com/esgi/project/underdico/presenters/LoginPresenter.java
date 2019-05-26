@@ -29,7 +29,7 @@ public class LoginPresenter {
         Token token = Session.getFromSharedPref(context);
         if(token != null && token.isValid()) {
             Session.setCurrentToken(token, context);
-            view.loginSuccessfully();
+            Session.callUserInformation(context, view);
         }
     }
 
@@ -42,15 +42,17 @@ public class LoginPresenter {
     }
 
     private void tryLogin(String username, String password) {
+        view.showProgress(true);
         UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
         Call<Token> call = service.login(username, password);
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
+                view.showProgress(false);
                 if (response.isSuccessful()) {
                     Session.setCurrentToken(response.body(), context);
                     Session.saveToSharedPrefs(context);
-                    view.loginSuccessfully();
+                    Session.callUserInformation(context, view);
                 } else {
                     view.loginFail();
                 }
@@ -58,6 +60,7 @@ public class LoginPresenter {
 
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
+                view.showProgress(false);
                 view.loginFail();
             }
         });

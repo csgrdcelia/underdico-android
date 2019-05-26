@@ -8,5 +8,6 @@ public interface LoginView {
     void setUsernameIfPresent();
     void goToRegisterView();
     void loginSuccessfully();
+    void showError(String error);
     void loginFail();
 }
