@@ -90,14 +90,13 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     @Override
     public void displayTags(String[] tags) {
         if(tags != null) {
+            tagLayout.removeAllViews();
             for (String tag : tags) {
                 TextView textView = createTextViewTag(tag);
                 tagLayout.addView(textView);
             }
         }
     }
-
-
 
     private TextView createTextViewTag(String tag) {
         TextView textView = new TextView(context);

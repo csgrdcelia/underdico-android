@@ -108,6 +108,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     @Override
     public void displayTags(String[] tags) {
         if(tags != null) {
+            tagLayout.removeAllViews();
             for (String tag : tags) {
                 TextView textView = createTextViewTag(tag);
                 tagLayout.addView(textView);

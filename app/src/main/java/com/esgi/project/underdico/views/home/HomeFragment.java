@@ -125,6 +125,8 @@ public class HomeFragment extends Fragment implements HomeView {
 
     @Override
     public boolean isExpressionOfTheDay(Expression expression) {
+        if(expressionOfTheDay == null)
+            return false;
         return expressionOfTheDay.getId() == expression.getId();
     }
 

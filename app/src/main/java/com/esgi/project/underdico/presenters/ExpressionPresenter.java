@@ -135,8 +135,9 @@ public class ExpressionPresenter {
      */
     private void updateExpressionOfTheDay() {
         if (parent != null)
-            if(parent.isExpressionOfTheDay(expression)){}
-        parent.displayExpressionOfTheDay(expression);
+            if(parent.isExpressionOfTheDay(expression))
+                parent.displayExpressionOfTheDay(expression);
+
     }
 
     /**
