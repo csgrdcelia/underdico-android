@@ -1,6 +1,7 @@
 package com.esgi.project.underdico.views.main;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,16 +60,21 @@ public class MainActivity extends AppCompatActivity
 
         presenter = new MainPresenter(this, getApplicationContext());
 
+        if(!fromSearchView()) {
+            Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
+            if (existingFragment == null)
+                updateFragment(HomeFragment.newInstance());
+        }
+    }
+
+    private boolean fromSearchView() {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             launchSearch(query);
+            return true;
         }
-
-        Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
-
-        if(existingFragment == null)
-            updateFragment(HomeFragment.newInstance());
+        return false;
     }
 
     @Override
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         drawer = findViewById(R.id.drawer_layout);
         profilename = headerView.findViewById(R.id.tvUsername);
         userPicture = headerView.findViewById(R.id.ivUserPicture);
-        userPicture.setOnClickListener(v -> redirectToUserPage());
+        userPicture.setOnClickListener(v -> updateFragment(UserFragment.newInstance(Session.getCurrentUser())));
     }
 
     @Override
@@ -115,6 +122,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_app_bar, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
         return true;
     }
 
@@ -122,9 +137,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.random) {
+        if (id == R.id.random) {
             presenter.callRandomExpression();
         }
 
@@ -149,14 +162,12 @@ public class MainActivity extends AppCompatActivity
             redirectToLoginPage();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    /**
-     *  Bind the given fragment into R.id.mainFragment
-     */
+
     private void updateFragment(Fragment fragmentToGive) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -164,19 +175,15 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.disallowAddToBackStack();
         fragmentTransaction.commit();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
     }
+
     @Override
     public void displayRandomExpression(Expression expression) {
         updateFragment(ExpressionFragment.newInstance(expression));
-    }
-
-    @Override
-    public void showError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -186,14 +193,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void redirectToUserPage() {
-        updateFragment(UserFragment.newInstance(Session.getCurrentUser()));
-    }
-
-    @Override
     public void refresh() {
         recreate();
     }
 
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
 
 }

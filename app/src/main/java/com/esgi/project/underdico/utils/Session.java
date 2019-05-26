@@ -70,7 +70,6 @@ public class Session {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                view.showProgress(false);
                 if(response.isSuccessful() || response.body() != null) {
                     currentUser = response.body();
                     view.loginSuccessfully();
@@ -79,6 +78,7 @@ public class Session {
                 } else {
                     view.showError(context.getString(R.string.error));
                 }
+                view.showProgress(false);
             }
 
             @Override

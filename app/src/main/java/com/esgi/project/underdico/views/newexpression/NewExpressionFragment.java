@@ -229,33 +229,33 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
     @Override
     public void showNotValidNameError() {
-        Toast.makeText(getContext(), getContext().getString(R.string.invalid_name), Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.invalid_name), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showTagExists() {
-        Toast.makeText(getContext(), getContext().getString(R.string.tag_exists), Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.tag_exists), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showTagLimitIsReached() {
-        Toast.makeText(getContext(), getContext().getString(R.string.max_tag_reached), Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.max_tag_reached), Toast.LENGTH_SHORT).show();
         addTag.setVisibility(View.GONE);
     }
 
     @Override
     public void showNotValidDefinitionError() {
-        Toast.makeText(getContext(), getContext().getString(R.string.invalid_definition), Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.invalid_definition), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void creationFailed() {
-        Toast.makeText(getContext(), getContext().getString(R.string.creation_failed), Toast.LENGTH_SHORT).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.creation_failed), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void createSuccessfully() {
-        Toast.makeText(getContext(), getContext().getString(R.string.expression_created), Toast.LENGTH_LONG).show(); //TODO: langue
+        Toast.makeText(getContext(), getContext().getString(R.string.expression_created), Toast.LENGTH_LONG).show();
         MainActivity activity = (MainActivity) getView().getContext();
         Fragment myFragment = HomeFragment.newInstance();
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();

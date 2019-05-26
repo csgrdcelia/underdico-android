@@ -1,5 +1,6 @@
 package com.esgi.project.underdico.views.search;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.esgi.project.underdico.presenters.SearchPresenter;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.views.expression.ExpressionAdapter;
@@ -23,28 +25,17 @@ import com.esgi.project.underdico.models.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements SearchView {
 
     private static final String SEARCH_ARG = "SEARCH";
-    private static final String EXPRESSIONS_LIST_ARG = "EXPRESSIONS LIST";
 
-    // UI references
+    SearchPresenter presenter;
     RecyclerView rvResults;
+    Context context;
 
-    String search;
-    ArrayList<Expression> expressions;
 
     public SearchFragment() {
         // Required empty public constructor
-    }
-
-    public static SearchFragment newInstance(String search, List<Expression> expressions) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(SEARCH_ARG, search);
-        args.putSerializable(EXPRESSIONS_LIST_ARG, (ArrayList<Expression>)expressions);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     public static SearchFragment newInstance(String search) {
@@ -62,47 +53,49 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(getArguments() != null) {
-            assignViews();
-            search = this.getArguments().getString(SEARCH_ARG);
-            //expressions = (ArrayList<Expression>) this.getArguments().getSerializable(EXPRESSIONS_LIST_ARG);
-            expressions = (ArrayList<Expression>)Expression.getExpressionsList();
-            displaySearch();
+            String search = this.getArguments().getString(SEARCH_ARG);
+            presenter = new SearchPresenter(getContext(), this, search);
         } else {
-            Toast.makeText(getContext(), "Une erreur est survenue", Toast.LENGTH_SHORT).show(); //TODO: langue
+            Toast.makeText(getContext(), getContext().getString(R.string.error), Toast.LENGTH_SHORT).show();
             goHome();
         }
     }
 
-    private void assignViews() {
+    @Override
+    public void assignViews() {
         rvResults = getView().findViewById(R.id.rvResults);
     }
 
-    private void displaySearch() {
-        displaySearchValueInSearchBar();
-        configureRecyclerView();
+    @Override
+    public void setListeners() { }
+
+    @Override
+    public void displaySearchResult(List<Expression> expressions) {
+        configureRecyclerView(expressions);
     }
 
-    private void displaySearchValueInSearchBar() {
-        MainActivity activity = (MainActivity) getView().getContext();
-
-    }
-
-    private void configureRecyclerView() {
+    private void configureRecyclerView(List<Expression> expressions) {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                getContext(),
+                context,
                 DividerItemDecoration.VERTICAL
         );
         dividerItemDecoration.setDrawable(
-                ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
+                ContextCompat.getDrawable(context, R.drawable.divider_10dp)
         );
 
         ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
 
-        rvResults.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        rvResults.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), null));
+        rvResults.setLayoutManager(new GridLayoutManager(context,1));
+        rvResults.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, context, null));
         rvResults.addItemDecoration(dividerItemDecoration);
     }
 
@@ -112,6 +105,12 @@ public class SearchFragment extends Fragment {
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).addToBackStack(null).commit();
     }
 
+    @Override
+    public void showError(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void goHome() {
         MainActivity activity = (MainActivity) getView().getContext();
         Fragment myFragment = HomeFragment.newInstance();

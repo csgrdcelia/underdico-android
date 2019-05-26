@@ -21,6 +21,7 @@
     <string name="menu_new">Nouvelle expression</string>
     <string name="menu_play">Jouer</string>
     <string name="log_out">Se déconnecter</string>
+    <string name="search">Rechercher</string>
 
     <!-- Forms -->
     <string name="fill_fields">Merci de renseigner tous les champs</string>

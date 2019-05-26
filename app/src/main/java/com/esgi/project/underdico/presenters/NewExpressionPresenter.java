@@ -183,8 +183,4 @@ public class NewExpressionPresenter {
         //TODO: set definition requirements
         return true;
     }
-
-
-
-
 }

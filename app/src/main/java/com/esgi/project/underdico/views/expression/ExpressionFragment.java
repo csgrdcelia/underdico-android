@@ -150,9 +150,9 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     }
 
     @Override
-    public void searchWithTag(String tag, List<Expression> expressions) {
+    public void searchWithTag(String tag) {
         MainActivity activity = (MainActivity) getView().getContext();
-        Fragment myFragment = SearchFragment.newInstance(tag, expressions);
+        Fragment myFragment = SearchFragment.newInstance(tag);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 

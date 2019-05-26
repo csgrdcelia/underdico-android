@@ -31,13 +31,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        assignViews();
-        setListeners();
-        setUsernameIfPresent();
-
         presenter = new LoginPresenter(this, getApplicationContext());
-        usernameView.requestFocus();
 
+        setUsernameIfPresent();
     }
 
     private void attemptLogin() {
@@ -57,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void assignViews() {
         usernameView = findViewById(R.id.usernameEditText);
+        usernameView.requestFocus();
         passwordView = findViewById(R.id.passwordEditText);
         progressView = findViewById(R.id.loginProgressView);
         emailSignInButton = findViewById(R.id.signInButton);

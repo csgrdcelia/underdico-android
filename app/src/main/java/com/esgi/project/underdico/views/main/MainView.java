@@ -9,6 +9,5 @@ public interface MainView {
     void displayRandomExpression(Expression expression);
     void showError(String error);
     void redirectToLoginPage();
-    void redirectToUserPage();
     void refresh();
 }

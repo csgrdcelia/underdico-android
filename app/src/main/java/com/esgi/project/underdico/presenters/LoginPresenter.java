@@ -22,7 +22,13 @@ public class LoginPresenter {
         this.view = view;
         this.context = context;
 
+        initialize();
         checkIfLogged();
+    }
+
+    private void initialize() {
+        view.assignViews();
+        view.setListeners();
     }
 
     private void checkIfLogged() {

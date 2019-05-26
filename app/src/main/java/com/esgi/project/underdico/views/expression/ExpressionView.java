@@ -11,7 +11,7 @@ public interface ExpressionView {
     void displayExpression(Expression expression);
     void displayTags(String[] tags);
     void displayUserVote(boolean score);
-    void searchWithTag(String tag, List<Expression> expressions);
+    void searchWithTag(String tag);
     void redirectToUserPage(User user);
     void showError(String error);
 }
