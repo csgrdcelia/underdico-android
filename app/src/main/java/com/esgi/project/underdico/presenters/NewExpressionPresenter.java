@@ -31,13 +31,20 @@ public class NewExpressionPresenter {
         this.context = context;
         tags = new ArrayList<>();
 
+        initialize();
+
+    }
+
+    private void initialize() {
+        view.assignViews();
+        view.setListeners();
     }
 
     /**
      * Checks if expression is valid and saves it
      */
-    public void attemptSend(String expressionName, String expressionDefinition) {
-
+    public void attemptSend(String expressionName, String expressionDefinition, String language) {
+        //TODO: send language
         if(!isValidExpressionName()) {
             view.showNotValidNameError();
         } else if (!isValidExpressionDefinition()) {

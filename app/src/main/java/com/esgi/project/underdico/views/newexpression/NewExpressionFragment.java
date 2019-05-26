@@ -8,15 +8,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.views.home.HomeFragment;
+import com.esgi.project.underdico.views.imagespinner.ImageSpinnerAdapter;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
@@ -32,7 +36,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
  * Use the {@link NewExpressionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewExpressionFragment extends Fragment implements NewExpressionView {
+public class NewExpressionFragment extends Fragment implements NewExpressionView, AdapterView.OnItemSelectedListener {
 
     NewExpressionPresenter presenter;
 
@@ -51,9 +55,12 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     EditText expressionDefinition;
     EditText tagValue;
     Button btnSend;
+    Spinner flagSpinner;
     ImageButton ibRecordAudio;
     ImageButton ibPlayStopAudio;
     ImageButton ibDeleteRecord;
+
+    String selectedLanguage = "fr";
 
     View.OnClickListener tagsListener;
 
@@ -88,9 +95,6 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         super.onViewCreated(view, savedInstanceState);
         presenter = new NewExpressionPresenter(this, getContext());
 
-        assignViews();
-
-        setListeners();
         if (expressionModel != null)
             display(expressionModel);
     }
@@ -98,7 +102,8 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     /**
      * Assign UI references
      */
-    private void assignViews() {
+    @Override
+    public void assignViews() {
         addTag = getView().findViewById(R.id.ibAddTag);
         tagLayout = getView().findViewById(R.id.layoutTags);
         tagValue = getView().findViewById(R.id.etTag);
@@ -108,12 +113,13 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         ibRecordAudio = getView().findViewById(R.id.ibRecordAudio);
         ibPlayStopAudio = getView().findViewById(R.id.ibPlayStopAudio);
         ibDeleteRecord = getView().findViewById(R.id.ibDeleteRecord);
+
+        flagSpinner = getView().findViewById(R.id.flagSpinner);
+        flagSpinner.setAdapter(new ImageSpinnerAdapter(getContext()));
     }
 
-    /**
-     * Sets listeners
-     */
-    private void setListeners() {
+    @Override
+    public void setListeners() {
         tagsListener = v ->  {
             presenter.removeTag(v);
             addTag.setVisibility(View.VISIBLE);
@@ -134,6 +140,8 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
 
         ibDeleteRecord.setOnClickListener(v -> presenter.deleteRecord());
 
+        flagSpinner.setOnItemSelectedListener(this);
+
         btnSend.setOnClickListener(v -> attemptSend());
     }
 
@@ -151,9 +159,8 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     private void attemptSend() {
         String name = expressionName.getText().toString();
         String definition = expressionDefinition.getText().toString();
-        //TODO: add language
         //TODO: add audio
-        presenter.attemptSend(name, definition);
+        presenter.attemptSend(name, definition, selectedLanguage);
     }
 
     /**
@@ -255,4 +262,13 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedLanguage = ((Pair<String,Integer>)flagSpinner.getAdapter().getItem(position)).first;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

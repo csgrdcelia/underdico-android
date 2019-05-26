@@ -3,6 +3,8 @@ package com.esgi.project.underdico.views.newexpression;
 import android.widget.Button;
 
 public interface NewExpressionView {
+    void assignViews();
+    void setListeners();
     void showNotValidNameError();
     void showTagExists();
     void showTagLimitIsReached();
