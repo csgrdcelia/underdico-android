@@ -22,6 +22,7 @@ public class User implements Serializable {
     private Date updatedAt;
     private String role;
     private int karma;
+    private String language;
 
     public User(String id, String username) {
         this.id = id;
@@ -68,5 +69,9 @@ public class User implements Serializable {
 
     public int getKarma() {
         return karma;
+    }
+
+    public String getLanguage() {
+        return "fr";
     }
 }

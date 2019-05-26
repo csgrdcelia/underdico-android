@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,8 +58,6 @@ public class MainActivity extends AppCompatActivity
 
         presenter = new MainPresenter(this, getApplicationContext());
 
-        setUserPageListener();
-
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
@@ -79,6 +78,9 @@ public class MainActivity extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         profilename = headerView.findViewById(R.id.tvUsername);
         userPicture = headerView.findViewById(R.id.ivUserPicture);
+        userPicture.setOnClickListener(
+                v -> updateFragment(UserFragment.newInstance(new User("1", "celia")))
+        );
     }
 
     @Override
@@ -100,14 +102,6 @@ public class MainActivity extends AppCompatActivity
 
     private void launchSearch(String query) {
         updateFragment(SearchFragment.newInstance(query));
-    }
-
-
-
-    private void setUserPageListener() {
-        userPicture.setOnClickListener(
-                v -> updateFragment(UserFragment.newInstance(new User("1", "celia")))
-        );
     }
 
     @Override
@@ -189,6 +183,11 @@ public class MainActivity extends AppCompatActivity
     public void redirectToLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void refresh() {
+        recreate();
     }
 
 

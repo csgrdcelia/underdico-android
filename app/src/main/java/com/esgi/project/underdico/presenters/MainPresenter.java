@@ -10,9 +10,8 @@ import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.services.UserService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
+import com.esgi.project.underdico.utils.LanguageManager;
 import com.esgi.project.underdico.utils.Session;
-import com.esgi.project.underdico.views.expression.ExpressionFragment;
-import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.views.main.MainView;
 
 import retrofit2.Call;
@@ -44,6 +43,7 @@ public class MainPresenter {
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful() || response.body() != null) {
                     view.displayUserInformation(response.body());
+                    setLanguage(response.body().getLanguage());
                 } else if (response.code() == Constants.HTTP_UNAUTHORIZED) {
                     view.redirectToLoginPage();
                 } else {
@@ -74,6 +74,15 @@ public class MainPresenter {
                 Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setLanguage(String code) {
+        LanguageManager manager = new LanguageManager(context);
+        boolean changed = manager.set(code);
+        if(changed) {
+            view.refresh();
+        }
+
     }
 
 }
