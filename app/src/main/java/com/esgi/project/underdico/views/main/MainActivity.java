@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         profilename = headerView.findViewById(R.id.tvUsername);
         userPicture = headerView.findViewById(R.id.ivUserPicture);
         userPicture.setOnClickListener(v -> redirectToUserPage());
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_app_bar, menu);
         return true;
     }
@@ -145,6 +144,9 @@ public class MainActivity extends AppCompatActivity
             updateFragment(NewExpressionFragment.newInstance());
         } else if (id == R.id.menu_play) {
             updateFragment(GameChannelsFragment.newInstance());
+        } else if (id == R.id.menu_logout) {
+            Session.clearSharedPreferences(getApplicationContext());
+            redirectToLoginPage();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

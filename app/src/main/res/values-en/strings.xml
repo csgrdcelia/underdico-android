@@ -21,6 +21,7 @@
     <string name="menu_top">Top</string>
     <string name="menu_new">New expression</string>
     <string name="menu_play">Play</string>
+    <string name="log_out">Log out</string>
 
     <!-- Forms -->
     <string name="fill_fields">Merci de renseigner tous les champs</string>

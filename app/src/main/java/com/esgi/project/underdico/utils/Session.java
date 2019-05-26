@@ -55,8 +55,8 @@ public class Session {
         return null;
     }
 
-    public static boolean isLoggedIn() {
-        return currentToken != null;
+    public static void clearSharedPreferences(Context context) {
+        context.deleteSharedPreferences(ARG_SESSION_FILE);
     }
 
     public static User getCurrentUser() {
@@ -88,5 +88,7 @@ public class Session {
             }
         });
     }
+
+
 
 }
