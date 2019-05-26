@@ -23,7 +23,7 @@ public class RegisterPresenter {
         this.context = context;
     }
 
-    public void handleRegister(String username, String email, String password) {
+    public void handleRegister(String username, String email, String password, String language) {
         if(username.isEmpty() || email.isEmpty() || password.isEmpty() || view.hasInvalidFields()) {
             view.askUserToFillFields();
         } else {

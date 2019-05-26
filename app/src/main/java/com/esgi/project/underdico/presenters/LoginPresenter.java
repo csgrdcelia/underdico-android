@@ -34,7 +34,7 @@ public class LoginPresenter {
     private void checkIfLogged() {
         Token token = Session.getFromSharedPref(context);
         if(token != null && token.isValid()) {
-            Session.setCurrentToken(token, context);
+            Session.setCurrentToken(token);
             Session.callUserInformation(context, view);
         }
     }
@@ -56,7 +56,7 @@ public class LoginPresenter {
             public void onResponse(Call<Token> call, Response<Token> response) {
                 view.showProgress(false);
                 if (response.isSuccessful()) {
-                    Session.setCurrentToken(response.body(), context);
+                    Session.setCurrentToken(response.body());
                     Session.saveToSharedPrefs(context);
                     Session.callUserInformation(context, view);
                 } else {

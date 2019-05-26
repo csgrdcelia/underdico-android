@@ -18,7 +18,7 @@ public class LanguageManager {
 
     public boolean set(String code) {
         if(!code.isEmpty()) {
-            if(!Locale.getDefault().getLanguage().equals(code)) {
+            if(!Locale.getDefault().getLanguage().equals(new Locale(code).getLanguage())) {
                     newLocale = new Locale(code);
                     Locale.setDefault(newLocale);
                     android.content.res.Configuration config = new android.content.res.Configuration();

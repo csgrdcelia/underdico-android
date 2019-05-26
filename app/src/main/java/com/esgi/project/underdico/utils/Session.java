@@ -27,7 +27,7 @@ public class Session {
 
     private Session() {}
 
-    public static void setCurrentToken(Token token, Context context) {
+    public static void setCurrentToken(Token token) {
         currentToken = token;
     }
 

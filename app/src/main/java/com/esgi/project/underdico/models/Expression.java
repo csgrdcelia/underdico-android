@@ -40,6 +40,8 @@ public class Expression implements Serializable {
     @SerializedName("updatedAt")
     private Date updatedAt;
 
+    private String language;
+
     public Expression() { }
 
     public Expression(String label, String definition, String[] tags) {

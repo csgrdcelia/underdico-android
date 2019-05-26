@@ -6,15 +6,20 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Pair;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.presenters.RegisterPresenter;
+import com.esgi.project.underdico.views.imagespinner.ImageSpinnerAdapter;
 import com.esgi.project.underdico.views.login.LoginActivity;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterView {
+public class RegisterActivity extends AppCompatActivity implements RegisterView, AdapterView.OnItemSelectedListener {
 
     private final String ARG_USERNAME = "username";
 
@@ -22,7 +27,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     EditText emailEditText;
     EditText passwordEditText;
     EditText passwordConfirmationEditText;
+    Spinner flagSpinner;
     Button registerButton;
+    String selectedLanguage = "fr";
 
     RegisterPresenter presenter;
 
@@ -43,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         passwordConfirmationEditText = findViewById(R.id.passwordConfirmationEditText);
+        flagSpinner = findViewById(R.id.flagSpinner);
+        flagSpinner.setAdapter(new ImageSpinnerAdapter(this));
         registerButton = findViewById(R.id.registerButton);
     }
 
@@ -57,7 +66,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 view -> presenter.handleRegister(
                         usernameEditText.getText().toString(),
                         emailEditText.getText().toString(),
-                        passwordEditText.getText().toString()));
+                        passwordEditText.getText().toString(), selectedLanguage));
+
+        flagSpinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -137,6 +148,16 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             @Override
             public void afterTextChanged(Editable s) { }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedLanguage = ((Pair<String,Integer>)flagSpinner.getAdapter().getItem(position)).first;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     @Override
