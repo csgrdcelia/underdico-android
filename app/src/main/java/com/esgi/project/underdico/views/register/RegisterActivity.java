@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.presenters.RegisterPresenter;
-import com.esgi.project.underdico.views.imagespinner.ImageSpinnerAdapter;
+import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
 import com.esgi.project.underdico.views.login.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView, AdapterView.OnItemSelectedListener {
@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView,
         passwordEditText = findViewById(R.id.passwordEditText);
         passwordConfirmationEditText = findViewById(R.id.passwordConfirmationEditText);
         flagSpinner = findViewById(R.id.flagSpinner);
-        flagSpinner.setAdapter(new ImageSpinnerAdapter(this));
+        flagSpinner.setAdapter(new FlagSpinnerAdapter(this));
         registerButton = findViewById(R.id.registerButton);
     }
 

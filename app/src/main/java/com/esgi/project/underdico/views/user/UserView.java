@@ -7,7 +7,10 @@ public interface UserView {
     void setListeners();
     void displayUserInformation(User user);
     void allowModification(boolean allow);
+    void displayModificationView(boolean display);
+    void showProgress(boolean show);
     void showError(String error);
     void redirectToHome();
+    void refresh();
 
 }

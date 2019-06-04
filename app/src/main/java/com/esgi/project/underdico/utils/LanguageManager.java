@@ -30,4 +30,8 @@ public class LanguageManager {
         return false;
     }
 
+    public String get() {
+        return Locale.getDefault().getLanguage();
+    }
+
 }

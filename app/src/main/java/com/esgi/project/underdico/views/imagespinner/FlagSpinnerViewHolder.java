@@ -2,7 +2,7 @@ package com.esgi.project.underdico.views.imagespinner;
 
 import android.widget.ImageView;
 
-public class ImageSpinnerViewHolder {
+public class FlagSpinnerViewHolder {
     ImageView countryImage;
 
     public ImageView getCountryImage() {

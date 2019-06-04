@@ -1,21 +1,34 @@
 package com.esgi.project.underdico.views.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.UserPresenter;
+import com.esgi.project.underdico.utils.Constants;
+import com.esgi.project.underdico.utils.LanguageManager;
+import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
 
-public class UserFragment extends Fragment implements UserView {
+import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
+public class UserFragment extends Fragment implements UserView, AdapterView.OnItemSelectedListener {
 
     UserPresenter presenter;
     User user;
@@ -27,7 +40,13 @@ public class UserFragment extends Fragment implements UserView {
     TextView scoreView;
 
     ImageButton modificationButton;
-    ImageView languageImage;
+    ImageButton confirmModificationButton;
+    ImageView flagImage;
+
+    Spinner flagSpinner;
+    ProgressBar progressBar;
+
+    String selectedLanguage = "fr";
 
     public UserFragment() {
         // Required empty public constructor
@@ -47,7 +66,7 @@ public class UserFragment extends Fragment implements UserView {
         super.onActivityCreated(savedInstanceState);
         if (getArguments() != null) {
             user = (User)getArguments().getSerializable(USER_ARG);
-            presenter = new UserPresenter(this, user);
+            presenter = new UserPresenter(this, user, getContext());
         } else {
             showError(getContext().getString(R.string.error));
             redirectToHome();
@@ -69,12 +88,20 @@ public class UserFragment extends Fragment implements UserView {
         scoreView = getView().findViewById(R.id.tvGameScore);
 
         modificationButton = getView().findViewById(R.id.ibModification);
-        languageImage = getView().findViewById(R.id.ivLanguage);
+        confirmModificationButton = getView().findViewById(R.id.ibConfirmModification);
+        flagImage = getView().findViewById(R.id.ivLanguage);
+
+        flagSpinner = getView().findViewById(R.id.flagSpinner);
+        flagSpinner.setAdapter(new FlagSpinnerAdapter(getContext()));
+
+        progressBar = getView().findViewById(R.id.progressBar);
     }
 
     @Override
     public void setListeners() {
-
+        flagSpinner.setOnItemSelectedListener(this);
+        modificationButton.setOnClickListener(v -> displayModificationView(true));
+        confirmModificationButton.setOnClickListener(v -> presenter.processModifications(selectedLanguage));
     }
 
     @Override
@@ -82,11 +109,55 @@ public class UserFragment extends Fragment implements UserView {
         usernameView.setText(user.getUsername());
         statusView.setText(user.getRole(getContext()));
         karmaView.setText(Integer.toString(user.getKarma()));
+        displayFlag(user.getLocale());
+    }
+
+    private void displayFlag(String locale) {
+        List<Pair<String, Integer>> flags = Constants.flags;
+        int image = 0;
+        for (Pair<String, Integer> flag : flags) {
+            if(flag.first.equals(locale)) {
+                image = flag.second;
+                break;
+            }
+        }
+        if(image != 0) {
+            flagImage.setImageDrawable(getContext().getDrawable(image));
+        }
     }
 
     @Override
     public void allowModification(boolean allow) {
         modificationButton.setVisibility(allow ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void displayModificationView(boolean display) {
+        int basicDisplay;
+        int modificationDisplay;
+
+        selectedLanguage = user.getLocale();
+
+        if(display) {
+            basicDisplay = View.GONE;
+            modificationDisplay = View.VISIBLE;
+        } else {
+            basicDisplay = View.VISIBLE;
+            modificationDisplay = View.GONE;
+        }
+        modificationButton.setVisibility(basicDisplay);
+        confirmModificationButton.setVisibility(modificationDisplay);
+
+        flagImage.setVisibility(basicDisplay);
+        flagSpinner.setVisibility(modificationDisplay);
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+        if(show)
+            progressBar.setVisibility(View.VISIBLE);
+        else
+            progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -99,5 +170,19 @@ public class UserFragment extends Fragment implements UserView {
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedLanguage = ((Pair<String,Integer>)flagSpinner.getAdapter().getItem(position)).first;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void refresh() {
+        getActivity().recreate();
+    }
 
 }

@@ -64,6 +64,10 @@ public class Session {
         return currentUser;
     }
 
+    public static void setCurrentUser(User currentUser) {
+        Session.currentUser = currentUser;
+    }
+
     public static void callUserInformation(Context context, LoginView view) {
         view.showProgress(true);
         UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);

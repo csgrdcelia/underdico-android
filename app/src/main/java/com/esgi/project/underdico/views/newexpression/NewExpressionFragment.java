@@ -20,7 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.views.home.HomeFragment;
-import com.esgi.project.underdico.views.imagespinner.ImageSpinnerAdapter;
+import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
@@ -115,7 +115,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         ibDeleteRecord = getView().findViewById(R.id.ibDeleteRecord);
 
         flagSpinner = getView().findViewById(R.id.flagSpinner);
-        flagSpinner.setAdapter(new ImageSpinnerAdapter(getContext()));
+        flagSpinner.setAdapter(new FlagSpinnerAdapter(getContext()));
     }
 
     @Override

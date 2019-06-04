@@ -9,6 +9,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -22,5 +23,8 @@ public interface UserService {
 
     @GET("users/{userId}")
     Call<User> getUser(@Header("Authorization") String token, @Path("userId") String id);
+
+    @PATCH("users/{userId}")
+    Call<User> updateUser(@Header("Authorization") String token, @Path("userId") String id, @Body User user);
 
 }

@@ -75,4 +75,8 @@ public class User implements Serializable {
     public String getLocale() {
         return locale;
     }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
 }
