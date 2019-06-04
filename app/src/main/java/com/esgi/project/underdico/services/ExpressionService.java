@@ -13,10 +13,17 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ExpressionService {
     @GET("words")
     Call<List<Expression>> getExpressions(@Header("Authorization") String token);
+
+    @GET("words")
+    Call<List<Expression>> getExpressionsWithFilter(@Header("Authorization") String token, @Query("where") String name);
+
+    @GET("words?where=\"tags\":\"{tag}\"")
+    Call<List<Expression>> getExpressionsByTag(@Header("Authorization") String token, @Path("tag") String tag);
 
     @GET("words/{wordId}")
     Call<Expression> getExpression(@Header("Authorization") String token, @Path("wordId") String id);

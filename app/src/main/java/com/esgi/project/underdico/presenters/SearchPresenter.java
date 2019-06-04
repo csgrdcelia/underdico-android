@@ -11,6 +11,9 @@ import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.search.SearchView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,23 +41,30 @@ public class SearchPresenter {
     }
 
     private void getSearchResult() {
-        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<List<Expression>> call = service.getExpressions(Session.getCurrentToken().getValue());
-        call.enqueue(new Callback<List<Expression>>() {
-            @Override
-            public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {
-                if(response.isSuccessful())
-                    if(response.body() != null)
-                        view.displaySearchResult(response.body());
-                    else
-                        view.showError(context.getString(R.string.expression_error));
-            }
+        try {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("name", search);
 
-            @Override
-            public void onFailure(Call<List<Expression>> call, Throwable t) {
-                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.expression_error));
-            }
-        });
+            ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+            Call<List<Expression>> call = service.getExpressionsWithFilter(Session.getCurrentToken().getValue(), jsonObj.toString());
+            call.enqueue(new Callback<List<Expression>>() {
+                @Override
+                public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {
+                    if (response.isSuccessful())
+                        if (response.body() != null)
+                            view.displaySearchResult(response.body());
+                        else
+                            view.showError(context.getString(R.string.expression_error));
+                }
+
+                @Override
+                public void onFailure(Call<List<Expression>> call, Throwable t) {
+                    Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
+                    view.showError(context.getString(R.string.expression_error));
+                }
+            });
+        } catch (JSONException e) {
+            view.showError(context.getString(R.string.error));
+        }
     }
 }
