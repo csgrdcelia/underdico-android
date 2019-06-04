@@ -2,10 +2,12 @@ package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.esgi.project.underdico.models.Token;
 import com.esgi.project.underdico.services.UserService;
 import com.esgi.project.underdico.utils.ApiInstance;
+import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.login.LoginView;
 
@@ -66,6 +68,7 @@ public class LoginPresenter {
 
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
                 view.loginFail();
             }

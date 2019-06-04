@@ -2,6 +2,7 @@ package com.esgi.project.underdico.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -83,6 +84,7 @@ public class Session {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
                 view.showError(context.getString(R.string.network_error));
             }

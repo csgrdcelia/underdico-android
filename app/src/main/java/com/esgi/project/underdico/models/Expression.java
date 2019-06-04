@@ -39,8 +39,8 @@ public class Expression implements Serializable {
     private Date createdAt;
     @SerializedName("updatedAt")
     private Date updatedAt;
-
-    private String language;
+    @SerializedName("locale")
+    private String locale;
 
     public Expression() { }
 

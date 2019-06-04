@@ -22,18 +22,19 @@ public class User implements Serializable {
     private Date updatedAt;
     private String role;
     private int karma;
-    private String language;
+    private String locale;
 
     public User(String id, String username) {
         this.id = id;
         this.username = username;
     }
 
-    public User(String username, String email, String password, Role role) {
+    public User(String username, String email, String password, Role role, String locale) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = (role == Role.Admin) ? "Admin" : "User";
+        this.locale = locale;
     }
 
     public User(String username, String email, String password) {
@@ -71,7 +72,7 @@ public class User implements Serializable {
         return karma;
     }
 
-    public String getLanguage() {
-        return "fr";
+    public String getLocale() {
+        return locale;
     }
 }

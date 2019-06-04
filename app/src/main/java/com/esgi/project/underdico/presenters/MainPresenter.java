@@ -1,13 +1,13 @@
 package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.services.ExpressionService;
-import com.esgi.project.underdico.services.UserService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.LanguageManager;
@@ -34,7 +34,7 @@ public class MainPresenter {
         view.assignViews();
         view.setListeners();
         view.displayUserInformation();
-        setLanguage(Session.getCurrentUser().getLanguage());
+        setLanguage(Session.getCurrentUser().getLocale());
 
     }
 
@@ -51,6 +51,7 @@ public class MainPresenter {
 
             @Override
             public void onFailure(Call<Expression> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT).show();
             }
         });

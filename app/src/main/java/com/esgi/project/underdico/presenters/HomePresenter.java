@@ -1,11 +1,13 @@
 package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
+import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.home.HomeView;
 
@@ -48,6 +50,7 @@ public class HomePresenter {
 
             @Override
             public void onFailure(Call<Expression> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showError(context.getString(R.string.expression_error));
             }
         });
@@ -69,6 +72,7 @@ public class HomePresenter {
 
             @Override
             public void onFailure(Call<List<Expression>> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showError(context.getString(R.string.expression_error));
             }
         });

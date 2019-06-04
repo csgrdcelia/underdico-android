@@ -1,6 +1,7 @@
 package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
@@ -23,11 +24,11 @@ public class RegisterPresenter {
         this.context = context;
     }
 
-    public void handleRegister(String username, String email, String password, String language) {
+    public void handleRegister(String username, String email, String password, String locale) {
         if(username.isEmpty() || email.isEmpty() || password.isEmpty() || view.hasInvalidFields()) {
             view.askUserToFillFields();
         } else {
-            User user = new User(username, email, password, User.Role.User);
+            User user = new User(username, email, password, User.Role.User, locale);
             tryRegister(user);
         }
     }
@@ -53,6 +54,7 @@ public class RegisterPresenter {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 view.showError(context.getString(R.string.register_fail));
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.esgi.project.underdico.views.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,6 +40,8 @@ public class HomeFragment extends Fragment implements HomeView {
 
     Expression expressionOfTheDay;
 
+    Context context;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -53,6 +56,12 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = new HomePresenter(this, getContext());
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -79,16 +88,16 @@ public class HomeFragment extends Fragment implements HomeView {
     @Override
     public void displayExpressions(List<Expression> expressions) {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                getContext(),
+                context,
                 DividerItemDecoration.VERTICAL
         );
         dividerItemDecoration.setDrawable(
-                ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
+                ContextCompat.getDrawable(context, R.drawable.divider_10dp)
         );
 
         ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
 
-        expressionsRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
+        expressionsRecyclerView.setLayoutManager(new GridLayoutManager(context,1));
         expressionsRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), this));
         expressionsRecyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -109,7 +118,8 @@ public class HomeFragment extends Fragment implements HomeView {
         List<Expression> expressions = new ArrayList<>();
         expressions.add(expression);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                getContext(),
+
+                context,
                 DividerItemDecoration.VERTICAL
         );
         dividerItemDecoration.setDrawable(

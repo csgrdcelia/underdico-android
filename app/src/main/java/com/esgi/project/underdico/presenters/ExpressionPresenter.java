@@ -1,12 +1,14 @@
 package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Vote;
 import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
+import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.expression.DetailedExpressionView;
 import com.esgi.project.underdico.views.expression.ExpressionView;
@@ -102,6 +104,7 @@ public class ExpressionPresenter {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showError(context.getString(R.string.vote_error));
             }
         });
@@ -125,6 +128,7 @@ public class ExpressionPresenter {
 
             @Override
             public void onFailure(Call<Expression> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showError(context.getString(R.string.error));
             }
         });
