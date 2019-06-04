@@ -16,6 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/ibConfirmModification"
+            android:layout_width="38dp"
+            android:layout_height="31dp"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_confirm"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
+
         <Spinner
             android:id="@+id/flagSpinner"
             android:layout_width="wrap_content"
@@ -24,9 +36,9 @@
             android:layout_marginEnd="8dp"
             android:entries="@android:array/emailAddressTypes"
             android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
@@ -55,16 +67,16 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
-            android:id="@+id/ibConfirmModification"
+            android:id="@+id/ibUploadProfilePicture"
             android:layout_width="38dp"
             android:layout_height="31dp"
-            android:layout_marginEnd="24dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_confirm"
+            android:src="@drawable/ic_upload_white"
             android:visibility="gone"
-            tools:visibility="visible"
+            android:translationX="-15dp"
             app:layout_constraintBottom_toBottomOf="@+id/profile_image"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/ivLanguage"

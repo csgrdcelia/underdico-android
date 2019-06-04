@@ -1,6 +1,5 @@
 package com.esgi.project.underdico.views.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,13 +19,9 @@ import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.UserPresenter;
 import com.esgi.project.underdico.utils.Constants;
-import com.esgi.project.underdico.utils.LanguageManager;
 import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
 
 import java.util.List;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class UserFragment extends Fragment implements UserView, AdapterView.OnItemSelectedListener {
 
@@ -41,6 +36,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
 
     ImageButton modificationButton;
     ImageButton confirmModificationButton;
+    ImageButton uploadProfilePictureButton;
     ImageView flagImage;
 
     Spinner flagSpinner;
@@ -89,6 +85,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
 
         modificationButton = getView().findViewById(R.id.ibModification);
         confirmModificationButton = getView().findViewById(R.id.ibConfirmModification);
+        uploadProfilePictureButton = getView().findViewById(R.id.ibUploadProfilePicture);
         flagImage = getView().findViewById(R.id.ivLanguage);
 
         flagSpinner = getView().findViewById(R.id.flagSpinner);
@@ -145,8 +142,10 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
             basicDisplay = View.VISIBLE;
             modificationDisplay = View.GONE;
         }
+
         modificationButton.setVisibility(basicDisplay);
         confirmModificationButton.setVisibility(modificationDisplay);
+        uploadProfilePictureButton.setVisibility(modificationDisplay);
 
         flagImage.setVisibility(basicDisplay);
         flagSpinner.setVisibility(modificationDisplay);
