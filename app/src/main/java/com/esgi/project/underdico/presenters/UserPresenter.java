@@ -39,8 +39,8 @@ public class UserPresenter {
 
     public void processModifications(String language) {
         if (!language.equals(user.getLocale())) {
-            user.setLocale(language);
             new LanguageManager(context).set(language);
+            user.setLocale(language);
             updateUser();
         }
         view.displayModificationView(false);
@@ -54,8 +54,7 @@ public class UserPresenter {
             public void onResponse(Call<User> call, Response<User> response) {
                 view.showProgress(false);
                 if (response.isSuccessful()) {
-                    Session.setCurrentUser(response.body());
-                    user = response.body();
+                    Session.setCurrentUser(user);
                     view.refresh();
                 } else {
                     view.showError(context.getString(R.string.error));
