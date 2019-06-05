@@ -223,7 +223,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
                     && null != data) {
 
                 newProfilePicture = data.getData();
-                //Picasso.get().load(newProfilePicture).centerCrop().fit().into(profilePicture);
+                Picasso.get().load(newProfilePicture).centerCrop().fit().into(profilePicture);
 
             } else {
                 Toast.makeText(getContext(), getString(R.string.no_image_selected),
