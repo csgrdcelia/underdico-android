@@ -3,6 +3,7 @@ package com.esgi.project.underdico.views.user;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -175,6 +176,11 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
             progressBar.setVisibility(View.VISIBLE);
         else
             progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setProfilePicture(Bitmap image) {
+        profilePicture.setImageBitmap(image);
     }
 
     @Override

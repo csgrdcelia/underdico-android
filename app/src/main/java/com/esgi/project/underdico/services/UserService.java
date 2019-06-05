@@ -4,6 +4,7 @@ import com.esgi.project.underdico.models.Token;
 import com.esgi.project.underdico.models.User;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -33,6 +34,9 @@ public interface UserService {
 
     @Multipart
     @PUT("users/{userId}/avatar")
-    Call<User> setProfilePicture(@Header("Authorization") String token, @Path("userId") String id, @Part MultipartBody.Part image);
+    Call<ResponseBody> setProfilePicture(@Header("Authorization") String token, @Path("userId") String id, @Part MultipartBody.Part image);
+
+    @GET("users/{userId}/avatar")
+    Call<ResponseBody> getProfilePicture(@Header("Authorization") String token, @Path("userId") String id);
 
 }
