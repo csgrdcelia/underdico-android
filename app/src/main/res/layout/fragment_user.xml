@@ -24,7 +24,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_confirm"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@+id/ivProfilePicture"
             app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible" />
 
@@ -41,7 +41,7 @@
             tools:visibility="visible" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
+            android:id="@+id/ivProfilePicture"
             android:layout_width="136dp"
             android:layout_height="132dp"
             android:layout_marginStart="8dp"
@@ -63,7 +63,7 @@
             android:layout_marginEnd="24dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@+id/ivProfilePicture"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
@@ -74,8 +74,8 @@
             android:src="@drawable/ic_upload_white"
             android:visibility="gone"
             android:translationX="-15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
-            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@+id/ivProfilePicture"
+            app:layout_constraintStart_toEndOf="@+id/ivProfilePicture"
             tools:visibility="visible" />
 
         <ImageView

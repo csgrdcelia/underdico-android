@@ -1,8 +1,14 @@
 package com.esgi.project.underdico.views.user;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +26,13 @@ import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.UserPresenter;
 import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.app.Activity.RESULT_OK;
 
 public class UserFragment extends Fragment implements UserView, AdapterView.OnItemSelectedListener {
 
@@ -38,11 +49,16 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
     ImageButton confirmModificationButton;
     ImageButton uploadProfilePictureButton;
     ImageView flagImage;
+    ImageView profilePicture;
 
     Spinner flagSpinner;
     ProgressBar progressBar;
 
     String selectedLanguage = "fr";
+    private static final int RESULT_LOAD_IMG = 1;
+    private static final int PERMISSION_TO_ACCESS_STORAGE = 100;
+
+    Uri newProfilePicture = null;
 
     public UserFragment() {
         // Required empty public constructor
@@ -62,7 +78,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
         super.onActivityCreated(savedInstanceState);
         if (getArguments() != null) {
             user = (User)getArguments().getSerializable(USER_ARG);
-            presenter = new UserPresenter(this, user, getContext());
+            presenter = new UserPresenter(this, user, getContext(), getActivity());
         } else {
             showError(getContext().getString(R.string.error));
             redirectToHome();
@@ -87,6 +103,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
         confirmModificationButton = getView().findViewById(R.id.ibConfirmModification);
         uploadProfilePictureButton = getView().findViewById(R.id.ibUploadProfilePicture);
         flagImage = getView().findViewById(R.id.ivLanguage);
+        profilePicture = getView().findViewById(R.id.ivProfilePicture);
 
         flagSpinner = getView().findViewById(R.id.flagSpinner);
         flagSpinner.setAdapter(new FlagSpinnerAdapter(getContext()));
@@ -98,7 +115,8 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
     public void setListeners() {
         flagSpinner.setOnItemSelectedListener(this);
         modificationButton.setOnClickListener(v -> displayModificationView(true));
-        confirmModificationButton.setOnClickListener(v -> presenter.processModifications(selectedLanguage));
+        confirmModificationButton.setOnClickListener(v -> presenter.processModifications(selectedLanguage, newProfilePicture));
+        uploadProfilePictureButton.setOnClickListener(v -> loadImagefromGallery());
     }
 
     @Override
@@ -182,6 +200,33 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
     @Override
     public void refresh() {
         getActivity().recreate();
+    }
+
+
+    public void loadImagefromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+                    && null != data) {
+
+                newProfilePicture = data.getData();
+                //Picasso.get().load(newProfilePicture).centerCrop().fit().into(profilePicture);
+
+            } else {
+                Toast.makeText(getContext(), getString(R.string.no_image_selected),
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            showError(getContext().getString(R.string.error));
+        }
+
     }
 
 }

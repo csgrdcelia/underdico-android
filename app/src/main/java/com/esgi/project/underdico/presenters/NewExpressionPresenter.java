@@ -8,6 +8,7 @@ import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.AudioRecorder;
+import com.esgi.project.underdico.utils.PermissionManager;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.newexpression.NewExpressionView;
 
