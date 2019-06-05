@@ -3,6 +3,7 @@ package com.esgi.project.underdico.views.main;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,17 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
-import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.MainPresenter;
-import com.esgi.project.underdico.services.ExpressionService;
-import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.channels.GameChannelsFragment;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
@@ -37,16 +34,12 @@ import com.esgi.project.underdico.views.newexpression.NewExpressionFragment;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.views.user.UserFragment;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
 
     MainPresenter presenter;
 
-    ImageView userPicture;
+    ImageView profilePicture;
     TextView profilename;
 
     NavigationView navigationView;
@@ -84,8 +77,8 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         drawer = findViewById(R.id.drawer_layout);
         profilename = headerView.findViewById(R.id.tvUsername);
-        userPicture = headerView.findViewById(R.id.ivUserPicture);
-        userPicture.setOnClickListener(v -> updateFragment(UserFragment.newInstance(Session.getCurrentUser())));
+        profilePicture = headerView.findViewById(R.id.ivUserPicture);
+        profilePicture.setOnClickListener(v -> updateFragment(UserFragment.newInstance(Session.getCurrentUser())));
     }
 
     @Override
@@ -103,6 +96,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void displayUserInformation() {
         profilename.setText(Session.getCurrentUser().getUsername());
+    }
+
+    @Override
+    public void setProfilePicture(Bitmap image) {
+        profilePicture.setImageBitmap(image);
     }
 
     private void launchSearch(String query) {
