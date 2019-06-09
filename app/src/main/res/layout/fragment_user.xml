@@ -48,7 +48,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/userpicture"
+            android:src="@drawable/small_logo"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
