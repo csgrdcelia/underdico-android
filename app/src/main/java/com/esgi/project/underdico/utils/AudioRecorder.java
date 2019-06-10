@@ -17,6 +17,8 @@ public class AudioRecorder {
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
 
+    boolean isRecording;
+
     public AudioRecorder(Context context) {
         this.context = context;
         savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +
@@ -29,10 +31,14 @@ public class AudioRecorder {
         }
         mediaRecorder.prepare();
         mediaRecorder.start();
+        isRecording = true;
     }
 
     public void stop() {
-        mediaRecorder.stop();
+        if(isRecording) {
+            mediaRecorder.stop();
+            isRecording = false;
+        }
     }
 
     public void play() throws IOException {
@@ -45,6 +51,9 @@ public class AudioRecorder {
     }
 
     public void deleteRecord() {
+        if (isRecording)
+            stop();
+
         File file = new File(savePath);
         file.delete();
     }
