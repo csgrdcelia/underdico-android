@@ -228,29 +228,9 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     }
 
     @Override
-    public void showNotValidNameError() {
-        Toast.makeText(getContext(), getContext().getString(R.string.invalid_name), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showTagExists() {
-        Toast.makeText(getContext(), getContext().getString(R.string.tag_exists), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void showTagLimitIsReached() {
         Toast.makeText(getContext(), getContext().getString(R.string.max_tag_reached), Toast.LENGTH_SHORT).show();
         addTag.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showNotValidDefinitionError() {
-        Toast.makeText(getContext(), getContext().getString(R.string.invalid_definition), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void creationFailed() {
-        Toast.makeText(getContext(), getContext().getString(R.string.creation_failed), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -270,5 +250,10 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }

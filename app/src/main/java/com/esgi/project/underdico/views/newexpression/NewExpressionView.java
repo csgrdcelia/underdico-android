@@ -5,10 +5,7 @@ import android.widget.Button;
 public interface NewExpressionView {
     void assignViews();
     void setListeners();
-    void showNotValidNameError();
-    void showTagExists();
     void showTagLimitIsReached();
-    void showNotValidDefinitionError();
     void showIsRecording();
     void showRecordIsStopped();
     void showRecordFailed();
@@ -17,5 +14,6 @@ public interface NewExpressionView {
     void askPermissionToRecord();
     Button createTagButton(String tag);
     void createSuccessfully();
-    void creationFailed();
+
+    void showError(String error);
 }

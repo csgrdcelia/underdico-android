@@ -118,18 +118,17 @@ public class HomeFragment extends Fragment implements HomeView {
         List<Expression> expressions = new ArrayList<>();
         expressions.add(expression);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-
                 context,
                 DividerItemDecoration.VERTICAL
         );
         dividerItemDecoration.setDrawable(
-                ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
+                ContextCompat.getDrawable(context, R.drawable.divider_10dp)
         );
 
         ExpressionClickListener expressionClickListener = (view, expressionClicked) -> displayDetailedExpression(view, expressionClicked);
 
-        dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),1));
-        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), this));
+        dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(context,1));
+        dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, context, this));
         dayExpressionRecyclerView.addItemDecoration(dividerItemDecoration);
     }
 

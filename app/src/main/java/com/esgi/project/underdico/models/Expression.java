@@ -44,10 +44,11 @@ public class Expression implements Serializable {
 
     public Expression() { }
 
-    public Expression(String label, String definition, String[] tags) {
+    public Expression(String label, String definition, String[] tags, String locale) {
         this.label = label;
         this.definition = definition;
         this.tags = tags;
+        this.locale = locale;
     }
 
     public String getId() {

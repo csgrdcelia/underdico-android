@@ -81,4 +81,5 @@
         <item>@drawable/france_flag</item>
 
     </integer-array>
+    <string name="error_audio_save">Une erreur est apparue durant l\'enregistrement de l\'audio</string>
 </resources>
