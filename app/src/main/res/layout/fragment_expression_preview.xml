@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivExpressionLanguage"
+        android:id="@+id/ivLocaleFlag"
         android:layout_width="46dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
@@ -38,9 +38,9 @@
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/ivExpressionLanguage"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLocaleFlag"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivExpressionLanguage"
+        app:layout_constraintTop_toTopOf="@+id/ivLocaleFlag"
         app:srcCompat="@drawable/ic_hear_grey" />
 
     <TextView

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     private ImageButton ibDownvote;
     private ImageButton ibUpvote;
     private ImageButton ibAudio;
+    private ImageView ivLocaleFlag;
     private FlexboxLayout tagLayout;
 
     private View.OnClickListener tagListener;
@@ -89,6 +91,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         ibUpvote = getView().findViewById(R.id.ibUpvote);
         tagLayout = getView().findViewById(R.id.flexBoxTags);
         ibAudio = getView().findViewById(R.id.ibAudio);
+        ivLocaleFlag = getView().findViewById(R.id.ivLocaleFlag);
     }
 
     private void setListeners() {
@@ -106,6 +109,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         tvExpression.setText(expression.getLabel());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
+        ivLocaleFlag.setImageDrawable(getContext().getDrawable(expression.getFlagImage()));
     }
 
     @Override

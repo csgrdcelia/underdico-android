@@ -1,7 +1,9 @@
 package com.esgi.project.underdico.models;
 
 import android.text.TextUtils;
+import android.util.Pair;
 
+import com.esgi.project.underdico.utils.Constants;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -117,5 +119,18 @@ public class Expression implements Serializable {
 
     public User getUser() {
         return user;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public Integer getFlagImage() {
+        for (Pair<String, Integer> flag : Constants.flags) {
+            if(flag.first.equals(getLocale())) {
+                return flag.second;
+            }
+        }
+        return 0;
     }
 }

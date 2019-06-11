@@ -2,6 +2,7 @@ package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
@@ -18,6 +19,7 @@ import com.esgi.project.underdico.views.home.HomeView;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
