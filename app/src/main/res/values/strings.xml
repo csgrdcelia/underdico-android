@@ -70,9 +70,9 @@
 
     <!-- Errors -->
     <string name="expression_error">Une erreur est apparue lors de la récupération du/des expressions</string>
-    <string name="vote_error">Une erreur est apparue lors du vote</string>
+    <string name="error_vote">Une erreur est apparue lors du vote</string>
     <string name="error">Une erreur est apparue</string>
-    <string name="network_error">Connexion au serveur échouée</string>
+    <string name="error_network">Connexion au serveur échouée</string>
     <string name="no_image_selected">Vous n\'avez pas sélectionné d\'image</string>
 
 
@@ -82,4 +82,5 @@
 
     </integer-array>
     <string name="error_audio_save">Une erreur est apparue durant l\'enregistrement de l\'audio</string>
+    <string name="error_audio_not_found">Pas d\'audio pour cette expression</string>
 </resources>

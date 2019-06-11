@@ -3,14 +3,14 @@ package com.esgi.project.underdico.utils;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-public class AudioRecorder {
+public class AudioHelper {
 
     Context context;
     String savePath;
@@ -19,10 +19,9 @@ public class AudioRecorder {
 
     boolean isRecording;
 
-    public AudioRecorder(Context context) {
+    public AudioHelper(Context context) {
         this.context = context;
-        savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +
-                UUID.randomUUID().toString() + "AudioRecording.mp3";
+        savePath = FileUtils.createRandomCacheFile(context, ".mp3");
     }
 
     public void record() throws IOException {
@@ -68,6 +67,13 @@ public class AudioRecorder {
 
     public String getSavePath() {
         return savePath;
+    }
+
+    public static void play(String fileName) throws IOException{
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(fileName);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
     }
 
 }

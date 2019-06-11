@@ -37,16 +37,16 @@
         android:layout_marginRight="8dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/ivExpressionSound"
+        app:layout_constraintEnd_toStartOf="@+id/ibAudio"
         app:layout_constraintTop_toTopOf="@+id/tvExpression"
         app:srcCompat="@drawable/france_flag" />
 
-    <ImageView
-        android:id="@+id/ivExpressionSound"
+    <ImageButton
+        android:id="@+id/ibAudio"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/ivExpressionLanguage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ivExpressionLanguage"

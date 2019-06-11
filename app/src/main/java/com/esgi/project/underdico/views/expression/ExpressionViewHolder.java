@@ -39,6 +39,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     private TextView tvUsername;
     private ImageButton ibDownvote;
     private ImageButton ibUpvote;
+    private ImageButton ibAudio;
 
     private View.OnClickListener tagListener;
 
@@ -61,6 +62,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         tvUsername = itemView.findViewById(R.id.tvUsername);
         ibDownvote = itemView.findViewById(R.id.ibDownvote);
         ibUpvote = itemView.findViewById(R.id.ibUpvote);
+        ibAudio = itemView.findViewById(R.id.ibAudio);
     }
 
     public void bind(Expression expression) {
@@ -75,8 +77,8 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         ibDownvote.setOnClickListener(v -> presenter.tryVote(false));
         ibUpvote.setOnClickListener(v -> presenter.tryVote(true));
         tvUsername.setOnClickListener( v -> redirectToUserPage(expression.getUser()));
+        ibAudio.setOnClickListener(v -> presenter.playAudio());
     }
-
 
     @Override
     public void displayExpression(Expression expression) {

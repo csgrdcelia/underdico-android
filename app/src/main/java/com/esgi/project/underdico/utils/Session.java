@@ -3,15 +3,12 @@ package com.esgi.project.underdico.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Token;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.services.UserService;
 import com.esgi.project.underdico.views.login.LoginView;
-import com.esgi.project.underdico.views.main.MainView;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -90,7 +87,7 @@ public class Session {
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
-                view.showError(context.getString(R.string.network_error));
+                view.showError(context.getString(R.string.error_network));
             }
         });
     }

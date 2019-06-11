@@ -40,6 +40,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     private ImageButton ibOtherDefinition;
     private ImageButton ibDownvote;
     private ImageButton ibUpvote;
+    private ImageButton ibAudio;
     private FlexboxLayout tagLayout;
 
     private View.OnClickListener tagListener;
@@ -87,6 +88,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         ibDownvote = getView().findViewById(R.id.ibDownvote);
         ibUpvote = getView().findViewById(R.id.ibUpvote);
         tagLayout = getView().findViewById(R.id.flexBoxTags);
+        ibAudio = getView().findViewById(R.id.ibAudio);
     }
 
     private void setListeners() {
@@ -95,6 +97,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         ibDownvote.setOnClickListener(v -> presenter.tryVote(false));
         ibUpvote.setOnClickListener(v -> presenter.tryVote(true));
         tvUsername.setOnClickListener(v -> redirectToUserPage(presenter.getExpression().getUser()));
+        ibAudio.setOnClickListener(v -> presenter.playAudio());
     }
 
     @Override

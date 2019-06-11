@@ -8,9 +8,7 @@ import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
-import com.esgi.project.underdico.utils.AudioRecorder;
-import com.esgi.project.underdico.utils.FileUtils;
-import com.esgi.project.underdico.utils.PermissionManager;
+import com.esgi.project.underdico.utils.AudioHelper;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.newexpression.NewExpressionView;
 
@@ -30,7 +28,7 @@ import retrofit2.Response;
 public class NewExpressionPresenter {
     NewExpressionView view;
     List<Button> tags;
-    AudioRecorder recorder;
+    AudioHelper recorder;
     Context context;
     private static final int MAX_TAGS = 5;
 
@@ -129,7 +127,7 @@ public class NewExpressionPresenter {
         } else {
             try {
                 view.showIsRecording();
-                recorder = new AudioRecorder(context);
+                recorder = new AudioHelper(context);
                 recorder.record();
             } catch (IOException e) {
                 view.showRecordFailed();

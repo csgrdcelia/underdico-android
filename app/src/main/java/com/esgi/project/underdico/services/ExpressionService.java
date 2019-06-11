@@ -52,5 +52,8 @@ public interface ExpressionService {
     @PUT("words/{wordId}/audio")
     Call<ResponseBody> putAudio(@Header("Authorization") String token, @Path("wordId") String id, @Part MultipartBody.Part file);
 
+    @GET("words/{wordId}/audio")
+    Call<ResponseBody> getAudio(@Header("Authorization") String token, @Path("wordId") String id);
+
 
 }
