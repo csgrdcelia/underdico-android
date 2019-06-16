@@ -1,6 +1,5 @@
 package com.esgi.project.underdico.models;
 
-import android.text.TextUtils;
 import android.util.Pair;
 
 import com.esgi.project.underdico.utils.Constants;
@@ -9,12 +8,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 public class Expression implements Serializable {
     @SerializedName("id")

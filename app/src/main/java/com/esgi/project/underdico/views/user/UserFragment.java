@@ -1,15 +1,11 @@
 package com.esgi.project.underdico.views.user;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +26,6 @@ import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import static android.Manifest.permission.RECORD_AUDIO;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
 
 public class UserFragment extends Fragment implements UserView, AdapterView.OnItemSelectedListener {
