@@ -44,7 +44,7 @@ public class MainPresenter {
 
     public void callRandomExpression() {
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<Expression> call = service.getRandomExpression(Session.getCurrentToken().getValue());
+        Call<Expression> call = service.getRandomExpression(Session.getCurrentToken().getValue(), Session.getCurrentUser().getLocale());
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {

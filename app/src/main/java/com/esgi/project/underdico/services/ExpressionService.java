@@ -34,10 +34,10 @@ public interface ExpressionService {
     Call<Expression> getExpression(@Header("Authorization") String token, @Path("wordId") String id);
 
     @GET("words/daily")
-    Call<Expression> getExpressionOfTheDay(@Header("Authorization") String token);
+    Call<Expression> getExpressionOfTheDay(@Header("Authorization") String token, @Query("locale") String locale);
 
     @GET("words/random")
-    Call<Expression> getRandomExpression(@Header("Authorization") String token);
+    Call<Expression> getRandomExpression(@Header("Authorization") String token, @Query("locale") String locale);
 
     @POST("words")
     Call<Expression> saveExpression(@Header("Authorization") String token, @Body Expression expression);
