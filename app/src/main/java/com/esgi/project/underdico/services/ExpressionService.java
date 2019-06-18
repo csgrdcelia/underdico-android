@@ -27,8 +27,7 @@ public interface ExpressionService {
     @GET("words")
     Call<List<Expression>> getExpressionsWithFilter(@Header("Authorization") String token, @Query("where") String name);
 
-    @GET("words?where=\"tags\":\"{tag}\"")
-    Call<List<Expression>> getExpressionsByTag(@Header("Authorization") String token, @Path("tag") String tag);
+
 
     @GET("words/{wordId}")
     Call<Expression> getExpression(@Header("Authorization") String token, @Path("wordId") String id);
