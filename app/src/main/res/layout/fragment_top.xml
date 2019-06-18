@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".views.sampledata.TopFragment">
 
+    <TextView
+        android:id="@+id/tvNoExpressions"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/no_top_expressions"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rvTop"
+        app:layout_constraintEnd_toEndOf="@+id/rvTop"
+        app:layout_constraintStart_toStartOf="@+id/rvTop"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
@@ -29,4 +44,15 @@
             android:layout_height="wrap_content"
             android:text="@string/all_time" />
     </android.support.design.widget.TabLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+
+    </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

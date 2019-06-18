@@ -65,6 +65,7 @@
     <string name="day">Jour</string>
     <string name="week">Semaine</string>
     <string name="all_time">Toujours</string>
+    <string name="no_top_expressions">Pas d\'expressions en top !</string>
 
     <!-- User page -->
     <string name="user">Utilisateur</string>
