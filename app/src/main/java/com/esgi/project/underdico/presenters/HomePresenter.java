@@ -11,6 +11,9 @@ import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.home.HomeView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,23 +61,32 @@ public class HomePresenter {
     }
 
     private void displayExpressions() {
-        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-        Call<List<Expression>> call = service.getExpressions(Session.getCurrentToken().getValue());
-        call.enqueue(new Callback<List<Expression>>() {
-            @Override
-            public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {
-                if(response.isSuccessful())
-                    if(response.body() != null)
-                        view.displayExpressions(response.body());
-                else
-                    view.showError(context.getString(R.string.expression_error));
-            }
+        try {
 
-            @Override
-            public void onFailure(Call<List<Expression>> call, Throwable t) {
-                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.expression_error));
-            }
-        });
+            JSONObject filter = new JSONObject();
+            filter.put("locale", Session.getCurrentUser().getLocale());
+
+            ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+            Call<List<Expression>> call = service.getExpressionsWithFilter(Session.getCurrentToken().getValue(), filter.toString());
+            call.enqueue(new Callback<List<Expression>>() {
+                @Override
+                public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body() != null)
+                            view.displayExpressions(response.body());
+                    } else {
+                        view.showError(context.getString(R.string.expression_error));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Expression>> call, Throwable t) {
+                    Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
+                    view.showError(context.getString(R.string.expression_error));
+                }
+            });
+        } catch (JSONException e) {
+            view.showError(context.getString(R.string.expression_error));
+        }
     }
 }
