@@ -1,7 +1,7 @@
 <resources>
 
     <!-- API -->
-    <string name="API_URL">http://underdico.hdaroit.fr/api/</string>
+    <string name="API_URL">https://underdico.hdaroit.fr/api/</string>
 
     <!-- Base -->
     <string name="hello_blank_fragment">Bonjour fragment blanc</string>

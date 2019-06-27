@@ -2,6 +2,7 @@ package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
@@ -11,6 +12,9 @@ import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.sampledata.TopView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,33 +41,57 @@ public class TopPresenter {
     }
 
     private void initializeView() {
+        view.assignViews();
+        view.setListeners();
         getExpressionTop(TopType.DAY);
     }
 
     public void getExpressionTop(TopType type) {
-        if(topDictionary.get(type) != null) {
+
+        if (topDictionary.get(type) != null) {
             view.displayExpressions(topDictionary.get(type));
-        } else {
-            String json = ""; //TODO: set query with $gt & orderby
-
-            ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
-            Call<List<Expression>> call = service.getExpressionsWithFilter(Session.getCurrentToken().getValue(), json);
-            call.enqueue(new Callback<List<Expression>>() {
-                @Override
-                public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {
-                    if (response.isSuccessful())
-                        view.displayExpressions(response.body());
-                    else
-                        view.showError(context.getString(R.string.expression_error));
-                }
-
-                @Override
-                public void onFailure(Call<List<Expression>> call, Throwable t) {
-                    Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                    view.showError(context.getString(R.string.expression_error));
-                }
-            });
+            return;
         }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS\'Z\'");
+
+        String json = "{\"$expr\":{\"$and\":[{\"$gte\":[\"$createdAt\",{\"$dateFromString\":{\"dateString\":\""+ sdf.format(getTopDate(type).getTime()) + "\"}}]},{\"$lt\":[\"$createdAt\",{\"$dateFromString\":{\"dateString\":\""+ sdf.format(calendar.getTime()) +"\"}}]}]}}";
+
+        ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
+        Call<List<Expression>> call = service.getExpressionsWithFilterAndSort(Session.getCurrentToken().getValue(), json, "score,desc");
+        call.enqueue(new Callback<List<Expression>>() {
+            @Override
+            public void onResponse(Call<List<Expression>> call, Response<List<Expression>> response) {
+                if (response.isSuccessful())
+                    view.displayExpressions(response.body());
+                else
+                    view.showError(context.getString(R.string.expression_error));
+            }
+
+            @Override
+            public void onFailure(Call<List<Expression>> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
+                view.showError(context.getString(R.string.expression_error));
+            }
+        });
+    }
+
+    private Calendar getTopDate(TopType type) {
+        Calendar c = Calendar.getInstance();
+        if(type == TopType.DAY) {
+            c.setTime(new Date());
+            c.set(Calendar.HOUR_OF_DAY, 0);
+        } else if (type == TopType.WEEK) {
+            c.setTime(new Date());
+            c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek());
+        } else if (type == TopType.ALLTIME) {
+            c.setTime(new Date(Long.MIN_VALUE));
+        }
+        return c;
     }
 
     private void initTopDictionary() {

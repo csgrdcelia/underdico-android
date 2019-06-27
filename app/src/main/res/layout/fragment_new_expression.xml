@@ -45,7 +45,7 @@
         android:ems="10"
         android:hint="Tag"
         android:inputType="textPersonName"
-        android:maxLength="10"
+        android:maxLength="15"
         app:layout_constraintEnd_toStartOf="@+id/ibAddTag"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etExpressionDefinition" />
