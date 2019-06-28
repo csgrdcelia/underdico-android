@@ -59,8 +59,40 @@ public class TopPresenter {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS\'Z\'");
 
-        String json = "{\"$expr\":{\"$and\":[{\"$gte\":[\"$createdAt\",{\"$dateFromString\":{\"dateString\":\""+ sdf.format(getTopDate(type).getTime()) + "\"}}]},{\"$lt\":[\"$createdAt\",{\"$dateFromString\":{\"dateString\":\""+ sdf.format(calendar.getTime()) +"\"}}]}]}}";
-
+        String jsonx = "{\"$expr\":{\"$and\":[{\"$gte\":[\"$createdAt\",{\"$dateFromString\":{\"dateString\":\""+ sdf.format(getTopDate(type).getTime()) + "\"}}]},{\"$lt\":[\"$createdAt\",{\"$dateFromString\":{\"dateString\":\""+ sdf.format(calendar.getTime()) +"\"}}]}]}}";
+        String json = "{\n" +
+                "  \"$and\": [\n" +
+                "    {\n" +
+                "      \"$expr\": {\n" +
+                "        \"$and\": [\n" +
+                "          {\n" +
+                "            \"$gte\": [\n" +
+                "              \"$createdAt\",\n" +
+                "              {\n" +
+                "                \"$dateFromString\": {\n" +
+                "                  \"dateString\": \""+ sdf.format(getTopDate(type).getTime()) + "\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ]\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"$lte\": [\n" +
+                "              \"$createdAt\",\n" +
+                "              {\n" +
+                "                \"$dateFromString\": {\n" +
+                "                  \"dateString\": \""+ sdf.format(calendar.getTime()) +"\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ]\n" +
+                "          }\n" +
+                "        ]\n" +
+                "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"locale\": \"" + Session.getCurrentUser().getLocale() + "\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
         Call<List<Expression>> call = service.getExpressionsWithFilterAndSort(Session.getCurrentToken().getValue(), json, "score,desc");
         call.enqueue(new Callback<List<Expression>>() {

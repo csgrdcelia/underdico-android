@@ -22,9 +22,6 @@ import retrofit2.http.Query;
 
 public interface ExpressionService {
     @GET("words")
-    Call<List<Expression>> getExpressions(@Header("Authorization") String token);
-
-    @GET("words")
     Call<List<Expression>> getExpressionsWithFilter(@Header("Authorization") String token, @Query("where") String name);
 
     @GET("words")
