@@ -2,7 +2,6 @@ package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.Pair;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
@@ -10,7 +9,7 @@ import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
-import com.esgi.project.underdico.views.sampledata.TopView;
+import com.esgi.project.underdico.views.Top.TopView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -52,6 +51,7 @@ public class TopPresenter {
             view.displayExpressions(topDictionary.get(type));
             return;
         }
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.set(Calendar.HOUR_OF_DAY, 0);

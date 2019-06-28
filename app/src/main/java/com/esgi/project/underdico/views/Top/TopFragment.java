@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.views.sampledata;
+package com.esgi.project.underdico.views.Top;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -61,6 +61,7 @@ public class TopFragment extends Fragment implements TopView {
         tabLayout = getView().findViewById(R.id.tabLayout);
         topRecyclerView = getView().findViewById(R.id.rvTop);
         noExpressionTextView = getView().findViewById(R.id.tvNoExpressions);
+        configureRecyclerView();
     }
 
     @Override
@@ -95,14 +96,16 @@ public class TopFragment extends Fragment implements TopView {
     public void displayExpressions(List<Expression> expressions) {
         if(expressions != null) {
             noExpressionTextView.setVisibility(View.GONE);
-            configureRecyclerView(expressions);
+            ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
+            topRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), null));
         }
         else {
             noExpressionTextView.setVisibility(View.VISIBLE);
         }
     }
 
-    private void configureRecyclerView(List<Expression> expressions) {
+    public void configureRecyclerView() {
+
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 getContext(),
                 DividerItemDecoration.VERTICAL
@@ -111,10 +114,7 @@ public class TopFragment extends Fragment implements TopView {
                 ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
         );
 
-        ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
-
         topRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-        topRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), null));
         topRecyclerView.addItemDecoration(dividerItemDecoration);
     }
 
