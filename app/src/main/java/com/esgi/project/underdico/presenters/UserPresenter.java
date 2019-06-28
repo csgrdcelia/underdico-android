@@ -51,9 +51,11 @@ public class UserPresenter {
     private void initialize() {
         view.assignViews();
         view.setListeners();
-        view.displayUserInformation(user);
+        //view.displayUserInformation(user);
         view.allowModification(user.getId().equals(Session.getCurrentToken().getUserId()));
+        callUserInformation();
         retrieveProfilePicture();
+
     }
 
     public void processModifications(String language, Uri newProfilePicture) {
@@ -120,6 +122,31 @@ public class UserPresenter {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
                 view.showError(context.getString(R.string.error));
+            }
+        });
+    }
+
+    public void callUserInformation() {
+        view.showProgress(true);
+        UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
+        Call<User> call = service.getUser(Session.getCurrentToken().getValue(), user.getId());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful() || response.body() != null) {
+                    user = response.body();
+                    view.displayUserInformation(user);
+                } else {
+                    view.showError(context.getString(R.string.error));
+                }
+                view.showProgress(false);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
+                view.showProgress(false);
+                view.showError(context.getString(R.string.error_network));
             }
         });
     }

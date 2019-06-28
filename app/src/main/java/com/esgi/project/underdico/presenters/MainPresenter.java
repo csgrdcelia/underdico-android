@@ -76,7 +76,7 @@ public class MainPresenter {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.error));
+                //view.showError(context.getString(R.string.error));
             }
         });
     }

@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         drawer = findViewById(R.id.drawer_layout);
         profilename = headerView.findViewById(R.id.tvUsername);
         profilePicture = headerView.findViewById(R.id.ivUserPicture);
-        profilePicture.setOnClickListener(v -> updateFragment(UserFragment.newInstance(Session.getCurrentUser())));
+
     }
 
     @Override
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        profilePicture.setOnClickListener(v -> updateFragment(UserFragment.newInstance(Session.getCurrentUser())));
     }
 
     @Override
