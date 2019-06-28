@@ -9,6 +9,7 @@ import com.esgi.project.underdico.models.Token;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.services.UserService;
 import com.esgi.project.underdico.views.login.LoginView;
+import com.esgi.project.underdico.views.splash.SplashView;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -63,6 +64,33 @@ public class Session {
 
     public static void setCurrentUser(User currentUser) {
         Session.currentUser = currentUser;
+    }
+
+    public static void callUserInformation(Context context, SplashView view) {
+        UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
+        Call<User> call = service.getUser(Session.getCurrentToken().getValue(), Session.getCurrentToken().getUserId());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful() || response.body() != null) {
+                    currentUser = response.body();
+                    view.redirectToMainActivity();
+                }  else if (response.code() == Constants.HTTP_UNAUTHORIZED) {
+                    view.showError(context.getString(R.string.expired_token));
+                    view.redirectToLoginPage();
+                } else {
+                    view.showError(context.getString(R.string.error));
+                    view.redirectToLoginPage();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
+                view.redirectToLoginPage();
+                view.showError(context.getString(R.string.error_network));
+            }
+        });
     }
 
     public static void callUserInformation(Context context, LoginView view) {

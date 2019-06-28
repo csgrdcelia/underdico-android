@@ -25,7 +25,6 @@ public class LoginPresenter {
         this.context = context;
 
         initialize();
-        checkIfLogged();
     }
 
     private void initialize() {
@@ -33,13 +32,13 @@ public class LoginPresenter {
         view.setListeners();
     }
 
-    private void checkIfLogged() {
+    /*private void checkIfLogged() {
         Token token = Session.getFromSharedPref(context);
         if(token != null && token.isValid()) {
             Session.setCurrentToken(token);
             Session.callUserInformation(context, view);
         }
-    }
+    }*/
 
     public void handleLogin(String username, String password) {
         if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {

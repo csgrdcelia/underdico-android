@@ -51,7 +51,6 @@ public class UserPresenter {
     private void initialize() {
         view.assignViews();
         view.setListeners();
-        //view.displayUserInformation(user);
         view.allowModification(user.getId().equals(Session.getCurrentToken().getUserId()));
         callUserInformation();
         retrieveProfilePicture();
@@ -184,7 +183,5 @@ public class UserPresenter {
                 view.showError(context.getString(R.string.error));
             }
         });
-
     }
-
 }
