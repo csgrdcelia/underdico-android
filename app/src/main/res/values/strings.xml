@@ -76,6 +76,7 @@
 
     <!-- Errors -->
     <string name="expression_error">Une erreur est apparue lors de la récupération du/des expressions</string>
+    <string name="rooms_error">Une erreur est apparue lors de la récupération des salles de jeu</string>
     <string name="error_vote">Une erreur est apparue lors du vote</string>
     <string name="error">Une erreur est apparue</string>
     <string name="error_network">Connexion au serveur échouée</string>

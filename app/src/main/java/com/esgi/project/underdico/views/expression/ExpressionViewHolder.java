@@ -55,6 +55,11 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         setOnClickListeners();
     }
 
+    public void bind(Expression expression) {
+        this.expression = expression;
+        presenter = new ExpressionPresenter(this, expression, context, parent);
+    }
+
     private void assignViews() {
         tvDate = itemView.findViewById(R.id.tvExpressionDate);
         tvExpression = itemView.findViewById(R.id.tvExpression);
@@ -66,12 +71,6 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         ibUpvote = itemView.findViewById(R.id.ibUpvote);
         ibAudio = itemView.findViewById(R.id.ibAudio);
         ivLocaleFlag = itemView.findViewById(R.id.ivLocaleFlag);
-    }
-
-    public void bind(Expression expression) {
-        this.expression = expression;
-        presenter = new ExpressionPresenter(this, expression, context, parent);
-
     }
 
     private void setOnClickListeners() {

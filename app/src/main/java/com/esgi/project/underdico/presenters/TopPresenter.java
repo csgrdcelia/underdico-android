@@ -9,7 +9,7 @@ import com.esgi.project.underdico.services.ExpressionService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
-import com.esgi.project.underdico.views.Top.TopView;
+import com.esgi.project.underdico.views.top.TopView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

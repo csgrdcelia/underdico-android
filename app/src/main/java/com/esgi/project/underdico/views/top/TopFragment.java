@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.views.Top;
+package com.esgi.project.underdico.views.top;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
@@ -126,6 +127,6 @@ public class TopFragment extends Fragment implements TopView {
 
     @Override
     public void showError(String error) {
-
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }

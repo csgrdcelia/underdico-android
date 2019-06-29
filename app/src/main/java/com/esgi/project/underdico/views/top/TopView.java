@@ -1,4 +1,4 @@
-package com.esgi.project.underdico.views.Top;
+package com.esgi.project.underdico.views.top;
 
 import com.esgi.project.underdico.models.Expression;
 

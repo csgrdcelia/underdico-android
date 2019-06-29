@@ -25,13 +25,13 @@ import android.widget.Toast;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.presenters.MainPresenter;
 import com.esgi.project.underdico.utils.Session;
-import com.esgi.project.underdico.views.channels.GameChannelsFragment;
+import com.esgi.project.underdico.views.rooms.RoomListFragment;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.views.login.LoginActivity;
 import com.esgi.project.underdico.views.newexpression.NewExpressionFragment;
-import com.esgi.project.underdico.views.Top.TopFragment;
+import com.esgi.project.underdico.views.top.TopFragment;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.views.user.UserFragment;
 
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_new) {
             updateFragment(NewExpressionFragment.newInstance());
         } else if (id == R.id.menu_play) {
-            updateFragment(GameChannelsFragment.newInstance());
+            updateFragment(RoomListFragment.newInstance());
         } else if (id == R.id.menu_logout) {
             Session.clearSharedPreferences(getApplicationContext());
             redirectToLoginPage();

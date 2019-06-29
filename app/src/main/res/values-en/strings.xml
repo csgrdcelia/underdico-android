@@ -71,6 +71,7 @@
 
     <!-- Errors -->
     <string name="expression_error">An error occured while loading expression(s)</string>
+    <string name="rooms_error">An error occured while loading rooms</string>
     <string name="error_vote">An error occured while voting</string>
     <string name="error">An error occured</string>
     <string name="error_network">Server connection failed</string>
