@@ -60,9 +60,9 @@ public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView,
     }
 
     @Override
-    public void redirectToGame(String roomId) {
+    public void redirectToGame(Room room) {
         MainActivity activity = (MainActivity) context;
-        Fragment myFragment = GameFragment.newInstance(roomId);
+        Fragment myFragment = GameFragment.newInstance(room);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 }

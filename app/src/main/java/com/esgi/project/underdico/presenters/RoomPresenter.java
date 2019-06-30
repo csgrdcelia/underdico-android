@@ -25,6 +25,6 @@ public class RoomPresenter {
     }
 
     public void roomIsClicked() {
-        view.redirectToGame(room.getId());
+        view.redirectToGame(room);
     }
 }

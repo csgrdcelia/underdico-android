@@ -5,5 +5,5 @@ import com.esgi.project.underdico.views.BaseView;
 
 public interface RoomView extends BaseView {
     void displayRoom(Room room);
-    void redirectToGame(String roomId);
+    void redirectToGame(Room room);
 }
