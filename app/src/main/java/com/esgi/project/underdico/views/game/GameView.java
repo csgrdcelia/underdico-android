@@ -1,4 +1,6 @@
 package com.esgi.project.underdico.views.game;
 
-public interface GameView {
+import com.esgi.project.underdico.views.BaseView;
+
+public interface GameView extends BaseView {
 }

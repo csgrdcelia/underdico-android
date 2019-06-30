@@ -88,6 +88,9 @@
     <string name="error_audio_save">An error occured while saving the audio</string>
     <string name="error_audio_not_found">No audio for this expression</string>
 
+    <!-- Game -->
+    <string name="answer">Answer</string>
+
     <!-- Top -->
     <string name="day">Day</string>
     <string name="week">Week</string>

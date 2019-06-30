@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.esgi.project.underdico.R;
 
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment implements GameView {
     private static final String PARAM_ROOM_ID = "roomid";
 
     private String roomId;
@@ -39,5 +39,15 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game, container, false);
+    }
+
+    @Override
+    public void assignViews() {
+
+    }
+
+    @Override
+    public void setListeners() {
+
     }
 }
