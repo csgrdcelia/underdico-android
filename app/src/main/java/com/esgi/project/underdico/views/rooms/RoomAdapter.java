@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
-import com.esgi.project.underdico.views.ViewClickListener;
 
 import java.util.List;
 

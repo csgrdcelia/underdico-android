@@ -70,8 +70,6 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         super.onActivityCreated(savedInstanceState);
 
         if(getArguments() != null) {
-            assignViews();
-            setListeners();
             Expression expression = (Expression) this.getArguments().getSerializable(EXPRESSION);
             presenter = new ExpressionPresenter(this, expression, getContext(), null);
         } else {
@@ -80,7 +78,8 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         }
     }
 
-    private void assignViews() {
+    @Override
+    public void assignViews() {
         tvDate = getView().findViewById(R.id.tvExpressionDate);
         tvExpression = getView().findViewById(R.id.tvExpression);
         tvDefinition = getView().findViewById(R.id.tvExpressionDefinition);
@@ -94,7 +93,8 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         ivLocaleFlag = getView().findViewById(R.id.ivLocaleFlag);
     }
 
-    private void setListeners() {
+    @Override
+    public void setListeners() {
         tagListener = v -> presenter.searchExpressionsWithTag(String.valueOf(((TextView)v).getText()));
         ibOtherDefinition.setOnClickListener(v -> presenter.createOtherDefinition());
         ibDownvote.setOnClickListener(v -> presenter.tryVote(false));

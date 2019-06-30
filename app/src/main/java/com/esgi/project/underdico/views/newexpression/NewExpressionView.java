@@ -2,9 +2,9 @@ package com.esgi.project.underdico.views.newexpression;
 
 import android.widget.Button;
 
-public interface NewExpressionView {
-    void assignViews();
-    void setListeners();
+import com.esgi.project.underdico.views.BaseView;
+
+public interface NewExpressionView extends BaseView {
     void showTagLimitIsReached();
     void showIsRecording();
     void showRecordIsStopped();

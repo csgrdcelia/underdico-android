@@ -17,7 +17,7 @@ import com.esgi.project.underdico.presenters.SearchPresenter;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.views.expression.ExpressionAdapter;
-import com.esgi.project.underdico.views.ViewClickListener;
+import com.esgi.project.underdico.views.expression.ViewClickListener;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.models.Expression;

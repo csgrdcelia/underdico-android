@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.esgi.project.underdico.views.ViewClickListener;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
@@ -50,8 +49,6 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         this.context = context;
         this.listener = listener;
         this.parent = parent;
-        assignViews();
-        setOnClickListeners();
     }
 
     public void bind(Expression expression) {
@@ -59,7 +56,8 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         presenter = new ExpressionPresenter(this, expression, context, parent);
     }
 
-    private void assignViews() {
+    @Override
+    public void assignViews() {
         tvDate = itemView.findViewById(R.id.tvExpressionDate);
         tvExpression = itemView.findViewById(R.id.tvExpression);
         tvDefinition = itemView.findViewById(R.id.tvExpressionDefinition);
@@ -72,7 +70,8 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         ivLocaleFlag = itemView.findViewById(R.id.ivLocaleFlag);
     }
 
-    private void setOnClickListeners() {
+    @Override
+    public void setListeners() {
         tagListener = v -> presenter.searchExpressionsWithTag(String.valueOf(((TextView)v).getText()));
         tvExpression.setOnClickListener(v -> listener.onClick(v, expression));
         ibDownvote.setOnClickListener(v -> presenter.tryVote(false));

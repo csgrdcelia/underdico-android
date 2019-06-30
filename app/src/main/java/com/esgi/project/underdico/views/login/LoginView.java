@@ -1,10 +1,10 @@
 package com.esgi.project.underdico.views.login;
 
-public interface LoginView {
+import com.esgi.project.underdico.views.BaseView;
+
+public interface LoginView extends BaseView {
     void askUserToFillFields();
     void showProgress(boolean show);
-    void assignViews();
-    void setListeners();
     void setUsernameIfPresent();
     void goToRegisterView();
     void loginSuccessfully();

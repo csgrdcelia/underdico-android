@@ -7,18 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
-import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
-import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.presenters.RoomPresenter;
-import com.esgi.project.underdico.views.GameFragment;
-import com.esgi.project.underdico.views.ViewClickListener;
+import com.esgi.project.underdico.views.game.GameFragment;
 import com.esgi.project.underdico.views.main.MainActivity;
-
-import static java.security.AccessController.getContext;
 
 public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView, View.OnClickListener {
     private Context context;

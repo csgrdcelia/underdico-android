@@ -2,7 +2,6 @@ package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.Pair;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
@@ -42,6 +41,8 @@ public class ExpressionPresenter {
     }
 
     private void initialize() {
+        view.assignViews();
+        view.setListeners();
         updateView();
     }
 

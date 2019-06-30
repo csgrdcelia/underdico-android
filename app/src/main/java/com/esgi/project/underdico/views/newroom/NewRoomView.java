@@ -1,8 +1,8 @@
 package com.esgi.project.underdico.views.newroom;
 
-public interface NewRoomView {
-    void assignViews();
-    void setListeners();
+import com.esgi.project.underdico.views.BaseView;
+
+public interface NewRoomView extends BaseView {
     void redirectToRoomList();
     void showError(String error);
 }

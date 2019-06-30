@@ -24,7 +24,7 @@ public class HomePresenter {
     HomeView view;
     Context context;
 
-    public HomePresenter(HomeView view, Context context) {
+    public HomePresenter(HomeView view,  Context context) {
         this.view = view;
         this.context = context;
 

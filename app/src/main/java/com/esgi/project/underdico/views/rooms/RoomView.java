@@ -1,12 +1,9 @@
 package com.esgi.project.underdico.views.rooms;
 
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.views.BaseView;
 
-import java.util.List;
-
-public interface RoomView {
-    void assignViews();
-    void setListeners();
+public interface RoomView extends BaseView {
     void displayRoom(Room room);
     void redirectToGame(String roomId);
 }

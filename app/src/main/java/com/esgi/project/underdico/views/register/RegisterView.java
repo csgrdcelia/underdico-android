@@ -1,9 +1,9 @@
 package com.esgi.project.underdico.views.register;
 
-public interface RegisterView {
+import com.esgi.project.underdico.views.BaseView;
+
+public interface RegisterView extends BaseView {
     void askUserToFillFields();
-    void assignViews();
-    void setListeners();
     void checkUsernameValidityInRealTime();
     void checkEmailValidityInRealTime();
     void checkPasswordValidityInRealTime();
