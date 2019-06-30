@@ -70,7 +70,7 @@ public class NewExpressionPresenter {
         call.enqueue(new Callback<Expression>() {
             @Override
             public void onResponse(Call<Expression> call, Response<Expression> response) {
-                if(response.isSuccessful() || response.body() != null) {
+                if(response.isSuccessful()) {
                     if(recorder != null) {
                         saveAudio(response.body().getId());
                     }

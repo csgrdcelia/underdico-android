@@ -84,11 +84,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void loginFail() {
-        Toast.makeText(this, this.getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void showError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }

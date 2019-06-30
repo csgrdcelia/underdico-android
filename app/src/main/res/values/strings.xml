@@ -74,6 +74,15 @@
     <string name="karma">Karma</string>
     <string name="game_score">Score de jeu</string>
 
+    <!-- Rooms -->
+    <string name="room_name">Nom de la salle de jeu</string>
+    <string name="create">Créer</string>
+    <string name="room_number_players">Nombre de joueurs maximum</string>
+    <string name="expression_language">Langue des expressions</string>
+    <string name="room_private">Salon privé</string>
+    <string name="room_name_exists">Ce nom de salon existe déjà</string>
+    <string name="room_name_not_found">Veuillez donner un nom au salon de jeu</string>
+
     <!-- Errors -->
     <string name="expression_error">Une erreur est apparue lors de la récupération du/des expressions</string>
     <string name="rooms_error">Une erreur est apparue lors de la récupération des salles de jeu</string>

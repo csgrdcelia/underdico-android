@@ -9,5 +9,4 @@ public interface LoginView {
     void goToRegisterView();
     void loginSuccessfully();
     void showError(String error);
-    void loginFail();
 }

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.RoomListPresenter;
+import com.esgi.project.underdico.views.main.MainActivity;
+import com.esgi.project.underdico.views.newroom.NewRoomFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +94,9 @@ public class RoomListFragment extends Fragment implements RoomListView {
 
     @Override
     public void redirectToRoomCreation() {
-
+        MainActivity activity = (MainActivity) getContext();
+        Fragment myFragment = NewRoomFragment.newInstance();
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 
     @Override

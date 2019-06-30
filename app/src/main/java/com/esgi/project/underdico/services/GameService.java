@@ -15,5 +15,5 @@ public interface GameService {
     Call<List<Room>> getRooms();
 
     @POST("rooms")
-    Call<Room> createRooms(@Header("Authorization") String token, @Body Room room);
+    Call<Room> createRoom(@Header("Authorization") String token, @Body Room room);
 }

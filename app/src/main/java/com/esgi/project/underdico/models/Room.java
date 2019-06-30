@@ -22,6 +22,13 @@ public class Room implements Serializable {
     private String locale;
     private String[] rounds;
 
+    public Room(String name, int maxPlayers, String locale, boolean isPrivate) {
+        this.name = name;
+        this.maxPlayers = maxPlayers;
+        this.locale = locale;
+        this.isPrivate = isPrivate;
+    }
+
     public String getName() {
         return name;
     }
