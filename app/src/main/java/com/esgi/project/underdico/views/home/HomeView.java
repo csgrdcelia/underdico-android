@@ -9,5 +9,4 @@ public interface HomeView extends BaseView {
     void displayExpressions(List<Expression> expressions);
     void displayExpressionOfTheDay(Expression expression);
     boolean isExpressionOfTheDay(Expression expression);
-    void showError(String error);
 }

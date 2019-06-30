@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface SearchView extends BaseView {
     void displaySearchResult(List<Expression> expressions);
-    void showError(String error);
     void goHome();
 }

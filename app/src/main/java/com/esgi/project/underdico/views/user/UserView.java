@@ -11,7 +11,6 @@ public interface UserView extends BaseView {
     void displayModificationView(boolean display);
     void showProgress(boolean show);
     void setProfilePicture(Bitmap image);
-    void showError(String error);
     void redirectToHome();
     void refresh();
 }

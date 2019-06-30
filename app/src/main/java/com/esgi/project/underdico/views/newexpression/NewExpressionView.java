@@ -15,5 +15,4 @@ public interface NewExpressionView extends BaseView {
     Button createTagButton(String tag);
     void createSuccessfully();
 
-    void showError(String error);
 }

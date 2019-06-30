@@ -14,5 +14,4 @@ public interface ExpressionView extends BaseView {
     void displayUserVote(boolean score);
     void searchWithTag(String tag);
     void redirectToUserPage(User user);
-    void showError(String error);
 }

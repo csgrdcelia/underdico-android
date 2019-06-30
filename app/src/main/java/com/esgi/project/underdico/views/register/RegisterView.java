@@ -11,5 +11,4 @@ public interface RegisterView extends BaseView {
     boolean hasInvalidFields();
     void showRegisterSuccess();
     void showLoginView(String username);
-    void showError(String error);
 }

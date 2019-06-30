@@ -92,6 +92,11 @@ public class GameFragment extends Fragment implements GameView {
     }
 
     @Override
+    public void showError(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void displayRoomInformation(Room room) {
         roomNameTextView.setText(room.getName());
         usernameTextView.setText(Session.getCurrentUser().getUsername());

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
@@ -44,6 +45,11 @@ public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView,
     @Override
     public void setListeners() {
         itemView.setOnClickListener(this);
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

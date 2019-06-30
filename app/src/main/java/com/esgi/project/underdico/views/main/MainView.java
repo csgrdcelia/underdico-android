@@ -9,7 +9,6 @@ public interface MainView extends BaseView {
     void displayUserInformation();
     void setProfilePicture(Bitmap image);
     void displayRandomExpression(Expression expression);
-    void showError(String error);
     void redirectToLoginPage();
     void refresh();
 }

@@ -8,5 +8,4 @@ public interface LoginView extends BaseView {
     void setUsernameIfPresent();
     void goToRegisterView();
     void loginSuccessfully();
-    void showError(String error);
 }
