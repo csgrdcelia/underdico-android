@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
+import com.esgi.project.underdico.views.ViewClickListener;
 import com.esgi.project.underdico.views.home.HomeView;
 
 import java.util.List;
@@ -15,10 +16,10 @@ import java.util.List;
 public class ExpressionAdapter extends RecyclerView.Adapter<ExpressionViewHolder> {
     private List<Expression> expressions;
     private Context context;
-    private ExpressionClickListener listener;
+    private ViewClickListener listener;
     private HomeView parent;
 
-    public ExpressionAdapter(List<Expression> expressions, ExpressionClickListener listener, Context context, HomeView parent)
+    public ExpressionAdapter(List<Expression> expressions, ViewClickListener listener, Context context, HomeView parent)
     {
         this.expressions = expressions;
         this.context = context;

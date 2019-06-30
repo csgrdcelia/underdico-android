@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esgi.project.underdico.views.ViewClickListener;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.User;
@@ -23,15 +24,13 @@ import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.views.user.UserFragment;
 import com.google.android.flexbox.FlexboxLayout;
 
-import java.util.List;
-
 public class ExpressionViewHolder extends RecyclerView.ViewHolder implements ExpressionView {
 
     private Context context;
     private HomeView parent;
     private ExpressionPresenter presenter;
     private Expression expression;
-    private ExpressionClickListener listener;
+    private ViewClickListener listener;
     private TextView tvDate;
     private TextView tvExpression;
     private TextView tvDefinition;
@@ -46,7 +45,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     private View.OnClickListener tagListener;
 
 
-    public ExpressionViewHolder(@NonNull View itemView, ExpressionClickListener listener, Context context, HomeView parent) {
+    public ExpressionViewHolder(@NonNull View itemView, ViewClickListener listener, Context context, HomeView parent) {
         super(itemView);
         this.context = context;
         this.listener = listener;

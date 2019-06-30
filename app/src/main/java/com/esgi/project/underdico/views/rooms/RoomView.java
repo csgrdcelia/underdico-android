@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface RoomView {
     void assignViews();
+    void setListeners();
     void displayRoom(Room room);
+    void redirectToGame(String roomId);
 }

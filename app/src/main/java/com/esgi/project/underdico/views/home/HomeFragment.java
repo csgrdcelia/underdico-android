@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.views.expression.ExpressionAdapter;
-import com.esgi.project.underdico.views.expression.ExpressionClickListener;
+import com.esgi.project.underdico.views.ViewClickListener;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.presenters.HomePresenter;
 import com.esgi.project.underdico.models.Expression;
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment implements HomeView {
                 ContextCompat.getDrawable(context, R.drawable.divider_10dp)
         );
 
-        ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
+        ViewClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
 
         expressionsRecyclerView.setLayoutManager(new GridLayoutManager(context,1));
         expressionsRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), this));
@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment implements HomeView {
                 ContextCompat.getDrawable(context, R.drawable.divider_10dp)
         );
 
-        ExpressionClickListener expressionClickListener = (view, expressionClicked) -> displayDetailedExpression(view, expressionClicked);
+        ViewClickListener expressionClickListener = (view, expressionClicked) -> displayDetailedExpression(view, expressionClicked);
 
         dayExpressionRecyclerView.setLayoutManager(new GridLayoutManager(context,1));
         dayExpressionRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, context, this));

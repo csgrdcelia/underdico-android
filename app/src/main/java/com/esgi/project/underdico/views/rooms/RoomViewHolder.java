@@ -2,6 +2,7 @@ package com.esgi.project.underdico.views.rooms;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,15 +14,21 @@ import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.presenters.RoomPresenter;
+import com.esgi.project.underdico.views.GameFragment;
+import com.esgi.project.underdico.views.ViewClickListener;
+import com.esgi.project.underdico.views.main.MainActivity;
 
-public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView {
-    Context context;
-    RoomPresenter presenter;
+import static java.security.AccessController.getContext;
 
-    TextView roomNameTextView;
-    ImageView privateImageView;
-    TextView playersTextView;
-    ImageView flagImageView;
+public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView, View.OnClickListener {
+    private Context context;
+    private RoomPresenter presenter;
+
+    private TextView roomNameTextView;
+    private ImageView privateImageView;
+    private TextView playersTextView;
+    private ImageView flagImageView;
+
 
     public RoomViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
@@ -41,10 +48,27 @@ public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView 
     }
 
     @Override
+    public void setListeners() {
+        itemView.setOnClickListener(this);
+    }
+
+    @Override
     public void displayRoom(Room room) {
         roomNameTextView.setText(room.getName());
         privateImageView.setVisibility(room.isPrivate() ? View.VISIBLE : View.GONE);
         playersTextView.setText(room.getPlayersIds().length + "/" + room.getMaxPlayers());
         flagImageView.setImageDrawable(context.getDrawable(room.getFlagImage()));
+    }
+
+    @Override
+    public void onClick(View v) {
+        presenter.roomIsClicked();
+    }
+
+    @Override
+    public void redirectToGame(String roomId) {
+        MainActivity activity = (MainActivity) context;
+        Fragment myFragment = GameFragment.newInstance(roomId);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 }

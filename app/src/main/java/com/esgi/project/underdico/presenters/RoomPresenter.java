@@ -20,6 +20,11 @@ public class RoomPresenter {
 
     private void initializeView() {
         view.assignViews();
+        view.setListeners();
         view.displayRoom(room);
+    }
+
+    public void roomIsClicked() {
+        view.redirectToGame(room.getId());
     }
 }

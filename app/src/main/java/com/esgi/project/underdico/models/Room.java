@@ -29,6 +29,10 @@ public class Room implements Serializable {
         this.isPrivate = isPrivate;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

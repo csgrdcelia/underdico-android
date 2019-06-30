@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.views.ViewClickListener;
 
 import java.util.List;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomViewHolder> {
-    Context context;
-    List<Room> rooms;
+    private Context context;
+    private List<Room> rooms;
 
     public RoomAdapter(List<Room> rooms, Context context) {
         this.rooms = rooms;

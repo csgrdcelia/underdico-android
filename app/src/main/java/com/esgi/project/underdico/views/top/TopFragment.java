@@ -18,7 +18,7 @@ import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.presenters.TopPresenter;
 import com.esgi.project.underdico.views.expression.ExpressionAdapter;
-import com.esgi.project.underdico.views.expression.ExpressionClickListener;
+import com.esgi.project.underdico.views.ViewClickListener;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.views.main.MainActivity;
 
@@ -97,7 +97,7 @@ public class TopFragment extends Fragment implements TopView {
     public void displayExpressions(List<Expression> expressions) {
         if(expressions != null) {
             noExpressionTextView.setVisibility(View.GONE);
-            ExpressionClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
+            ViewClickListener expressionClickListener = (view, expression) -> displayDetailedExpression(view, expression);
             topRecyclerView.setAdapter(new ExpressionAdapter(expressions, expressionClickListener, getContext(), null));
         }
         else {
