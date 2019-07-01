@@ -62,7 +62,7 @@ public class GameFragment extends Fragment implements GameView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter = new GamePresenter(getContext(), this, room);
+        presenter = new GamePresenter(getContext(), getActivity(), this, room);
     }
 
     @Override
