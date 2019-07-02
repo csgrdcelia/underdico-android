@@ -4,7 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +19,11 @@ import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.GamePresenter;
 import com.esgi.project.underdico.utils.Session;
+
+import java.util.List;
 
 public class GameFragment extends Fragment implements GameView {
     private static final String PARAM_ROOM = "room";
@@ -30,6 +36,7 @@ public class GameFragment extends Fragment implements GameView {
     private TextView usernameTextView;
     private TextView pointsTextView;
     private EditText answerEditText;
+    private RecyclerView playersRecyclerView;
 
 
     public GameFragment() {
@@ -73,6 +80,9 @@ public class GameFragment extends Fragment implements GameView {
         usernameTextView = getView().findViewById(R.id.usernameTextView);
         pointsTextView = getView().findViewById(R.id.pointsTextView);
         answerEditText = getView().findViewById(R.id.answerEditText);
+        playersRecyclerView = getView().findViewById(R.id.usersRecyclerView);
+
+        configureUsersRecyclerView();
     }
 
     @Override
@@ -91,6 +101,25 @@ public class GameFragment extends Fragment implements GameView {
         });
     }
 
+    public void configureUsersRecyclerView() {
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                getContext(),
+                DividerItemDecoration.VERTICAL
+        );
+        dividerItemDecoration.setDrawable(
+                ContextCompat.getDrawable(getContext(), R.drawable.divider_10dp)
+        );
+
+        playersRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        playersRecyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public void displayPlayers(List<User> users) {
+        playersRecyclerView.setAdapter(new PlayerAdapter(users));
+    }
+
     @Override
     public void showError(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
@@ -100,6 +129,5 @@ public class GameFragment extends Fragment implements GameView {
     public void displayRoomInformation(Room room) {
         roomNameTextView.setText(room.getName());
         usernameTextView.setText(Session.getCurrentUser().getUsername());
-        //TODO: display users
     }
 }

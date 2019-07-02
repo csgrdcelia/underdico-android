@@ -7,6 +7,7 @@
     tools:context=".views.game.GameFragment" >
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -35,8 +36,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
-            android:imeOptions="actionDone"
             android:hint="@string/answer"
+            android:imeOptions="actionDone"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
-            android:text="0 points"
             android:gravity="center"
+            android:text="0 points"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/usernameTextView"
             app:layout_constraintStart_toEndOf="@+id/usernameTextView"
@@ -83,6 +84,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -118,5 +120,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/definitionTextView" />
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/usersRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
 </android.support.constraint.ConstraintLayout>

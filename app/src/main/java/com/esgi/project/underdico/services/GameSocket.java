@@ -1,9 +1,12 @@
 package com.esgi.project.underdico.services;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.models.User;
+import com.esgi.project.underdico.presenters.GamePresenter;
 import com.esgi.project.underdico.utils.Session;
 import com.google.gson.Gson;
 
@@ -32,15 +35,18 @@ import io.socket.engineio.client.Transport;
 import okhttp3.OkHttpClient;
 
 public class GameSocket {
-
+    private Activity activity;
+    private GamePresenter presenter;
     private Socket socket;
     private Room room;
     private String token;
 
     private final String log = "LOGMSG";
 
-    public GameSocket(Room room, String token) {
+    public GameSocket(Activity activity, GamePresenter presenter, Room room, String token) {
         try {
+            this.activity = activity;
+            this.presenter = presenter;
             this.room = room;
             this.token = token;
             this.socket = IO.socket("https://underdico.hdaroit.fr/", getOptions());
@@ -140,7 +146,7 @@ public class GameSocket {
     };
 
     private Emitter.Listener newRoundListener = args -> {
-        Expression expression = new Gson().fromJson((String) args[0], Expression.class);
+        Expression expression = new Gson().fromJson(((JSONObject) args[0]).toString(), Expression.class);
         JSONObject obj = (JSONObject) args[0];
         Log.e(log, "newRound");
     };
@@ -157,12 +163,16 @@ public class GameSocket {
         Log.e(log, "EVENT_CONNECT_ERROR");
     };
 
-    private Emitter.Listener newPlayerListener = args -> {
+    private Emitter.Listener newPlayerListener = args -> activity.runOnUiThread(() -> {
+        User user = new Gson().fromJson(((JSONObject) args[0]).toString(), User.class);
+        presenter.displayNewUser(user);
         Log.e(log, "newPlayer");
-    };
+    });
 
 
     private Emitter.Listener playerRemovedListener = args -> {
+        User user = new Gson().fromJson(((JSONObject) args[0]).toString(), User.class);
+        presenter.removeUser(user);
         Log.e(log, "playerRemoved");
     };
 
