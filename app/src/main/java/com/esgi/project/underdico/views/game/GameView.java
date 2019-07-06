@@ -14,5 +14,6 @@ public interface GameView extends BaseView {
     void displayStartedGame();
     void displayProposalResult(boolean isCorrect, String username);
     void displayWaitingGame(boolean owner);
+    void showTimeout(User player);
     void displayTerminatedGame();
 }

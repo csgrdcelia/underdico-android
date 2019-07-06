@@ -138,8 +138,11 @@ public class GameFragment extends Fragment implements GameView {
 
     @Override
     public void displayRound(Round round, boolean isMyTurn, String playerUsername) {
-        definitionTextView.setText(round.getDefinition());
-        wordTextView.setText(round.getObfuscatedWord());
+        Toast.makeText(getContext(), getContext().getString(R.string.game_your_turn) + " " + playerUsername, Toast.LENGTH_SHORT).show();
+        if (round != null) {
+            definitionTextView.setText(round.getDefinition());
+            wordTextView.setText(round.getObfuscatedWord());
+        }
         usernameTextView.setText(playerUsername);
         if(isMyTurn)
             answerEditText.setVisibility(View.VISIBLE);
@@ -189,6 +192,12 @@ public class GameFragment extends Fragment implements GameView {
     public void displayRoomInformation(Room room) {
         roomNameTextView.setText(room.getName());
         usernameTextView.setText(Session.getCurrentUser().getUsername());
+    }
+
+    @Override
+    public void showTimeout(User player) {
+        Toast.makeText(getContext(), getContext().getString(R.string.game_timeout) + " " + player.getUsername(), Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

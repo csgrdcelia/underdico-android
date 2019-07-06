@@ -83,6 +83,8 @@
     <string name="room_name_exists">Ce nom de salon existe déjà</string>
     <string name="room_name_not_found">Veuillez donner un nom au salon de jeu</string>
     <string name="room_full">La salle de jeu est complète</string>
+    <string name="game_timeout">Trop tard pour toi</string>
+    <string name="game_your_turn">A ton tour</string>
 
     <!-- Game -->
     <string name="answer">Réponse</string>

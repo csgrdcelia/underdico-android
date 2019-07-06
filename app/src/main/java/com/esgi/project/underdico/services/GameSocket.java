@@ -3,12 +3,10 @@ package com.esgi.project.underdico.services;
 import android.app.Activity;
 import android.util.Log;
 
-import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.models.Round;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.GamePresenter;
-import com.esgi.project.underdico.utils.Session;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -82,6 +80,7 @@ public class GameSocket {
         socket.on("newRound", newRoundListener);
         socket.on("goodProposal", goodProposalListener);
         socket.on("wrongProposal", wrongProposalListener);
+        socket.on("timeout", timeoutListener);
     }
 
     public void joinRoom() {
@@ -170,13 +169,13 @@ public class GameSocket {
 
     private Emitter.Listener roomStartedListener = args -> activity.runOnUiThread(() -> {
         Log.e(log, "roomStarted");
-        presenter.showRoomIsStarted();
+        presenter.roomIsStarted();
     });
 
     private Emitter.Listener newRoundListener = args -> activity.runOnUiThread(() -> {
         Log.e(log, "newRound");
         Round round = new Gson().fromJson(((JSONObject) args[0]).toString(), Round.class);
-        presenter.displayNewRound(round);
+        presenter.newRound(round);
     });
 
     private Emitter.Listener goodProposalListener = args -> activity.runOnUiThread(() -> {
@@ -184,7 +183,7 @@ public class GameSocket {
         try {
             JSONObject obj = (JSONObject) args[0];
             String playerId = obj.getString("playerId");
-            presenter.showProposalResult(true, playerId);
+            presenter.proposalResult(true, playerId);
         } catch (JSONException e) {
             Log.e(log, "goodProposal : json error while retrieving");
         }
@@ -195,9 +194,22 @@ public class GameSocket {
         try {
             JSONObject obj = (JSONObject) args[0];
             String playerId = obj.getString("playerId");
-            presenter.showProposalResult(false, playerId);
+            String nextPlayerId = obj.getString("playerId");
+            presenter.proposalResult(false, playerId);
         } catch (JSONException e) {
             Log.e(log, "wrongProposal : json error while retrieving");
+        }
+    });
+
+    private Emitter.Listener timeoutListener = args -> activity.runOnUiThread(() -> {
+        Log.e(log, "timeout");
+        try {
+            JSONObject obj = (JSONObject) args[0];
+            String playerId = obj.getString("playerId");
+            String nextPlayerId = obj.getString("nextPlayerId");
+            presenter.timeout(playerId, nextPlayerId);
+        } catch (JSONException e) {
+            Log.e(log, "timeout : json error while retrieving");
         }
     });
 

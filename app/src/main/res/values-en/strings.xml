@@ -93,8 +93,10 @@
     <string name="answer">Answer</string>
     <string name="game_start">Start game !</string>
     <string name="game_wait_owner">Waiting for host to start...</string>
-    <string name="game_good_proposal">Bravo ! Good answer </string>
+    <string name="game_good_proposal">Congrats ! Good answer </string>
     <string name="game_wrong_proposal">Sorry ! Wrong answer </string>
+    <string name="game_timeout">Too late for you</string>
+    <string name="game_your_turn">Your turn</string>
 
 
     <!-- Top -->

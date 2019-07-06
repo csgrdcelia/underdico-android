@@ -50,7 +50,7 @@ public class GamePresenter {
         }
     }
 
-    public void showRoomIsStarted() {
+    public void roomIsStarted() {
         view.displayStartedGame();
     }
 
@@ -61,7 +61,7 @@ public class GamePresenter {
         view.displayPlayers(players);
     }
 
-    public void displayNewRound(Round round) {
+    public void newRound(Round round) {
         Optional<User> optionalNextPlayer = players.stream().filter(user -> user.getId().equals(round.getNextPlayerId())).findAny();
 
         if (optionalNextPlayer.isPresent()) {
@@ -75,9 +75,17 @@ public class GamePresenter {
         gameSocket.play(answer);
     }
 
-    public void showProposalResult(boolean isCorrect, String playerId) {
+    public void proposalResult(boolean isCorrect, String playerId) {
         User sender = players.stream().filter(user -> user.getId().equals(playerId)).findFirst().get();
         view.displayProposalResult(isCorrect, sender.getUsername());
+    }
+
+    public void timeout(String playerId, String nextPlayerId) {
+        User player = players.stream().filter(user -> user.getId().equals(playerId)).findFirst().get();
+        User nextPlayer = players.stream().filter(user -> user.getId().equals(nextPlayerId)).findFirst().get();
+
+        view.showTimeout(player);
+        view.displayRound(null, nextPlayer.equals(Session.getCurrentUser()), nextPlayer.getUsername());
     }
 
     public void removeUser(User user) {
