@@ -25,8 +25,6 @@ import com.esgi.project.underdico.views.newexpression.NewExpressionFragment;
 import com.esgi.project.underdico.views.user.UserFragment;
 import com.google.android.flexbox.FlexboxLayout;
 
-import java.util.List;
-
 
 public class ExpressionFragment extends Fragment implements DetailedExpressionView {
     private static final String EXPRESSION = "expression";
@@ -106,7 +104,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     @Override
     public void displayExpression(Expression expression) {
         tvDate.setText(expression.getCreatedAt());
-        tvExpression.setText(expression.getLabel());
+        tvExpression.setText(expression.getWord());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
         ivLocaleFlag.setImageDrawable(getContext().getDrawable(expression.getFlagImage()));

@@ -60,17 +60,27 @@ public class GameSocket {
         socket.connect();
     }
 
+    public void disconnect() {
+        if(socket.connected()) {
+            socket.disconnect();
+        }
+    }
+
     private void listenEvents() {
         socket.io().on(Manager.EVENT_TRANSPORT, eventTransportListener);
         socket.on(Socket.EVENT_CONNECT, eventConnectListener);
         socket.on(Manager.EVENT_ERROR, eventErrorListener);
+        socket.on(Socket.EVENT_DISCONNECT, eventDisconnectListener);
         socket.on(Manager.EVENT_CONNECT_ERROR, eventConnectErrorListener);
+        socket.on(Manager.EVENT_CLOSE, eventCloseListener);
 
         socket.on("newPlayer", newPlayerListener);
         socket.on("playerRemoved", playerRemovedListener);
-        socket.on("error", errorListener);
+        socket.on("gameError", errorListener);
         socket.on("roomStarted", roomStartedListener);
         socket.on("newRound", newRoundListener);
+        socket.on("goodProposal", goodProposalListener);
+        socket.on("wrongProposal", wrongProposalListener);
     }
 
     public void joinRoom() {
@@ -93,11 +103,25 @@ public class GameSocket {
 
             JSONObject obj = new JSONObject();
             obj.put("roomId", room.getId());
-            socket.emit("startRoom", obj, (Ack) args -> {
-                Log.e(log, "startRoom response");
-            });
+            socket.emit("startRoom", obj);
         } catch (JSONException e) {
             Log.e(log, "startRoom : json error");
+        }
+    }
+
+    public void play(String answer) {
+        try {
+
+        Log.e(log, "play : about to send event");
+
+        JSONObject obj = new JSONObject();
+        obj.put("roomId", room.getId());
+        obj.put("proposal", answer);
+
+        socket.emit("play", obj);
+
+        } catch (JSONException e) {
+            Log.e(log, "play : json error while sending");
         }
     }
 
@@ -107,11 +131,10 @@ public class GameSocket {
 
             JSONObject obj = new JSONObject();
             obj.put("roomId", room.getId());
-            socket.emit("leaveRoom", obj, (Ack) args -> {
-                Log.e(log, "leaveRoom response");
-            });
+            socket.emit("leaveRoom", obj);
+
         } catch (JSONException e) {
-            Log.e(log, "leaveRoom : json error");
+            Log.e(log, "leaveRoom : json error while sending");
         }
     }
 
@@ -123,36 +146,64 @@ public class GameSocket {
         Transport transport = (Transport) args[0];
 
         transport.on(Transport.EVENT_REQUEST_HEADERS, args1 -> {
-            Log.e(log, "EVENT_REQUEST_HEADERS : listen");
             @SuppressWarnings("unchecked")
             Map<String, List<String>> headers = (Map<String, List<String>>) args1[0];
             headers.put("Authorization", Arrays.asList(token));
-
-        }).on(Transport.EVENT_RESPONSE_HEADERS, args12 -> {
-            Map<String, List<String>> map = (Map<String, List<String>>) args12[0];
-            String responseCode = map.values().toArray()[0].toString();
-            Log.e(log, "EVENT_RESPONSE_HEADERS : " + responseCode);
         });
     };
 
     private Emitter.Listener eventConnectListener = args -> {
+
         Log.e(log, "EVENT_CONNECT : " + (socket.connected() == true ? "connected to socket" : "not connected to socket"));
-        joinRoom();
-        startRoom();
     };
+
+    private Emitter.Listener eventDisconnectListener = args -> {
+
+        Log.e(log, "EVENT_DISCONNECT : " + (socket.connected() == true ? "connected to socket" : "not connected to socket"));
+    };
+
+    private Emitter.Listener eventCloseListener = args -> {
+        Log.e(log, "EVENT_CLOSE : " + (socket.connected() == true ? "connected to socket" : "not connected to socket"));
+    };
+
 
     private Emitter.Listener roomStartedListener = args -> {
         Log.e(log, "roomStarted");
+        presenter.showRoomIsStarted();
+
     };
 
-    private Emitter.Listener newRoundListener = args -> {
-        Expression expression = new Gson().fromJson(((JSONObject) args[0]).toString(), Expression.class);
-        JSONObject obj = (JSONObject) args[0];
+    private Emitter.Listener newRoundListener = args -> activity.runOnUiThread(() -> {
         Log.e(log, "newRound");
-    };
+        Expression expression = new Gson().fromJson(((JSONObject) args[0]).toString(), Expression.class);
+        presenter.displayNewRound(expression);
+    });
+
+    private Emitter.Listener goodProposalListener = args -> activity.runOnUiThread(() -> {
+        Log.e(log, "goodProposal");
+        try {
+            JSONObject obj = (JSONObject) args[0];
+            String playerId = obj.getString("playerId");
+            presenter.showProposalResult(true, playerId);
+        } catch (JSONException e) {
+            Log.e(log, "goodProposal : json error while retrieving");
+        }
+    });
+
+    private Emitter.Listener wrongProposalListener = args -> activity.runOnUiThread(() -> {
+        Log.e(log, "wrongProposal");
+        try {
+            JSONObject obj = (JSONObject) args[0];
+            String playerId = obj.getString("playerId");
+            presenter.showProposalResult(false, playerId);
+        } catch (JSONException e) {
+            Log.e(log, "wrongProposal : json error while retrieving");
+        }
+    });
 
     private Emitter.Listener errorListener = args -> {
         Log.e(log, "ERROR");
+        disconnect();
     };
 
     private Emitter.Listener eventErrorListener = args -> {
@@ -164,20 +215,16 @@ public class GameSocket {
     };
 
     private Emitter.Listener newPlayerListener = args -> activity.runOnUiThread(() -> {
+        Log.e(log, "newPlayer");
         User user = new Gson().fromJson(((JSONObject) args[0]).toString(), User.class);
         presenter.displayNewUser(user);
-        Log.e(log, "newPlayer");
     });
 
 
     private Emitter.Listener playerRemovedListener = args -> {
+        Log.e(log, "playerRemoved");
         User user = new Gson().fromJson(((JSONObject) args[0]).toString(), User.class);
         presenter.removeUser(user);
-        Log.e(log, "playerRemoved");
-    };
-
-    private Emitter.Listener eventListener = args -> {
-
     };
 
     /**
@@ -227,13 +274,10 @@ public class GameSocket {
             options.callFactory = okHttpClient;
             options.webSocketFactory = okHttpClient;
         } catch (Exception e) {
-            Log.e(log, "getOptions : fail");
+            Log.e(log, "ssl conf : fail");
             throw new RuntimeException(e);
         }
         return options;
     }
 
-    public Socket getSocket() {
-        return socket;
-    }
 }

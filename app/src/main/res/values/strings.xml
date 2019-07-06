@@ -82,9 +82,14 @@
     <string name="room_private">Salon privé</string>
     <string name="room_name_exists">Ce nom de salon existe déjà</string>
     <string name="room_name_not_found">Veuillez donner un nom au salon de jeu</string>
+    <string name="room_full">La salle de jeu est complète</string>
 
     <!-- Game -->
     <string name="answer">Réponse</string>
+    <string name="game_start">Démarrer la partie !</string>
+    <string name="game_wait_owner">En attente du lancement par l\'hôte...</string>
+    <string name="game_good_proposal">Bravo ! Bonne réponse </string>
+    <string name="game_wrong_proposal">Désolés ! Mauvaise réponse </string>
 
     <!-- Errors -->
     <string name="expression_error">Une erreur est apparue lors de la récupération du/des expressions</string>

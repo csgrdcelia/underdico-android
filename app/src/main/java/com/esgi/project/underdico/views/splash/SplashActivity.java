@@ -45,4 +45,10 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     public void showError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 }

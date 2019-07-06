@@ -16,8 +16,10 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.NewRoomPresenter;
 import com.esgi.project.underdico.presenters.RoomListPresenter;
+import com.esgi.project.underdico.views.game.GameFragment;
 import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
 import com.esgi.project.underdico.views.main.MainActivity;
@@ -89,10 +91,10 @@ public class NewRoomFragment extends Fragment implements NewRoomView,  AdapterVi
     }
 
     @Override
-    public void redirectToRoomList() {
+    public void redirectToGame(Room room) {
         MainActivity activity = (MainActivity) getView().getContext();
-        Fragment myFragment = RoomListFragment.newInstance();
-        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+        Fragment myFragment = GameFragment.newInstance(room);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).commit();
     }
 
     @Override

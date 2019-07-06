@@ -16,7 +16,7 @@ public class Expression implements Serializable {
     @SerializedName("id")
     private String id;
     @SerializedName("name")
-    private String label;
+    private String word;
     @SerializedName("definition")
     private String definition;
     @SerializedName("tags")
@@ -42,8 +42,8 @@ public class Expression implements Serializable {
 
     public Expression() { }
 
-    public Expression(String label, String definition, String[] tags, String locale) {
-        this.label = label;
+    public Expression(String word, String definition, String[] tags, String locale) {
+        this.word = word;
         this.definition = definition;
         this.tags = tags;
         this.locale = locale;
@@ -57,8 +57,8 @@ public class Expression implements Serializable {
         this.id = id;
     }
 
-    public String getLabel() {
-        return label;
+    public String getWord() {
+        return word;
     }
 
     public String getDefinition() {
@@ -82,8 +82,8 @@ public class Expression implements Serializable {
         return userVoteId;
     }
 
-    public Expression(String label, String definition, User user, String[] tags, List<Vote> votes, Date createdAt, Date updatedAt) {
-        this.label = label;
+    public Expression(String word, String definition, User user, String[] tags, List<Vote> votes, Date createdAt, Date updatedAt) {
+        this.word = word;
         this.definition = definition;
         this.user = user;
         this.tags = tags;
@@ -92,13 +92,19 @@ public class Expression implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Vote getVote(User user) {
-        if (votes != null) {
-            for (Vote vote : votes)
-                if (vote.getUserId().equals(user.getId()))
-                    return vote;
+    public String getHiddenWord() {
+        String hiddenWord = "";
+        for (int i = 0; i < word.length(); i++) {
+            char currentChar = word.charAt(i);
+            if (Character.isLetter(currentChar))
+                hiddenWord += "_";
+            else if (Character.isSpaceChar(currentChar))
+                hiddenWord += " ";
+            else
+                hiddenWord += currentChar;
+            hiddenWord += " ";
         }
-        return null;
+        return hiddenWord.substring(0, hiddenWord.length() - 1);
     }
 
     public String[] getTagArray() {

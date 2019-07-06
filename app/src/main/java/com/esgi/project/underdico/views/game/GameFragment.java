@@ -2,7 +2,9 @@ package com.esgi.project.underdico.views.game;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,17 +15,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
+import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.GamePresenter;
 import com.esgi.project.underdico.utils.Session;
 
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class GameFragment extends Fragment implements GameView {
     private static final String PARAM_ROOM = "room";
@@ -37,6 +43,11 @@ public class GameFragment extends Fragment implements GameView {
     private TextView pointsTextView;
     private EditText answerEditText;
     private RecyclerView playersRecyclerView;
+    private ConstraintLayout wordConstraintLayout;
+    private ConstraintLayout answerConstraintLayout;
+    private ConstraintLayout startGameConstraintLayout;
+    private ConstraintLayout waitingPlayerConstraintLayout;
+    private Button startRoomButton;
 
 
     public GameFragment() {
@@ -81,6 +92,11 @@ public class GameFragment extends Fragment implements GameView {
         pointsTextView = getView().findViewById(R.id.pointsTextView);
         answerEditText = getView().findViewById(R.id.answerEditText);
         playersRecyclerView = getView().findViewById(R.id.usersRecyclerView);
+        wordConstraintLayout = getView().findViewById(R.id.wordConstraintLayout);
+        answerConstraintLayout = getView().findViewById(R.id.answerConstraintLayout);
+        startGameConstraintLayout = getView().findViewById(R.id.startGameConstraintLayout);
+        waitingPlayerConstraintLayout = getView().findViewById(R.id.waitingPlayerConstraintLayout);
+        startRoomButton = getView().findViewById(R.id.startButton);
 
         configureUsersRecyclerView();
     }
@@ -89,8 +105,8 @@ public class GameFragment extends Fragment implements GameView {
     public void setListeners() {
         answerEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                //TODO: send answer
-                Toast.makeText(getContext(), answerEditText.getText(), Toast.LENGTH_SHORT).show();
+                presenter.sendAnswer(answerEditText.getText().toString());
+
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(answerEditText.getApplicationWindowToken(), 0);
@@ -99,6 +115,8 @@ public class GameFragment extends Fragment implements GameView {
             }
             return false;
         });
+
+        startRoomButton.setOnClickListener(v -> presenter.startRoom());
     }
 
     public void configureUsersRecyclerView() {
@@ -121,6 +139,46 @@ public class GameFragment extends Fragment implements GameView {
     }
 
     @Override
+    public void displayRound(Expression expression) {
+        definitionTextView.setText(expression.getDefinition());
+        //definitionTextView.setText(expression.getDefinition().replace(expression.getWord(), "*"));
+        //wordTextView.setText(expression.getHiddenWord());
+    }
+
+    @Override
+    public void displayProposalResult(boolean isCorrect, String username) {
+        if(isCorrect) {
+            Toast.makeText(getContext(), getContext().getString(R.string.game_good_proposal) + " " + username, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getContext().getString(R.string.game_wrong_proposal) + " " + username, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void displayStartedGame() {
+        wordConstraintLayout.setVisibility(View.VISIBLE);
+        answerConstraintLayout.setVisibility(View.VISIBLE);
+        waitingPlayerConstraintLayout.setVisibility(View.INVISIBLE);
+        startGameConstraintLayout.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void displayWaitingGame(boolean owner) {
+        wordConstraintLayout.setVisibility(View.GONE);
+        answerConstraintLayout.setVisibility(View.INVISIBLE);
+        waitingPlayerConstraintLayout.setVisibility(owner ? View.INVISIBLE : View.VISIBLE);
+        startGameConstraintLayout.setVisibility(owner ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    public void displayTerminatedGame() {
+        wordConstraintLayout.setVisibility(View.GONE);
+        waitingPlayerConstraintLayout.setVisibility(View.INVISIBLE);
+        startGameConstraintLayout.setVisibility(View.INVISIBLE);
+        answerConstraintLayout.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     public void showError(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
@@ -129,5 +187,18 @@ public class GameFragment extends Fragment implements GameView {
     public void displayRoomInformation(Room room) {
         roomNameTextView.setText(room.getName());
         usernameTextView.setText(Session.getCurrentUser().getUsername());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.leaveRoom();
+        presenter.disconnect();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.disconnect();
     }
 }

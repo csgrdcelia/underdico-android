@@ -47,7 +47,7 @@ public class NewRoomPresenter {
                     if(room.isPrivate()) {
                         //TODO: display private code
                     }
-                    view.redirectToRoomList();
+                    view.redirectToGame(response.body());
                 } else if (response.code() == Constants.HTTP_CONFLICT) {
                     view.showError(context.getString(R.string.room_name_exists));
                 }

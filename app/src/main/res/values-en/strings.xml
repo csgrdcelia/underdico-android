@@ -72,7 +72,7 @@
     <!-- Rooms -->
     <string name="room_name">Room name</string>
     <string name="create">Create</string>
-    <string name="room_number_players">Nombre de joueurs maximum</string>
+    <string name="room_number_players">Maximum number of players</string>
     <string name="expression_language">Expressions\' language</string>
     <string name="room_private">Private room</string>
     <string name="room_name_exists">This room name exists already</string>
@@ -87,9 +87,15 @@
     <string name="no_image_selected">No image selected</string>
     <string name="error_audio_save">An error occured while saving the audio</string>
     <string name="error_audio_not_found">No audio for this expression</string>
+    <string name="room_full">The room is full</string>
 
     <!-- Game -->
     <string name="answer">Answer</string>
+    <string name="game_start">Start game !</string>
+    <string name="game_wait_owner">Waiting for host to start...</string>
+    <string name="game_good_proposal">Bravo ! Good answer </string>
+    <string name="game_wrong_proposal">Sorry ! Wrong answer </string>
+
 
     <!-- Top -->
     <string name="day">Day</string>

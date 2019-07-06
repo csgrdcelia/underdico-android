@@ -83,7 +83,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     @Override
     public void displayExpression(Expression expression) {
         tvDate.setText(expression.getCreatedAt());
-        tvExpression.setText(expression.getLabel());
+        tvExpression.setText(expression.getWord());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
         tvUsername.setText(expression.getUser().getUsername());

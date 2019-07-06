@@ -2,8 +2,12 @@ package com.esgi.project.underdico.presenters;
 
 import android.content.Context;
 
+import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.rooms.RoomView;
+
+import java.util.Arrays;
 
 public class RoomPresenter {
     Context context;
@@ -25,6 +29,10 @@ public class RoomPresenter {
     }
 
     public void roomIsClicked() {
-        view.redirectToGame(room);
+        if(room.isFull() && !Arrays.asList(room.getPlayersIds()).contains(Session.getCurrentUser().getId())) {
+            view.showError(context.getString(R.string.room_full));
+        } else {
+            view.redirectToGame(room);
+        }
     }
 }

@@ -150,7 +150,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
      * Appears when view is launched from the expression view ( -> create another definition )
      */
     private void display(Expression expression) {
-        expressionName.setText(expression.getLabel());
+        expressionName.setText(expression.getWord());
     }
 
     /**
@@ -159,7 +159,6 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     private void attemptSend() {
         String name = expressionName.getText().toString();
         String definition = expressionDefinition.getText().toString();
-        //TODO: add audio
         presenter.attemptSend(name, definition, selectedLanguage);
     }
 

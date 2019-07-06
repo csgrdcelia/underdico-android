@@ -27,6 +27,7 @@ public class Room implements Serializable {
     private boolean isRanked;
     private String status;
     private String[] playersIds;
+    private String[] usernames;
     private String ownerId;
     private String locale;
     private String[] rounds;
@@ -71,27 +72,30 @@ public class Room implements Serializable {
         return 0;
     }
 
-    /*public List<User> getPlayers(Context context) {
-        List<User> players = new ArrayList<>();
+    public boolean isStarted() {
+        return status.equals("Started");
+    }
 
-        UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
+    public boolean isJustCreated() {
+        return status.equals("Created");
+    }
 
-        for (String userId : playersIds) {
-            try {
-                Call<User> call = service.getUser(Session.getCurrentToken().getValue(), userId);
-                Response<User> userResponse = call.execute();
-                User user = userResponse.body();
-                players.add(user);
-            } catch(IOException e) { }
-        }
-        return players;
-    }*/
+    public boolean wasCreatedBy(User user) {
+        return ownerId.equals(user.getId());
+    }
+
+    public boolean isFull() {
+        return playersIds.length >= maxPlayers;
+    }
 
     public List<User> getPlayers() {
-        List<User> players = new ArrayList<>();
-        for (String userId : playersIds) {
-            players.add(new User(userId, "user"));
+        if(playersIds == null)
+            return new ArrayList<>();
+
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < playersIds.length; i++) {
+            users.add(new User(playersIds[i], usernames[i]));
         }
-        return players;
+        return users;
     }
 }
