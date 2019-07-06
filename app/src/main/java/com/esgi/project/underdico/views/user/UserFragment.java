@@ -102,7 +102,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
         flagSpinner = getView().findViewById(R.id.flagSpinner);
         flagSpinner.setAdapter(new FlagSpinnerAdapter(getContext()));
 
-        progressBar = getView().findViewById(R.id.progressBar);
+        progressBar = getView().findViewById(R.id.countdownProgressBar);
     }
 
     @Override

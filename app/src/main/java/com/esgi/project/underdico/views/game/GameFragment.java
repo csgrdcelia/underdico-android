@@ -2,6 +2,7 @@ package com.esgi.project.underdico.views.game;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +49,9 @@ public class GameFragment extends Fragment implements GameView {
     private ConstraintLayout startGameConstraintLayout;
     private ConstraintLayout waitingHostConstraintLayout;
     private Button startRoomButton;
+    private ProgressBar countdownProgressBar;
+
+    private CountDownTimer countDownTimer;
 
 
     public GameFragment() {
@@ -94,6 +100,7 @@ public class GameFragment extends Fragment implements GameView {
         answerConstraintLayout = getView().findViewById(R.id.answerConstraintLayout);
         startGameConstraintLayout = getView().findViewById(R.id.startGameConstraintLayout);
         waitingHostConstraintLayout = getView().findViewById(R.id.waitingHostConstraintLayout);
+        countdownProgressBar = getView().findViewById(R.id.countdownProgressBar);
         startRoomButton = getView().findViewById(R.id.startButton);
 
         configureUsersRecyclerView();
@@ -139,6 +146,7 @@ public class GameFragment extends Fragment implements GameView {
     @Override
     public void displayRound(Round round, boolean isMyTurn, String playerUsername) {
         Toast.makeText(getContext(), getContext().getString(R.string.game_your_turn) + " " + playerUsername, Toast.LENGTH_SHORT).show();
+        startCountdownTimer();
         if (round != null) {
             definitionTextView.setText(round.getDefinition());
             wordTextView.setText(round.getObfuscatedWord());
@@ -197,19 +205,33 @@ public class GameFragment extends Fragment implements GameView {
     @Override
     public void showTimeout(User player) {
         Toast.makeText(getContext(), getContext().getString(R.string.game_timeout) + " " + player.getUsername(), Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         presenter.leaveRoom();
         presenter.disconnect();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.disconnect();
+    private void startCountdownTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        countdownProgressBar.setProgress(0);
+        countdownProgressBar.setMax(300);
+        countDownTimer = new CountDownTimer(30000, 10) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int max = countdownProgressBar.getMax();
+                int secs = (int)(millisUntilFinished / 1000);
+                countdownProgressBar.setProgress((int)(countdownProgressBar.getMax() - (millisUntilFinished / 100)));
+            }
+
+            @Override
+            public void onFinish() {
+                countdownProgressBar.setProgress(30);
+            }
+        }.start();
     }
 }

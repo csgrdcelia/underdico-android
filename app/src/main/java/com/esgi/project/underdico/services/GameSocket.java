@@ -183,7 +183,7 @@ public class GameSocket {
         try {
             JSONObject obj = (JSONObject) args[0];
             String playerId = obj.getString("playerId");
-            presenter.proposalResult(true, playerId);
+            presenter.proposalResult(true, playerId, null);
         } catch (JSONException e) {
             Log.e(log, "goodProposal : json error while retrieving");
         }
@@ -195,7 +195,7 @@ public class GameSocket {
             JSONObject obj = (JSONObject) args[0];
             String playerId = obj.getString("playerId");
             String nextPlayerId = obj.getString("playerId");
-            presenter.proposalResult(false, playerId);
+            presenter.proposalResult(false, playerId, nextPlayerId);
         } catch (JSONException e) {
             Log.e(log, "wrongProposal : json error while retrieving");
         }
