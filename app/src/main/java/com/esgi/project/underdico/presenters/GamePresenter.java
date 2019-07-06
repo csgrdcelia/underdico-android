@@ -5,12 +5,14 @@ import android.content.Context;
 
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.models.Round;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.services.GameSocket;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.game.GameView;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GamePresenter {
     private Context context;
@@ -59,8 +61,14 @@ public class GamePresenter {
         view.displayPlayers(players);
     }
 
-    public void displayNewRound(Expression expression) {
-        view.displayRound(expression);
+    public void displayNewRound(Round round) {
+        Optional<User> optionalNextPlayer = players.stream().filter(user -> user.getId().equals(round.getNextPlayerId())).findAny();
+
+        if (optionalNextPlayer.isPresent()) {
+            User player = optionalNextPlayer.get();
+
+            view.displayRound(round, player.equals(Session.getCurrentUser()), player.getUsername());
+        }
     }
 
     public void sendAnswer(String answer) {

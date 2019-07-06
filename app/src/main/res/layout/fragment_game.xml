@@ -7,7 +7,7 @@
     tools:context=".views.game.GameFragment" >
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/waitingPlayerConstraintLayout"
+        android:id="@+id/waitingHostConstraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,8 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/startGameConstraintLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +73,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usersRecyclerView"
         tools:visibility="invisible">
 
         <TextView
@@ -100,7 +102,8 @@
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/pointsTextView"

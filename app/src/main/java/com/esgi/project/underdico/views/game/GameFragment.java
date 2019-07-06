@@ -2,7 +2,6 @@ package com.esgi.project.underdico.views.game;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -23,13 +22,12 @@ import android.widget.Toast;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.models.Round;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.GamePresenter;
 import com.esgi.project.underdico.utils.Session;
 
 import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class GameFragment extends Fragment implements GameView {
     private static final String PARAM_ROOM = "room";
@@ -46,7 +44,7 @@ public class GameFragment extends Fragment implements GameView {
     private ConstraintLayout wordConstraintLayout;
     private ConstraintLayout answerConstraintLayout;
     private ConstraintLayout startGameConstraintLayout;
-    private ConstraintLayout waitingPlayerConstraintLayout;
+    private ConstraintLayout waitingHostConstraintLayout;
     private Button startRoomButton;
 
 
@@ -95,7 +93,7 @@ public class GameFragment extends Fragment implements GameView {
         wordConstraintLayout = getView().findViewById(R.id.wordConstraintLayout);
         answerConstraintLayout = getView().findViewById(R.id.answerConstraintLayout);
         startGameConstraintLayout = getView().findViewById(R.id.startGameConstraintLayout);
-        waitingPlayerConstraintLayout = getView().findViewById(R.id.waitingPlayerConstraintLayout);
+        waitingHostConstraintLayout = getView().findViewById(R.id.waitingHostConstraintLayout);
         startRoomButton = getView().findViewById(R.id.startButton);
 
         configureUsersRecyclerView();
@@ -139,10 +137,14 @@ public class GameFragment extends Fragment implements GameView {
     }
 
     @Override
-    public void displayRound(Expression expression) {
-        definitionTextView.setText(expression.getDefinition());
-        //definitionTextView.setText(expression.getDefinition().replace(expression.getWord(), "*"));
-        //wordTextView.setText(expression.getHiddenWord());
+    public void displayRound(Round round, boolean isMyTurn, String playerUsername) {
+        definitionTextView.setText(round.getDefinition());
+        wordTextView.setText(round.getObfuscatedWord());
+        usernameTextView.setText(playerUsername);
+        if(isMyTurn)
+            answerEditText.setVisibility(View.VISIBLE);
+        else
+            answerEditText.setVisibility(View.GONE);
     }
 
     @Override
@@ -158,7 +160,7 @@ public class GameFragment extends Fragment implements GameView {
     public void displayStartedGame() {
         wordConstraintLayout.setVisibility(View.VISIBLE);
         answerConstraintLayout.setVisibility(View.VISIBLE);
-        waitingPlayerConstraintLayout.setVisibility(View.INVISIBLE);
+        waitingHostConstraintLayout.setVisibility(View.INVISIBLE);
         startGameConstraintLayout.setVisibility(View.INVISIBLE);
     }
 
@@ -166,14 +168,14 @@ public class GameFragment extends Fragment implements GameView {
     public void displayWaitingGame(boolean owner) {
         wordConstraintLayout.setVisibility(View.GONE);
         answerConstraintLayout.setVisibility(View.INVISIBLE);
-        waitingPlayerConstraintLayout.setVisibility(owner ? View.INVISIBLE : View.VISIBLE);
+        waitingHostConstraintLayout.setVisibility(owner ? View.INVISIBLE : View.VISIBLE);
         startGameConstraintLayout.setVisibility(owner ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
     public void displayTerminatedGame() {
         wordConstraintLayout.setVisibility(View.GONE);
-        waitingPlayerConstraintLayout.setVisibility(View.INVISIBLE);
+        waitingHostConstraintLayout.setVisibility(View.INVISIBLE);
         startGameConstraintLayout.setVisibility(View.INVISIBLE);
         answerConstraintLayout.setVisibility(View.INVISIBLE);
     }

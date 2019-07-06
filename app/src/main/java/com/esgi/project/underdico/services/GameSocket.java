@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
+import com.esgi.project.underdico.models.Round;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.GamePresenter;
 import com.esgi.project.underdico.utils.Session;
@@ -167,16 +168,15 @@ public class GameSocket {
     };
 
 
-    private Emitter.Listener roomStartedListener = args -> {
+    private Emitter.Listener roomStartedListener = args -> activity.runOnUiThread(() -> {
         Log.e(log, "roomStarted");
         presenter.showRoomIsStarted();
-
-    };
+    });
 
     private Emitter.Listener newRoundListener = args -> activity.runOnUiThread(() -> {
         Log.e(log, "newRound");
-        Expression expression = new Gson().fromJson(((JSONObject) args[0]).toString(), Expression.class);
-        presenter.displayNewRound(expression);
+        Round round = new Gson().fromJson(((JSONObject) args[0]).toString(), Round.class);
+        presenter.displayNewRound(round);
     });
 
     private Emitter.Listener goodProposalListener = args -> activity.runOnUiThread(() -> {
@@ -221,11 +221,11 @@ public class GameSocket {
     });
 
 
-    private Emitter.Listener playerRemovedListener = args -> {
+    private Emitter.Listener playerRemovedListener = args -> activity.runOnUiThread(() -> {
         Log.e(log, "playerRemoved");
         User user = new Gson().fromJson(((JSONObject) args[0]).toString(), User.class);
         presenter.removeUser(user);
-    };
+    });
 
     /**
      * SSL trust
