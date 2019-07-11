@@ -39,4 +39,7 @@ public interface UserService {
     @GET("users/{userId}/avatar")
     Call<ResponseBody> getProfilePicture(@Header("Authorization") String token, @Path("userId") String id);
 
+    @GET("users/{userId}/summary")
+    Call<ResponseBody> getSummary(@Header("Authorization") String token, @Path("userId") String id);
+
 }

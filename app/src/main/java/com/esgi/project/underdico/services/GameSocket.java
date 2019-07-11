@@ -215,7 +215,6 @@ public class GameSocket {
 
     private Emitter.Listener errorListener = args -> {
         Log.e(log, "ERROR");
-        disconnect();
     };
 
     private Emitter.Listener eventErrorListener = args -> {

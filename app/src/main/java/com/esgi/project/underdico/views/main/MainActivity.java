@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.presenters.MainPresenter;
 import com.esgi.project.underdico.utils.Session;
+import com.esgi.project.underdico.views.privacy.PrivacyFragment;
 import com.esgi.project.underdico.views.rooms.RoomListFragment;
 import com.esgi.project.underdico.views.expression.ExpressionFragment;
 import com.esgi.project.underdico.views.home.HomeFragment;
@@ -160,6 +161,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_logout) {
             Session.clearSharedPreferences(getApplicationContext());
             redirectToLoginPage();
+        } else if(id == R.id.menu_privacy) {
+            updateFragment(PrivacyFragment.newInstance());
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

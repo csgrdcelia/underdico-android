@@ -20,6 +20,7 @@
     <string name="menu_top">Top</string>
     <string name="menu_new">Nouvelle expression</string>
     <string name="menu_play">Jouer</string>
+    <string name="privacy">Confidentialité</string>
     <string name="log_out">Se déconnecter</string>
     <string name="search">Rechercher</string>
 
@@ -102,5 +103,10 @@
     <string name="no_image_selected">Vous n\'avez pas sélectionné d\'image</string>
     <string name="error_audio_save">Une erreur est apparue durant l\'enregistrement de l\'audio</string>
     <string name="error_audio_not_found">Pas d\'audio pour cette expression</string>
+
+    <!-- Privacy -->
+    <string name="download_data">Télécharger mes données</string>
+    <string name="delete_account">Supprimer mon compte</string>
+
 
 </resources>
