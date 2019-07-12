@@ -10,9 +10,6 @@ import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.views.rooms.RoomListView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,14 +44,14 @@ public class RoomListPresenter {
                     if (response.body() != null)
                         view.displayRooms(response.body());
                 } else {
-                    view.showError(context.getString(R.string.rooms_error));
+                    view.showToast(context.getString(R.string.rooms_error));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Room>> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.error_network));
+                view.showToast(context.getString(R.string.error_network));
             }
         });
     }

@@ -30,7 +30,7 @@ public class RoomPresenter {
 
     public void roomIsClicked() {
         if(room.isFull() && !Arrays.asList(room.getPlayersIds()).contains(Session.getCurrentUser().getId())) {
-            view.showError(context.getString(R.string.room_full));
+            view.showToast(context.getString(R.string.room_full));
         } else {
             view.redirectToGame(room);
         }

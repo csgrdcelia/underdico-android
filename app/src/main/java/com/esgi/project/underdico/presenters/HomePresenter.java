@@ -48,13 +48,13 @@ public class HomePresenter {
                     if(response.body() != null)
                         view.displayExpressionOfTheDay(response.body());
                     else
-                        view.showError(context.getString(R.string.expression_error));
+                        view.showToast(context.getString(R.string.expression_error));
             }
 
             @Override
             public void onFailure(Call<Expression> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.expression_error));
+                view.showToast(context.getString(R.string.expression_error));
             }
         });
 
@@ -75,18 +75,18 @@ public class HomePresenter {
                         if (response.body() != null)
                             view.displayExpressions(response.body());
                     } else {
-                        view.showError(context.getString(R.string.expression_error));
+                        view.showToast(context.getString(R.string.expression_error));
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<Expression>> call, Throwable t) {
                     Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                    view.showError(context.getString(R.string.expression_error));
+                    view.showToast(context.getString(R.string.expression_error));
                 }
             });
         } catch (JSONException e) {
-            view.showError(context.getString(R.string.expression_error));
+            view.showToast(context.getString(R.string.expression_error));
         }
     }
 }

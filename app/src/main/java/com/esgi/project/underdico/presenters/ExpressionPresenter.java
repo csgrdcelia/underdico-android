@@ -18,7 +18,6 @@ import com.esgi.project.underdico.views.home.HomeView;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -98,7 +97,7 @@ public class ExpressionPresenter {
             else
                 AudioHelper.play(audioFileName);
         } catch (IOException e) {
-            view.showError(context.getString(R.string.error));
+            view.showToast(context.getString(R.string.error));
         }
     }
 
@@ -117,19 +116,19 @@ public class ExpressionPresenter {
                         }
                         playAudio();
                     } catch (IOException e) {
-                        view.showError(context.getString(R.string.error));
+                        view.showToast(context.getString(R.string.error));
                     }
                 } else if (response.code() == Constants.HTTP_NOTFOUND) {
-                    view.showError(context.getString(R.string.error_audio_not_found));
+                    view.showToast(context.getString(R.string.error_audio_not_found));
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.error));
+                view.showToast(context.getString(R.string.error));
             }
         });
     }
@@ -151,14 +150,14 @@ public class ExpressionPresenter {
                 if (response.isSuccessful()) {
                     updateExpression();
                 } else {
-                    view.showError(context.getString(R.string.error_vote));
+                    view.showToast(context.getString(R.string.error_vote));
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.error_vote));
+                view.showToast(context.getString(R.string.error_vote));
             }
         });
     }
@@ -174,14 +173,14 @@ public class ExpressionPresenter {
                     updateView();
                     updateExpressionOfTheDay();
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<Expression> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.error));
+                view.showToast(context.getString(R.string.error));
             }
         });
     }

@@ -68,13 +68,13 @@ public class TopPresenter {
                 if (response.isSuccessful())
                     view.displayExpressions(response.body());
                 else
-                    view.showError(context.getString(R.string.expression_error));
+                    view.showToast(context.getString(R.string.expression_error));
             }
 
             @Override
             public void onFailure(Call<List<Expression>> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.expression_error));
+                view.showToast(context.getString(R.string.expression_error));
             }
         });
     }

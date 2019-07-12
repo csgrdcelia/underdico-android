@@ -32,7 +32,7 @@ public class NewRoomPresenter {
 
     public void createRoom(String roomName, int maxplayers, String locale, boolean privateRoom) {
         if(roomName.isEmpty()) {
-            view.showError(context.getString(R.string.room_name_not_found));
+            view.showToast(context.getString(R.string.room_name_not_found));
             return;
         }
 
@@ -49,16 +49,16 @@ public class NewRoomPresenter {
                     }
                     view.redirectToGame(response.body());
                 } else if (response.code() == Constants.HTTP_CONFLICT) {
-                    view.showError(context.getString(R.string.room_name_exists));
+                    view.showToast(context.getString(R.string.room_name_exists));
                 }
                 else {
-                    view.showError(context.getString(R.string.creation_failed));
+                    view.showToast(context.getString(R.string.creation_failed));
                 }
             }
 
             @Override
             public void onFailure(Call<Room> call, Throwable t) {
-                view.showError(context.getString(R.string.error_network));
+                view.showToast(context.getString(R.string.error_network));
             }
         });
     }

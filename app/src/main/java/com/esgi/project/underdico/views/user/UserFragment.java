@@ -74,7 +74,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
             user = (User)getArguments().getSerializable(USER_ARG);
             presenter = new UserPresenter(this, user, getContext(), getActivity());
         } else {
-            showError(getContext().getString(R.string.error));
+            showToast(getContext().getString(R.string.error));
             redirectToHome();
         }
     }
@@ -177,8 +177,8 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
     }
 
     @Override
-    public void showError(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    public void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -223,7 +223,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
                         Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            showError(getContext().getString(R.string.error));
+            showToast(getContext().getString(R.string.error));
         }
 
     }

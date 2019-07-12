@@ -107,6 +107,7 @@
     <!-- Privacy -->
     <string name="download_data">Télécharger mes données</string>
     <string name="delete_account">Supprimer mon compte</string>
+    <string name="summary_downloaded">Fichier disponible dans le répertoire Téléchargements</string>
 
 
 </resources>

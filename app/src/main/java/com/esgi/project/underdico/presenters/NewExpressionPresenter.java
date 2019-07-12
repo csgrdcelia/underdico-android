@@ -51,9 +51,9 @@ public class NewExpressionPresenter {
      */
     public void attemptSend(String expressionName, String expressionDefinition, String locale) {
         if(!isValidExpressionName()) {
-            view.showError(context.getString(R.string.invalid_name));
+            view.showToast(context.getString(R.string.invalid_name));
         } else if (!isValidExpressionDefinition()) {
-            view.showError(context.getString(R.string.invalid_definition));
+            view.showToast(context.getString(R.string.invalid_definition));
         } else {
             createExpression(expressionName, expressionDefinition, getTagList(), locale);
         }
@@ -77,13 +77,13 @@ public class NewExpressionPresenter {
                     view.createSuccessfully();
                 }
                 else {
-                    view.showError(context.getString(R.string.creation_failed));
+                    view.showToast(context.getString(R.string.creation_failed));
                 }
             }
 
             @Override
             public void onFailure(Call<Expression> call, Throwable t) {
-                view.showError(context.getString(R.string.creation_failed));
+                view.showToast(context.getString(R.string.creation_failed));
             }
         });
     }
@@ -107,13 +107,13 @@ public class NewExpressionPresenter {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(!response.isSuccessful()) {
-                    view.showError(context.getString(R.string.error_audio_save));
+                    view.showToast(context.getString(R.string.error_audio_save));
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                view.showError(context.getString(R.string.error_audio_save));
+                view.showToast(context.getString(R.string.error_audio_save));
             }
         });
     }
@@ -165,7 +165,7 @@ public class NewExpressionPresenter {
         if(!tag.isEmpty()) {
             if(tagExists(tag))
             {
-                view.showError(context.getString(R.string.tag_exists));
+                view.showToast(context.getString(R.string.tag_exists));
             } else {
                 Button button = view.createTagButton(tag);
                 tags.add(button);

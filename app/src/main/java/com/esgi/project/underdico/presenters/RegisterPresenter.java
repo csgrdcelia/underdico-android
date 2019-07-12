@@ -43,17 +43,17 @@ public class RegisterPresenter {
                     view.showRegisterSuccess();
                     view.showLoginView(response.body().getUsername());
                 } else if (response.code() == Constants.HTTP_CONFLICT) {
-                    view.showError(context.getString(R.string.existing_login_details));
+                    view.showToast(context.getString(R.string.existing_login_details));
                 } else if (response.code() == Constants.HTTP_UNPROCESSABLE) {
-                    view.showError(context.getString(R.string.wrong_login_details));
+                    view.showToast(context.getString(R.string.wrong_login_details));
                 } else {
-                    view.showError(context.getString(R.string.register_fail));
+                    view.showToast(context.getString(R.string.register_fail));
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                view.showError(context.getString(R.string.register_fail));
+                view.showToast(context.getString(R.string.register_fail));
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
             }
         });

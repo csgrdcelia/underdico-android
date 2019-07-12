@@ -138,7 +138,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
     }
 
     @Override
-    public void showError(String error) {
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+    public void showToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

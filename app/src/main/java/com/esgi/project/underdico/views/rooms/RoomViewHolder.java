@@ -48,8 +48,8 @@ public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView,
     }
 
     @Override
-    public void showError(String error) {
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+    public void showToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

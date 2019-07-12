@@ -90,7 +90,7 @@ public class UserPresenter {
                     Session.setCurrentUser(user);
                     view.refresh();
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                 }
             }
 
@@ -98,7 +98,7 @@ public class UserPresenter {
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
-                view.showError(context.getString(R.string.error));
+                view.showToast(context.getString(R.string.error));
             }
         });
     }
@@ -120,7 +120,7 @@ public class UserPresenter {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
-                view.showError(context.getString(R.string.error));
+                view.showToast(context.getString(R.string.error));
             }
         });
     }
@@ -136,7 +136,7 @@ public class UserPresenter {
                     user = response.body();
                     view.displayUserInformation(user);
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                 }
                 view.showProgress(false);
             }
@@ -145,7 +145,7 @@ public class UserPresenter {
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
-                view.showError(context.getString(R.string.error_network));
+                view.showToast(context.getString(R.string.error_network));
             }
         });
     }
@@ -172,7 +172,7 @@ public class UserPresenter {
                 if (response.isSuccessful()) {
                     view.refresh();
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                 }
             }
 
@@ -180,7 +180,7 @@ public class UserPresenter {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
-                view.showError(context.getString(R.string.error));
+                view.showToast(context.getString(R.string.error));
             }
         });
     }

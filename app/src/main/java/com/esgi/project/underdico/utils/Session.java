@@ -76,10 +76,10 @@ public class Session {
                     currentUser = response.body();
                     view.redirectToMainActivity();
                 }  else if (response.code() == Constants.HTTP_UNAUTHORIZED) {
-                    view.showError(context.getString(R.string.expired_token));
+                    view.showToast(context.getString(R.string.expired_token));
                     view.redirectToLoginPage();
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                     view.redirectToLoginPage();
                 }
             }
@@ -88,7 +88,7 @@ public class Session {
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.redirectToLoginPage();
-                view.showError(context.getString(R.string.error_network));
+                view.showToast(context.getString(R.string.error_network));
             }
         });
     }
@@ -104,9 +104,9 @@ public class Session {
                     currentUser = response.body();
                     view.loginSuccessfully();
                 }  else if (response.code() == Constants.HTTP_UNAUTHORIZED) {
-                    view.showError(context.getString(R.string.expired_token));
+                    view.showToast(context.getString(R.string.expired_token));
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                 }
                 view.showProgress(false);
             }
@@ -115,7 +115,7 @@ public class Session {
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
-                view.showError(context.getString(R.string.error_network));
+                view.showToast(context.getString(R.string.error_network));
             }
         });
     }

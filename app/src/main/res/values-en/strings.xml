@@ -109,6 +109,7 @@
     <!-- Privacy -->
     <string name="download_data">Download my data</string>
     <string name="delete_account">Delete my account</string>
+    <string name="summary_downloaded">File available in Downloads directory</string>
 
 
 </resources>

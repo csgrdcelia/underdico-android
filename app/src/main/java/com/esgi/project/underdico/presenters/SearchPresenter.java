@@ -11,9 +11,6 @@ import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.search.SearchView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
 
 import retrofit2.Call;
@@ -52,13 +49,13 @@ public class SearchPresenter {
                     if (response.body() != null)
                         view.displaySearchResult(response.body());
                     else
-                        view.showError(context.getString(R.string.expression_error));
+                        view.showToast(context.getString(R.string.expression_error));
             }
 
             @Override
             public void onFailure(Call<List<Expression>> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.expression_error));
+                view.showToast(context.getString(R.string.expression_error));
             }
         });
     }

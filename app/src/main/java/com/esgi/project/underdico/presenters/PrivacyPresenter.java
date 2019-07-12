@@ -15,7 +15,6 @@ import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.views.privacy.PrivacyView;
 import com.snatik.storage.Storage;
 
-import java.io.File;
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -52,18 +51,19 @@ public class PrivacyPresenter {
                 if(response.isSuccessful() || response.body() != null) {
                     try {
                         createFile(response.body().string());
+                        view.showToast(context.getString(R.string.summary_downloaded));
                     } catch(IOException e) {
-                        view.showError(context.getString(R.string.error));
+                        view.showToast(context.getString(R.string.error));
                     }
                 } else {
-                    view.showError(context.getString(R.string.error));
+                    view.showToast(context.getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
-                view.showError(context.getString(R.string.error_network));
+                view.showToast(context.getString(R.string.error_network));
             }
         });
     }

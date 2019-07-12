@@ -62,7 +62,7 @@ public class LoginPresenter {
                     Session.saveToSharedPrefs(context);
                     Session.callUserInformation(context, view);
                 } else {
-                    view.showError(context.getString(R.string.login_fail));
+                    view.showToast(context.getString(R.string.login_fail));
                 }
             }
 
@@ -70,7 +70,7 @@ public class LoginPresenter {
             public void onFailure(Call<Token> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showProgress(false);
-                view.showError(context.getString(R.string.error_network));
+                view.showToast(context.getString(R.string.error_network));
             }
         });
     }

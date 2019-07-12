@@ -100,7 +100,7 @@ public class RoomListFragment extends Fragment implements RoomListView {
     }
 
     @Override
-    public void showError(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    public void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
