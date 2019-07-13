@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RoomListView extends BaseView {
     void displayRooms(List<Room> rooms);
+    void showSearchDialog();
     void redirectToRoomCreation();
 }

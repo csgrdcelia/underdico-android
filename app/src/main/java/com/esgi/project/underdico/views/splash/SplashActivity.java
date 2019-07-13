@@ -1,15 +1,13 @@
 package com.esgi.project.underdico.views.splash;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.esgi.project.underdico.R;
-import com.esgi.project.underdico.presenters.LoginPresenter;
 import com.esgi.project.underdico.presenters.SplashPresenter;
 import com.esgi.project.underdico.views.login.LoginActivity;
-import com.esgi.project.underdico.views.login.LoginView;
 import com.esgi.project.underdico.views.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {

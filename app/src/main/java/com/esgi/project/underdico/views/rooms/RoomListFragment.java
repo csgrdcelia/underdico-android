@@ -1,18 +1,21 @@
 package com.esgi.project.underdico.views.rooms;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.RoomListPresenter;
@@ -21,7 +24,6 @@ import com.esgi.project.underdico.views.newroom.NewRoomFragment;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -83,7 +85,7 @@ public class RoomListFragment extends Fragment implements RoomListView {
                 case R.id.fab_join_private_room:
                     showToast("join");
                 case R.id.fab_search_room:
-                    showToast("search");
+                    showSearchDialog();
                 default:
                     return false;
             }
@@ -107,6 +109,16 @@ public class RoomListFragment extends Fragment implements RoomListView {
     @Override
     public void displayRooms(List<Room> rooms) {
         rcRooms.setAdapter(new RoomAdapter(rooms, getContext()));
+    }
+
+    @Override
+    public void showSearchDialog() {
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.search_room)
+                .icon(getContext().getDrawable(R.drawable.ic_search_dark))
+                .input(R.string.room_name, 0, false, (dialog, input) -> presenter.searchRoom(input.toString()))
+                .positiveText("OK")
+                .show();
     }
 
     @Override

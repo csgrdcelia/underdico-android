@@ -56,4 +56,8 @@ public class RoomListPresenter {
         });
     }
 
+    public void searchRoom(String roomName) {
+
+    }
+
 }

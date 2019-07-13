@@ -1,8 +1,8 @@
 package com.esgi.project.underdico.views.newroom;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +18,9 @@ import android.widget.Toast;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.NewRoomPresenter;
-import com.esgi.project.underdico.presenters.RoomListPresenter;
 import com.esgi.project.underdico.views.game.GameFragment;
-import com.esgi.project.underdico.views.home.HomeFragment;
 import com.esgi.project.underdico.views.imagespinner.FlagSpinnerAdapter;
 import com.esgi.project.underdico.views.main.MainActivity;
-import com.esgi.project.underdico.views.rooms.RoomListFragment;
 
 
 public class NewRoomFragment extends Fragment implements NewRoomView,  AdapterView.OnItemSelectedListener {
