@@ -75,13 +75,18 @@ public class GamePresenter {
         gameSocket.play(answer);
     }
 
-    public void proposalResult(boolean isCorrect, String playerId, String nextPlayerId) {
+    public void proposalResult(boolean isCorrect, String playerId, int playerScore, String nextPlayerId) {
+
         User sender = players.stream().filter(user -> user.getId().equals(playerId)).findFirst().get();
         view.displayProposalResult(isCorrect, sender.getUsername());
+
         if(!isCorrect) {
             User nextPlayer = players.stream().filter(user -> user.getId().equals(nextPlayerId)).findFirst().get();
             view.displayRound(null, nextPlayer.equals(Session.getCurrentUser()), nextPlayer.getUsername());
         }
+
+        sender.setCurrentScore(playerScore);
+        view.displayPlayers(players);
     }
 
     public void timeout(String playerId, String nextPlayerId) {

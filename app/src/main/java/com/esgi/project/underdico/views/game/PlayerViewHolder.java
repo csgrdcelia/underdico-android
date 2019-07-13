@@ -26,6 +26,6 @@ public class PlayerViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(User user) {
         usernameTextView.setText(user.getUsername());
-        //pointsTextView.setText(user.getKarma());
+        pointsTextView.setText(user.getCurrentScore() + " points");
     }
 }
