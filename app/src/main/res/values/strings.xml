@@ -78,14 +78,16 @@
     <!-- Rooms -->
     <string name="room_name">Nom de la salle de jeu</string>
     <string name="create">Créer</string>
+    <string name="create_room">Créer un salon</string>
     <string name="room_number_players">Nombre de joueurs maximum</string>
     <string name="expression_language">Langue des expressions</string>
     <string name="room_private">Salon privé</string>
     <string name="room_name_exists">Ce nom de salon existe déjà</string>
     <string name="room_name_not_found">Veuillez donner un nom au salon de jeu</string>
     <string name="room_full">La salle de jeu est complète</string>
-    <string name="game_timeout">Trop tard pour toi</string>
-    <string name="game_your_turn">A ton tour</string>
+    <string name="join_private_room">Rejoindre un salon privé</string>
+    <string name="search_room">Chercher un salon</string>
+
 
     <!-- Game -->
     <string name="answer">Réponse</string>
@@ -93,6 +95,8 @@
     <string name="game_wait_owner">En attente du lancement par l\'hôte...</string>
     <string name="game_good_proposal">Bravo ! Bonne réponse </string>
     <string name="game_wrong_proposal">Désolés ! Mauvaise réponse </string>
+    <string name="game_timeout">Trop tard pour toi</string>
+    <string name="game_your_turn">A ton tour</string>
 
     <!-- Errors -->
     <string name="expression_error">Une erreur est apparue lors de la récupération du/des expressions</string>

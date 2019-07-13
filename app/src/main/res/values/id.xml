@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fab_create_room" type="id" />
+    <item name="fab_join_private_room" type="id" />
+    <item name="fab_search_room" type="id" />
+</resources>

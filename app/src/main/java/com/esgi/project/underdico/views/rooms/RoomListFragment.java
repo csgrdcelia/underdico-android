@@ -18,6 +18,8 @@ import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.RoomListPresenter;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.views.newroom.NewRoomFragment;
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class RoomListFragment extends Fragment implements RoomListView {
 
     RoomListPresenter presenter;
     RecyclerView rcRooms;
-    FloatingActionButton fabNewRoom;
+    SpeedDialView speedDial;
 
     public RoomListFragment() {
         // Required empty public constructor
@@ -63,14 +65,29 @@ public class RoomListFragment extends Fragment implements RoomListView {
 
     @Override
     public void assignViews() {
-        fabNewRoom = getActivity().findViewById(R.id.fabNewRoom);
+        speedDial = getActivity().findViewById(R.id.speedDial);
+        speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_create_room, R.drawable.ic_edit_white).setLabel(R.string.create_room).create());
+        speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_join_private_room, R.drawable.ic_lock_white).setLabel(R.string.join_private_room).create());
+        speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_search_room, R.drawable.ic_search).setLabel(R.string.search_room).create());
         rcRooms = getActivity().findViewById(R.id.rcChannels);
         configureRecyclerView();
     }
 
     @Override
     public void setListeners() {
-        fabNewRoom.setOnClickListener(v -> redirectToRoomCreation());
+        speedDial.setOnActionSelectedListener(speedDialActionItem -> {
+            switch (speedDialActionItem.getId()) {
+                case R.id.fab_create_room:
+                    redirectToRoomCreation();
+                    return false;
+                case R.id.fab_join_private_room:
+                    showToast("join");
+                case R.id.fab_search_room:
+                    showToast("search");
+                default:
+                    return false;
+            }
+        });
     }
 
     public void configureRecyclerView() {

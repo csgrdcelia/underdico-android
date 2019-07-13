@@ -73,11 +73,14 @@
     <!-- Rooms -->
     <string name="room_name">Room name</string>
     <string name="create">Create</string>
+    <string name="create_room">Create a room</string>
+    <string name="join_private_room">Join a private room</string>
     <string name="room_number_players">Maximum number of players</string>
     <string name="expression_language">Expressions\' language</string>
     <string name="room_private">Private room</string>
     <string name="room_name_exists">This room name exists already</string>
     <string name="room_name_not_found">Please give a name to the room</string>
+    <string name="search_room">Search a room</string>
 
     <!-- Errors -->
     <string name="expression_error">An error occured while loading expression(s)</string>
