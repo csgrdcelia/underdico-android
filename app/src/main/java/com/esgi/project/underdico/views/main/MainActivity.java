@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
+
+import com.esgi.project.underdico.views.game.GameFragment;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -36,6 +38,8 @@ import com.esgi.project.underdico.views.top.TopFragment;
 import com.esgi.project.underdico.views.search.SearchFragment;
 import com.esgi.project.underdico.views.user.UserFragment;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
 
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     DrawerLayout drawer;
 
+    Fragment currentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +61,15 @@ public class MainActivity extends AppCompatActivity
 
         presenter = new MainPresenter(this, getApplicationContext());
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.addOnBackStackChangedListener(() -> {
+            List<Fragment> f = fragmentManager.getFragments();
+            currentFragment = f.get(0);
+        });
+
         if(!fromSearchView()) {
-            Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
+            Fragment existingFragment = fragmentManager.findFragmentById(R.id.main_fragment);
             if (existingFragment == null)
                 updateFragment(HomeFragment.newInstance());
         }
@@ -117,6 +130,10 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            if(currentFragment.getClass().equals(GameFragment.class)) {
+                GameFragment gameFragment = (GameFragment)currentFragment;
+                gameFragment.onStop();
+            }
         }
     }
 

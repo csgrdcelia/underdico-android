@@ -87,6 +87,8 @@
     <string name="room_full">La salle de jeu est complète</string>
     <string name="join_private_room">Rejoindre un salon privé</string>
     <string name="search_room">Chercher un salon</string>
+    <string name="join_room">Rejoindre une partie</string>
+    <string name="search_result">Résultat de la recherche</string>
 
 
     <!-- Game -->

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -24,6 +25,7 @@ import com.esgi.project.underdico.views.newroom.NewRoomFragment;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +34,9 @@ public class RoomListFragment extends Fragment implements RoomListView {
     RoomListPresenter presenter;
     RecyclerView rcRooms;
     SpeedDialView speedDial;
+    TextView titleTextView;
+
+    private static final String SEARCH_KEY = "search";
 
     public RoomListFragment() {
         // Required empty public constructor
@@ -45,18 +50,31 @@ public class RoomListFragment extends Fragment implements RoomListView {
         return fragment;
     }
 
+    public static RoomListFragment newInstance(List<Room> rooms) {
+        RoomListFragment fragment = new RoomListFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(SEARCH_KEY, new ArrayList<>(rooms));
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        this.presenter = new RoomListPresenter(getContext(), this);
 
+        if (getArguments() != null && getArguments().containsKey(SEARCH_KEY)) {
+            this.presenter = new RoomListPresenter(getContext(), this, (List<Room>)getArguments().getSerializable(SEARCH_KEY));
+            titleTextView.setText(getActivity().getString(R.string.search_result));
+        } else {
+            this.presenter = new RoomListPresenter(getContext(), this);
+            titleTextView.setText(getActivity().getString(R.string.join_room));
+        }
     }
 
     @Override
@@ -67,6 +85,7 @@ public class RoomListFragment extends Fragment implements RoomListView {
 
     @Override
     public void assignViews() {
+        titleTextView = getActivity().findViewById(R.id.titleTextView);
         speedDial = getActivity().findViewById(R.id.speedDial);
         speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_create_room, R.drawable.ic_edit_white).setLabel(R.string.create_room).create());
         speedDial.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_join_private_room, R.drawable.ic_lock_white).setLabel(R.string.join_private_room).create());
@@ -125,6 +144,13 @@ public class RoomListFragment extends Fragment implements RoomListView {
     public void redirectToRoomCreation() {
         MainActivity activity = (MainActivity) getContext();
         Fragment myFragment = NewRoomFragment.newInstance();
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void displaySearchResult(List<Room> rooms) {
+        MainActivity activity = (MainActivity) getContext();
+        Fragment myFragment = RoomListFragment.newInstance(rooms);
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 

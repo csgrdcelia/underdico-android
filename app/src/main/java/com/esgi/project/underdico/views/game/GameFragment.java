@@ -222,8 +222,6 @@ public class GameFragment extends Fragment implements GameView {
         countDownTimer = new CountDownTimer(30000, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int max = countdownProgressBar.getMax();
-                int secs = (int)(millisUntilFinished / 1000);
                 countdownProgressBar.setProgress((int)(countdownProgressBar.getMax() - (millisUntilFinished / 100)));
             }
 

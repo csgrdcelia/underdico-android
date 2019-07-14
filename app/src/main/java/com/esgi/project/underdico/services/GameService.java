@@ -9,10 +9,14 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface GameService {
     @GET("rooms")
     Call<List<Room>> getRooms();
+
+    @GET("rooms")
+    Call<List<Room>> getRoomsWhere(@Query("where") String where);
 
     @POST("rooms")
     Call<Room> createRoom(@Header("Authorization") String token, @Body Room room);

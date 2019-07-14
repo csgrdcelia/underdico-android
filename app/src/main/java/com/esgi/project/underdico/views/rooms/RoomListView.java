@@ -9,4 +9,5 @@ public interface RoomListView extends BaseView {
     void displayRooms(List<Room> rooms);
     void showSearchDialog();
     void redirectToRoomCreation();
+    void displaySearchResult(List<Room> rooms);
 }
