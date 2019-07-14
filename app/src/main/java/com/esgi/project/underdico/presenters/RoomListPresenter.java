@@ -66,7 +66,6 @@ public class RoomListPresenter {
     }
 
     public void searchRoom(String roomName) {
-
         GameService service = ApiInstance.getRetrofitInstance(context).create(GameService.class);
         Call<List<Room>> call = service.getRoomsWhere("{ \"name\": \""+ roomName +"\" }");
         call.enqueue(new Callback<List<Room>>() {
@@ -82,6 +81,29 @@ public class RoomListPresenter {
 
             @Override
             public void onFailure(Call<List<Room>> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
+                view.showToast(context.getString(R.string.error_network));
+            }
+        });
+    }
+
+    public void searchPrivateRoom(String code) {
+        GameService service = ApiInstance.getRetrofitInstance(context).create(GameService.class);
+        Call<Room> call = service.getPrivateRoom(code);
+        call.enqueue(new Callback<Room>() {
+            @Override
+            public void onResponse(Call<Room> call, Response<Room> response) {
+                if (response.isSuccessful()) {
+                    view.redirectToGame(response.body());
+                } else if(response.code() == Constants.HTTP_NOTFOUND) {
+                    view.showToast(context.getString(R.string.access_code_error));
+                } else {
+                    view.showToast(context.getString(R.string.rooms_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Room> call, Throwable t) {
                 Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
                 view.showToast(context.getString(R.string.error_network));
             }

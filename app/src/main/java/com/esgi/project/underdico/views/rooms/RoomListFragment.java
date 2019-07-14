@@ -102,9 +102,11 @@ public class RoomListFragment extends Fragment implements RoomListView {
                     redirectToRoomCreation();
                     return false;
                 case R.id.fab_join_private_room:
-                    showToast("join");
+                    showPrivateRoomDialog();
+                    return false;
                 case R.id.fab_search_room:
                     showSearchDialog();
+                    return false;
                 default:
                     return false;
             }
@@ -141,10 +143,25 @@ public class RoomListFragment extends Fragment implements RoomListView {
     }
 
     @Override
+    public void showPrivateRoomDialog() {
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.join_private_room)
+                .icon(getContext().getDrawable(R.drawable.ic_lock))
+                .input(R.string.access_code, 0, false, (dialog, input) -> presenter.searchPrivateRoom(input.toString()))
+                .positiveText("OK")
+                .show();
+    }
+
+    @Override
     public void redirectToRoomCreation() {
         MainActivity activity = (MainActivity) getContext();
         Fragment myFragment = NewRoomFragment.newInstance();
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void redirectToGame(Room room) {
+        //TODO: redirect to game with code
     }
 
     @Override

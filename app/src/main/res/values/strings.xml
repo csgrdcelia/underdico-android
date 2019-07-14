@@ -89,6 +89,8 @@
     <string name="search_room">Chercher un salon</string>
     <string name="join_room">Rejoindre une partie</string>
     <string name="search_result">Résultat de la recherche</string>
+    <string name="access_code">Code d\'accès</string>
+    <string name="access_code_error">Ce code ne correspond à aucun salon</string>
 
 
     <!-- Game -->

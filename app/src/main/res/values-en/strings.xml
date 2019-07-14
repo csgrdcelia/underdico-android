@@ -83,6 +83,8 @@
     <string name="search_room">Search a room</string>
     <string name="join_room">Rejoindre une partie</string>
     <string name="search_result">Résultat de la recherche</string>
+    <string name="access_code">Access code</string>
+    <string name="access_code_error">This code does not match any room</string>
 
     <!-- Errors -->
     <string name="expression_error">An error occured while loading expression(s)</string>
