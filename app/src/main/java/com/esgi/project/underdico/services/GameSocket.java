@@ -195,7 +195,7 @@ public class GameSocket {
         try {
             JSONObject obj = (JSONObject) args[0];
             String playerId = obj.getString("playerId");
-            String nextPlayerId = obj.getString("playerId");
+            String nextPlayerId = obj.getString("nextPlayerId");
             int playerScore = obj.getInt("playerScore");
             presenter.proposalResult(false, playerId, playerScore, nextPlayerId);
         } catch (JSONException e) {
