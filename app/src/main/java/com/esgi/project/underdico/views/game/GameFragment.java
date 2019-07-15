@@ -30,6 +30,7 @@ import com.esgi.project.underdico.presenters.GamePresenter;
 import com.esgi.project.underdico.utils.Session;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GameFragment extends Fragment implements GameView {
     private static final String PARAM_ROOM = "room";
@@ -140,6 +141,14 @@ public class GameFragment extends Fragment implements GameView {
     @Override
     public void displayPlayers(List<User> users) {
         playersRecyclerView.setAdapter(new PlayerAdapter(users));
+
+        Optional<User> currentUser = users.stream().filter(user -> user.getId().equals(Session.getCurrentUser().getId()
+        )).findFirst();
+        if(currentUser.isPresent()) {
+            int score = currentUser.get().getCurrentScore();
+            pointsTextView.setText(score + " points");
+        }
+
     }
 
     @Override
