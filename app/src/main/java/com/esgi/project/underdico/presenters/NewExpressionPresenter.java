@@ -49,21 +49,21 @@ public class NewExpressionPresenter {
     /**
      * Checks if expression is valid and saves it
      */
-    public void attemptSend(String expressionName, String expressionDefinition, String locale) {
+    public void attemptSend(String expressionName, String expressionDefinition, String expressionExample, String locale) {
         if(!isValidExpressionName()) {
             view.showToast(context.getString(R.string.invalid_name));
         } else if (!isValidExpressionDefinition()) {
             view.showToast(context.getString(R.string.invalid_definition));
         } else {
-            createExpression(expressionName, expressionDefinition, getTagList(), locale);
+            createExpression(expressionName, expressionDefinition, expressionExample, getTagList(), locale);
         }
     }
 
     /**
      * Calls API to save expression
      */
-    private void createExpression(String expressionName, String expressionDefinition, List<String> tags, String locale) {
-        Expression expression = new Expression(expressionName, expressionDefinition, tags.toArray(new String[0]), locale);
+    private void createExpression(String expressionName, String expressionDefinition, String expressionExample, List<String> tags, String locale) {
+        Expression expression = new Expression(expressionName, expressionDefinition, expressionExample, tags.toArray(new String[0]), locale);
 
         ExpressionService service = ApiInstance.getRetrofitInstance(context).create(ExpressionService.class);
         Call<Expression> call = service.saveExpression(Session.getCurrentToken().getValue(), expression);

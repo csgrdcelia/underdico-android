@@ -57,6 +57,7 @@
     <string name="last_expressions">Dernières expressions</string>
 
     <!-- New expression -->
+    <string name="example">Exemple</string>
     <string name="invalid_name">Le nom est invalide</string>
     <string name="tag_exists">Le tag existe déjà</string>
     <string name="max_tag_reached">Vous avez atteint le nombre de tag maximal</string>

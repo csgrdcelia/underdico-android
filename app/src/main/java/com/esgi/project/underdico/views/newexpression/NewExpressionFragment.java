@@ -53,6 +53,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     ImageButton addTag;
     EditText expressionName;
     EditText expressionDefinition;
+    EditText expressionExample;
     EditText tagValue;
     Button btnSend;
     Spinner flagSpinner;
@@ -109,6 +110,7 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
         tagValue = getView().findViewById(R.id.etTag);
         expressionName = getView().findViewById(R.id.etExpressionName);
         expressionDefinition = getView().findViewById(R.id.etExpressionDefinition);
+        expressionExample = getView().findViewById(R.id.etExample);
         btnSend = getView().findViewById(R.id.btnSend);
         ibRecordAudio = getView().findViewById(R.id.ibRecordAudio);
         ibPlayStopAudio = getView().findViewById(R.id.ibPlayStopAudio);
@@ -159,7 +161,8 @@ public class NewExpressionFragment extends Fragment implements NewExpressionView
     private void attemptSend() {
         String name = expressionName.getText().toString();
         String definition = expressionDefinition.getText().toString();
-        presenter.attemptSend(name, definition, selectedLanguage);
+        String example = expressionExample.getText().toString();
+        presenter.attemptSend(name, definition, example, selectedLanguage);
     }
 
     /**

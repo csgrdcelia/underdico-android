@@ -111,7 +111,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         tvScore.setText(String.valueOf(expression.getScore()));
         ivLocaleFlag.setImageDrawable(getContext().getDrawable(expression.getFlagImage()));
         tvUsername.setText(expression.getUser() == null ? getContext().getString(R.string.deleted) : expression.getUser().getUsername());
-        if(!expression.getExample().isEmpty()) {
+        if(expression.getExample() != null) {
             tvExample.setText("« " + expression.getExample() + " »");
         }
     }
