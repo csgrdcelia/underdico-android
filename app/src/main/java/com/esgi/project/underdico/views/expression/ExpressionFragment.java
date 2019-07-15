@@ -108,6 +108,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
         ivLocaleFlag.setImageDrawable(getContext().getDrawable(expression.getFlagImage()));
+        tvUsername.setText(expression.getUser() == null ? getContext().getString(R.string.deleted) : expression.getUser().getUsername());
     }
 
     @Override
@@ -163,9 +164,13 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
 
     @Override
     public void redirectToUserPage(User user) {
-        MainActivity activity = (MainActivity) getContext();
-        Fragment myFragment = UserFragment.newInstance(user);
-        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+        if(user != null) {
+            MainActivity activity = (MainActivity) getContext();
+            Fragment myFragment = UserFragment.newInstance(user);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+        } else {
+            showToast(getContext().getString(R.string.user_deleted));
+        }
     }
 
     @Override

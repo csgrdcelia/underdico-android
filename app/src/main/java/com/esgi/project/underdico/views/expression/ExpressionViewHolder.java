@@ -86,7 +86,7 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         tvExpression.setText(expression.getWord());
         tvDefinition.setText(expression.getDefinition());
         tvScore.setText(String.valueOf(expression.getScore()));
-        tvUsername.setText(expression.getUser().getUsername());
+        tvUsername.setText(expression.getUser() == null ? context.getString(R.string.deleted) : expression.getUser().getUsername());
         ivLocaleFlag.setImageDrawable(context.getDrawable(expression.getFlagImage()));
     }
 
@@ -132,9 +132,13 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
 
     @Override
     public void redirectToUserPage(User user) {
-        MainActivity activity = (MainActivity) context;
-        Fragment myFragment = UserFragment.newInstance(user);
-        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+        if(user != null) {
+            MainActivity activity = (MainActivity) context;
+            Fragment myFragment = UserFragment.newInstance(user);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
+        } else {
+            showToast(context.getString(R.string.user_deleted));
+        }
     }
 
     @Override

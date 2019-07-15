@@ -50,6 +50,8 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="user_deleted">This user was deleted</string>
+    <string name="deleted">Deleted</string>
 
     <!-- Home -->
     <string name="day_expression">Expression of the day</string>
