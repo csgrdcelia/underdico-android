@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
-import com.esgi.project.underdico.services.GameService;
+import com.esgi.project.underdico.services.RoomService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
 import com.esgi.project.underdico.utils.Session;
@@ -38,14 +38,14 @@ public class NewRoomPresenter {
 
         Room room = new Room(roomName, maxplayers, locale, privateRoom);
 
-        GameService service = ApiInstance.getRetrofitInstance(context).create(GameService.class);
+        RoomService service = ApiInstance.getRetrofitInstance(context).create(RoomService.class);
         Call<Room> call = service.createRoom(Session.getCurrentToken().getValue(), room);
         call.enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     if(room.isPrivate()) {
-                        //TODO: display private code
+                        view.displayPrivateCode(response.body().getCode());
                     }
                     view.redirectToGame(response.body());
                 } else if (response.code() == Constants.HTTP_CONFLICT) {

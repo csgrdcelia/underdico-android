@@ -31,6 +31,7 @@ public class Room implements Serializable {
     private String ownerId;
     private String locale;
     private String[] rounds;
+    private String code;
 
     public Room(String id) {
         this.id = id;
@@ -97,5 +98,13 @@ public class Room implements Serializable {
             users.add(new User(playersIds[i], usernames[i]));
         }
         return users;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

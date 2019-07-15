@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.RoomListPresenter;
+import com.esgi.project.underdico.views.game.GameFragment;
 import com.esgi.project.underdico.views.main.MainActivity;
 import com.esgi.project.underdico.views.newroom.NewRoomFragment;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
@@ -161,7 +162,9 @@ public class RoomListFragment extends Fragment implements RoomListView {
 
     @Override
     public void redirectToGame(Room room) {
-        //TODO: redirect to game with code
+        MainActivity activity = (MainActivity)getActivity();
+        Fragment myFragment = GameFragment.newInstance(room);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).addToBackStack(null).commit();
     }
 
     @Override

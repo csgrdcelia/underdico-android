@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.presenters.NewRoomPresenter;
@@ -85,6 +87,17 @@ public class NewRoomFragment extends Fragment implements NewRoomView,  AdapterVi
     public void setListeners() {
         flagSpinner.setOnItemSelectedListener(this);
         createButton.setOnClickListener(v -> presenter.createRoom(roomNameEditText.getText().toString(), maxPlayersPicker.getValue(), selectedLanguage, privateRoomSwitch.isChecked()));
+    }
+
+    @Override
+    public void displayPrivateCode(String code) {
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.access_code)
+                .icon(getContext().getDrawable(R.drawable.ic_lock))
+                .content(code)
+                .contentGravity(GravityEnum.CENTER)
+                .positiveText("OK")
+                .show();
     }
 
     @Override

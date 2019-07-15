@@ -89,6 +89,9 @@ public class GameSocket {
 
             JSONObject obj = new JSONObject();
             obj.put("roomId", room.getId());
+            if(room.isPrivate()) {
+                obj.put("code", room.getCode());
+            }
             socket.emit("joinRoom", obj, (Ack) args -> {
                 Log.e(log, "joinRoom response");
             });

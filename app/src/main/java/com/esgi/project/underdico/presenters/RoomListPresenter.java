@@ -5,9 +5,10 @@ import android.util.Log;
 
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Room;
-import com.esgi.project.underdico.services.GameService;
+import com.esgi.project.underdico.services.RoomService;
 import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
+import com.esgi.project.underdico.utils.Session;
 import com.esgi.project.underdico.views.rooms.RoomListView;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class RoomListPresenter {
     }
 
     public void displayAllRooms() {
-        GameService service = ApiInstance.getRetrofitInstance(context).create(GameService.class);
+        RoomService service = ApiInstance.getRetrofitInstance(context).create(RoomService.class);
         Call<List<Room>> call = service.getRooms();
         call.enqueue(new Callback<List<Room>>() {
             @Override
@@ -66,7 +67,7 @@ public class RoomListPresenter {
     }
 
     public void searchRoom(String roomName) {
-        GameService service = ApiInstance.getRetrofitInstance(context).create(GameService.class);
+        RoomService service = ApiInstance.getRetrofitInstance(context).create(RoomService.class);
         Call<List<Room>> call = service.getRoomsWhere("{ \"name\": \""+ roomName +"\" }");
         call.enqueue(new Callback<List<Room>>() {
             @Override
@@ -88,13 +89,15 @@ public class RoomListPresenter {
     }
 
     public void searchPrivateRoom(String code) {
-        GameService service = ApiInstance.getRetrofitInstance(context).create(GameService.class);
-        Call<Room> call = service.getPrivateRoom(code);
+        RoomService service = ApiInstance.getRetrofitInstance(context).create(RoomService.class);
+        Call<Room> call = service.getPrivateRoom(Session.getCurrentToken().getValue(), code);
         call.enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {
                 if (response.isSuccessful()) {
-                    view.redirectToGame(response.body());
+                    Room room = response.body();
+                    room.setCode(code);
+                    view.redirectToGame(room);
                 } else if(response.code() == Constants.HTTP_NOTFOUND) {
                     view.showToast(context.getString(R.string.access_code_error));
                 } else {
