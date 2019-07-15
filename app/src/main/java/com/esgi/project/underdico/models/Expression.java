@@ -19,6 +19,8 @@ public class Expression implements Serializable {
     private String word;
     @SerializedName("definition")
     private String definition;
+    @SerializedName("example")
+    private String example;
     @SerializedName("tags")
     private String[] tags;
     @SerializedName("votes")
@@ -134,5 +136,9 @@ public class Expression implements Serializable {
             }
         }
         return 0;
+    }
+
+    public String getExample() {
+        return example;
     }
 }

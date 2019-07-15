@@ -36,6 +36,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
     private TextView tvDefinition;
     private TextView tvScore;
     private TextView tvUsername;
+    private TextView tvExample;
     private ImageButton ibOtherDefinition;
     private ImageButton ibDownvote;
     private ImageButton ibUpvote;
@@ -83,6 +84,7 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         tvDefinition = getView().findViewById(R.id.tvExpressionDefinition);
         tvScore = getView().findViewById(R.id.tvExpressionScore);
         tvUsername = getView().findViewById(R.id.tvUsername);
+        tvExample = getView().findViewById(R.id.exampleTextView);
         ibOtherDefinition = getView().findViewById(R.id.ibAddDef);
         ibDownvote = getView().findViewById(R.id.ibDownvote);
         ibUpvote = getView().findViewById(R.id.ibUpvote);
@@ -109,6 +111,9 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         tvScore.setText(String.valueOf(expression.getScore()));
         ivLocaleFlag.setImageDrawable(getContext().getDrawable(expression.getFlagImage()));
         tvUsername.setText(expression.getUser() == null ? getContext().getString(R.string.deleted) : expression.getUser().getUsername());
+        if(!expression.getExample().isEmpty()) {
+            tvExample.setText("« " + expression.getExample() + " »");
+        }
     }
 
     @Override
