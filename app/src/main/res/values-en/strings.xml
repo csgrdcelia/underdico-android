@@ -64,7 +64,7 @@
     <string name="max_tag_reached">You reached the maximal number of tags</string>
     <string name="invalid_definition">The definition is invalid</string>
     <string name="creation_failed">Creation failed</string>
-    <string name="expression_created">Your expression was created and waits for validation !</string>
+    <string name="expression_created">Your expression was created !</string>
 
     <!-- User page -->
     <string name="user">User</string>

@@ -63,7 +63,7 @@
     <string name="max_tag_reached">Vous avez atteint le nombre de tag maximal</string>
     <string name="invalid_definition">La définition est invalide</string>
     <string name="creation_failed">La création a échoué</string>
-    <string name="expression_created">Votre expression a bien été créée et attend d\'être validée !</string>
+    <string name="expression_created">Votre expression a bien été créée !</string>
 
     <!-- Top -->
     <string name="day">Jour</string>
