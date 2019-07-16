@@ -118,7 +118,10 @@
     <!-- Privacy -->
     <string name="download_data">Télécharger mes données</string>
     <string name="delete_account">Supprimer mon compte</string>
+    <string name="account_deleted">Votre compte a bien été supprimé</string>
     <string name="summary_downloaded">Fichier disponible dans le répertoire Téléchargements</string>
+    <string name="confirm">Je suis sûr(e)</string>
+    <string name="cancel">Annuler</string>
 
 
 </resources>

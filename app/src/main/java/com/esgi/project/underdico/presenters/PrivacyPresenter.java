@@ -42,6 +42,28 @@ public class PrivacyPresenter {
 
     }
 
+    public void deleteAccount() {
+        UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
+        Call<ResponseBody> call = service.deleteUser(Session.getCurrentToken().getValue(), Session.getCurrentUser().getId());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful() || response.body() != null) {
+                    view.showToast(context.getString(R.string.account_deleted));
+                    view.redirectToLoginPage();
+                } else {
+                    view.showToast(context.getString(R.string.error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(Constants.NETWORK_ERROR, "\nCause: " + t.getCause() + "\nMessage: " + t.getMessage() + "\nLocalized Message: " + t.getLocalizedMessage());
+                view.showToast(context.getString(R.string.error_network));
+            }
+        });
+    }
+
     public void downloadSummary() {
         UserService service = ApiInstance.getRetrofitInstance(context).create(UserService.class);
         Call<ResponseBody> call = service.getSummary(Session.getCurrentToken().getValue(), Session.getCurrentUser().getId());

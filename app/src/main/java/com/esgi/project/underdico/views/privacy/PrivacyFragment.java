@@ -1,6 +1,9 @@
 package com.esgi.project.underdico.views.privacy;
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -11,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.presenters.PrivacyPresenter;
+import com.esgi.project.underdico.views.login.LoginActivity;
 
 public class PrivacyFragment extends Fragment implements PrivacyView {
 
@@ -61,6 +67,23 @@ public class PrivacyFragment extends Fragment implements PrivacyView {
     @Override
     public void setListeners() {
         downloadSummaryImageView.setOnClickListener(v -> presenter.downloadSummary());
+        deleteAccountImageView.setOnClickListener(v -> showDeletionConfirmationDialog());
+    }
+
+    private void showDeletionConfirmationDialog() {
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.delete_account)
+                .icon(getContext().getDrawable(R.drawable.ic_delete_forever))
+                .positiveText(getContext().getString(R.string.confirm))
+                .negativeText(getContext().getString(R.string.cancel))
+                .onPositive((dialog, which) -> presenter.deleteAccount())
+                .show();
+    }
+
+    @Override
+    public void redirectToLoginPage() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override

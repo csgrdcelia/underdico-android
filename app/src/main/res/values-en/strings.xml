@@ -84,7 +84,7 @@
     <string name="room_name_exists">This room name exists already</string>
     <string name="room_name_not_found">Please give a name to the room</string>
     <string name="search_room">Search a room</string>
-    <string name="join_room">Rejoindre une partie</string>
+    <string name="join_room">Join a room</string>
     <string name="search_result">Résultat de la recherche</string>
     <string name="access_code">Access code</string>
     <string name="access_code_error">This code does not match any room</string>
@@ -120,6 +120,8 @@
     <string name="download_data">Download my data</string>
     <string name="delete_account">Delete my account</string>
     <string name="summary_downloaded">File available in Downloads directory</string>
-
+    <string name="account_deleted">Your account has been deleted</string>
+    <string name="confirm">I\'m sure</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
