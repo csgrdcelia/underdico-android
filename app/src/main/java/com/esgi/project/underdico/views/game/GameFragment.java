@@ -102,7 +102,7 @@ public class GameFragment extends Fragment implements GameView {
         waitingHostConstraintLayout = getView().findViewById(R.id.waitingHostConstraintLayout);
         countdownProgressBar = getView().findViewById(R.id.countdownProgressBar);
         startRoomButton = getView().findViewById(R.id.startButton);
-
+        usernameTextView.setText(Session.getCurrentUser().getUsername());
         configureUsersRecyclerView();
     }
 
@@ -159,7 +159,6 @@ public class GameFragment extends Fragment implements GameView {
             definitionTextView.setText(round.getDefinition());
             wordTextView.setText(round.getObfuscatedWord());
         }
-        usernameTextView.setText(playerUsername);
         if(isMyTurn)
             answerEditText.setVisibility(View.VISIBLE);
         else
