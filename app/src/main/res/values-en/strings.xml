@@ -108,6 +108,7 @@
     <string name="game_wrong_proposal">Sorry ! Wrong answer </string>
     <string name="game_timeout">Too late for you</string>
     <string name="game_your_turn">Your turn</string>
+    <string name="not_enough_players">Minimum two players !</string>
 
 
     <!-- Top -->

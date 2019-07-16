@@ -3,6 +3,7 @@ package com.esgi.project.underdico.presenters;
 import android.app.Activity;
 import android.content.Context;
 
+import com.esgi.project.underdico.R;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.models.Room;
 import com.esgi.project.underdico.models.Round;
@@ -41,7 +42,7 @@ public class GamePresenter {
         view.displayRoomInformation(room);
         view.displayPlayers(players);
 
-        if(room.isJustCreated()) {
+        if (room.isJustCreated()) {
             view.displayWaitingGame(room.wasCreatedBy(Session.getCurrentUser()));
         } else if (room.isStarted()) {
             view.displayStartedGame();
@@ -55,7 +56,7 @@ public class GamePresenter {
     }
 
     public void displayNewUser(User player) {
-        if(players.contains(player))
+        if (players.contains(player))
             return;
         players.add(player);
         view.displayPlayers(players);
@@ -80,7 +81,7 @@ public class GamePresenter {
         User sender = players.stream().filter(user -> user.getId().equals(playerId)).findFirst().get();
         view.displayProposalResult(isCorrect, sender.getUsername());
 
-        if(!isCorrect) {
+        if (!isCorrect) {
             User nextPlayer = players.stream().filter(user -> user.getId().equals(nextPlayerId)).findFirst().get();
             view.displayRound(null, nextPlayer.equals(Session.getCurrentUser()), nextPlayer.getUsername());
         }
@@ -98,13 +99,17 @@ public class GamePresenter {
     }
 
     public void removeUser(User user) {
-        if(players.contains(user)) {
+        if (players.contains(user)) {
             players.remove(user);
             view.displayPlayers(players);
         }
     }
 
     public void startRoom() {
+        if (players.size() < 2) {
+            view.showToast(context.getString(R.string.not_enough_players));
+            return;
+        }
         gameSocket.startRoom();
         view.displayStartedGame();
     }

@@ -76,7 +76,7 @@ public class NewRoomFragment extends Fragment implements NewRoomView,  AdapterVi
         privateRoomSwitch = getActivity().findViewById(R.id.privateSwitch);
         createButton = getActivity().findViewById(R.id.createButton);
 
-        maxPlayersPicker.setMinValue(1);
+        maxPlayersPicker.setMinValue(2);
         maxPlayersPicker.setMaxValue(20);
         maxPlayersPicker.setWrapSelectorWheel(true);
 
