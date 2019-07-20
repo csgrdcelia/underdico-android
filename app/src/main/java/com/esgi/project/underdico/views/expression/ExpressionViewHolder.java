@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,6 +24,8 @@ import com.esgi.project.underdico.presenters.ExpressionPresenter;
 import com.esgi.project.underdico.models.Expression;
 import com.esgi.project.underdico.views.user.UserFragment;
 import com.google.android.flexbox.FlexboxLayout;
+
+import java.util.logging.LogManager;
 
 public class ExpressionViewHolder extends RecyclerView.ViewHolder implements ExpressionView {
 
@@ -88,6 +92,9 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
         tvScore.setText(String.valueOf(expression.getScore()));
         tvUsername.setText(expression.getUser() == null ? context.getString(R.string.deleted) : expression.getUser().getUsername());
         ivLocaleFlag.setImageDrawable(context.getDrawable(expression.getFlagImage()));
+        if(expression.getHasAudio()) {
+            ibAudio.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

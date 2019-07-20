@@ -114,6 +114,9 @@ public class ExpressionFragment extends Fragment implements DetailedExpressionVi
         if(expression.getExample() != null) {
             tvExample.setText("« " + expression.getExample() + " »");
         }
+        if(!expression.getHasAudio()) {
+            ibAudio.setVisibility(View.GONE);
+        }
     }
 
     @Override

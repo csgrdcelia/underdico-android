@@ -46,6 +46,9 @@ public class ExpressionPresenter {
     }
 
     private void updateView() {
+        if(expression.getWord().equals("Afrotrap")) {
+            Log.d("logmsg", "displayExpression: ");
+        }
         view.displayExpression(expression);
         view.displayTags(expression.getTagArray());
 

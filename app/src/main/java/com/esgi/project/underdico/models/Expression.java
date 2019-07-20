@@ -41,6 +41,8 @@ public class Expression implements Serializable {
     private Date updatedAt;
     @SerializedName("locale")
     private String locale;
+    @SerializedName("hasAudio")
+    private boolean hasAudio;
 
     public Expression() { }
 
@@ -141,5 +143,9 @@ public class Expression implements Serializable {
 
     public String getExample() {
         return example;
+    }
+
+    public boolean getHasAudio() {
+        return hasAudio;
     }
 }
