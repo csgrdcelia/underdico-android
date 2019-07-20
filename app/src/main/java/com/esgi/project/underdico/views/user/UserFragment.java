@@ -118,6 +118,7 @@ public class UserFragment extends Fragment implements UserView, AdapterView.OnIt
         usernameView.setText(user.getUsername());
         statusView.setText(user.getRole(getContext()));
         karmaView.setText(Integer.toString(user.getKarma()));
+        scoreView.setText(Integer.toString(user.getScore()));
         displayFlag(user.getLocale());
     }
 

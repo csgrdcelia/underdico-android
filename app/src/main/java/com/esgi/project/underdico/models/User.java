@@ -25,6 +25,7 @@ public class User implements Serializable {
     private int karma;
     private String locale;
     private int currentScore;
+    private int score;
 
     public User(String id, String username) {
         this.id = id;
@@ -88,6 +89,10 @@ public class User implements Serializable {
 
     public void setCurrentScore(int currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     @Override
