@@ -1,21 +1,13 @@
 package com.esgi.project.underdico.models;
 
-import android.content.Context;
 import android.util.Pair;
 
-import com.esgi.project.underdico.services.UserService;
-import com.esgi.project.underdico.utils.ApiInstance;
 import com.esgi.project.underdico.utils.Constants;
-import com.esgi.project.underdico.utils.Session;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class Room implements Serializable {
     private Date createdAt;
@@ -26,7 +18,7 @@ public class Room implements Serializable {
     private boolean isPrivate;
     private boolean isRanked;
     private String status;
-    private String[] playersIds;
+    private String[] connectedPlayersIds;
     private String[] usernames;
     private String ownerId;
     private String locale;
@@ -60,8 +52,8 @@ public class Room implements Serializable {
         return isPrivate;
     }
 
-    public String[] getPlayersIds() {
-        return playersIds;
+    public String[] getConnectedPlayersIds() {
+        return connectedPlayersIds;
     }
 
     public Integer getFlagImage() {
@@ -86,16 +78,16 @@ public class Room implements Serializable {
     }
 
     public boolean isFull() {
-        return playersIds.length >= maxPlayers;
+        return connectedPlayersIds.length >= maxPlayers;
     }
 
     public List<User> getPlayers() {
-        if(playersIds == null)
+        if(connectedPlayersIds == null)
             return new ArrayList<>();
 
         List<User> users = new ArrayList<>();
-        for (int i = 0; i < playersIds.length; i++) {
-            users.add(new User(playersIds[i], usernames[i]));
+        for (int i = 0; i < connectedPlayersIds.length; i++) {
+            users.add(new User(connectedPlayersIds[i], usernames[i]));
         }
         return users;
     }

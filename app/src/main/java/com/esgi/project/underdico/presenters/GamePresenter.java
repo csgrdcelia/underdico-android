@@ -117,6 +117,7 @@ public class GamePresenter {
     public void joinRoom() {
         gameSocket.connect();
         gameSocket.joinRoom();
+
     }
 
     public void leaveRoom() {

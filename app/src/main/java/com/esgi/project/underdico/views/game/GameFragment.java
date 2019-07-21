@@ -18,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.esgi.project.underdico.models.Round;
 import com.esgi.project.underdico.models.User;
 import com.esgi.project.underdico.presenters.GamePresenter;
 import com.esgi.project.underdico.utils.Session;
+import com.esgi.project.underdico.views.main.MainActivity;
+import com.esgi.project.underdico.views.rooms.RoomListFragment;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +53,7 @@ public class GameFragment extends Fragment implements GameView {
     private ConstraintLayout waitingHostConstraintLayout;
     private Button startRoomButton;
     private ProgressBar countdownProgressBar;
+    private ImageView quitGameImageView;
 
     private CountDownTimer countDownTimer;
 
@@ -103,6 +107,7 @@ public class GameFragment extends Fragment implements GameView {
         countdownProgressBar = getView().findViewById(R.id.countdownProgressBar);
         startRoomButton = getView().findViewById(R.id.startButton);
         usernameTextView.setText(Session.getCurrentUser().getUsername());
+        quitGameImageView = getView().findViewById(R.id.ivQuitGame);
         configureUsersRecyclerView();
     }
 
@@ -122,6 +127,7 @@ public class GameFragment extends Fragment implements GameView {
         });
 
         startRoomButton.setOnClickListener(v -> presenter.startRoom());
+        quitGameImageView.setOnClickListener(v -> quitRoom());
     }
 
     public void configureUsersRecyclerView() {
@@ -238,5 +244,13 @@ public class GameFragment extends Fragment implements GameView {
                 countdownProgressBar.setProgress(30);
             }
         }.start();
+    }
+
+    private void quitRoom() {
+        presenter.leaveRoom();
+        presenter.disconnect();
+        MainActivity activity = (MainActivity) getView().getContext();
+        Fragment myFragment = RoomListFragment.newInstance();
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, myFragment).commit();
     }
 }

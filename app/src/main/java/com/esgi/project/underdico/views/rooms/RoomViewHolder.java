@@ -56,7 +56,7 @@ public class RoomViewHolder extends RecyclerView.ViewHolder implements RoomView,
     public void displayRoom(Room room) {
         roomNameTextView.setText(room.getName());
         privateImageView.setVisibility(room.isPrivate() ? View.VISIBLE : View.GONE);
-        playersTextView.setText(room.getPlayersIds().length + "/" + room.getMaxPlayers());
+        playersTextView.setText(room.getConnectedPlayersIds().length + "/" + room.getMaxPlayers());
         flagImageView.setImageDrawable(context.getDrawable(room.getFlagImage()));
     }
 
