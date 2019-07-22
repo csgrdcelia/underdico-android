@@ -90,6 +90,7 @@ public class TopPresenter {
         } else if (type == TopType.ALLTIME) {
             c.setTime(new Date(Long.MIN_VALUE));
         }
+        c.set(Calendar.HOUR_OF_DAY, 0);
         return c;
     }
 
