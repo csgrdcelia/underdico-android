@@ -24,6 +24,7 @@ public class ExpressionAdapter extends RecyclerView.Adapter<ExpressionViewHolder
         this.context = context;
         this.listener = listener;
         this.parent = parent;
+        setHasStableIds(true);
     }
 
     @NonNull

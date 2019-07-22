@@ -124,9 +124,9 @@ public class ExpressionViewHolder extends RecyclerView.ViewHolder implements Exp
 
     @Override
     public void displayUserVote(boolean voteType) {
-        ibUpvote.setImageResource( voteType == true ? R.drawable.ic_arrow_up_green : R.drawable.ic_arrow_up);
+        ibUpvote.setImageResource( voteType == false ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_up_green);
         ibDownvote.setImageResource( voteType == false ? R.drawable.ic_arrow_down_red : R.drawable.ic_arrow_down);
-        ibDownvote.setEnabled(voteType == false ? false : true);
+        ibDownvote.setEnabled(voteType);
         ibUpvote.setEnabled(voteType == true ? false : true);
     }
 
